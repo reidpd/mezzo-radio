@@ -18,7 +18,7 @@ const albumsReducer = (state = initialState.albums, action) => {
     default:
       return state;
   }
-}
+};
 
 const artistsReducer = (state = initialState.artists, action) => {
   switch (action.type) {
@@ -27,6 +27,15 @@ const artistsReducer = (state = initialState.artists, action) => {
     default:
       return state;
   }
-}
+};
 
-export default {nowPlayingReducer, albumsReducer, artistsReducer};
+const userReducer = (state = initialState.user, action) => {
+  switch (action.type) {
+    case 'SET_USER_INFO':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+export default {nowPlayingReducer, albumsReducer, artistsReducer, userReducer};
