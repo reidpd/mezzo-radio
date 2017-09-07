@@ -1,6 +1,6 @@
 import initialState from './initialState';
 
-const nowPlayingReducer = (state = initialState.now_playing, action) => {
+export const nowPlayingReducer = (state = initialState.now_playing, action) => {
   switch (action.type) {
     case 'SONG_START':
       return action.payload;
@@ -11,7 +11,7 @@ const nowPlayingReducer = (state = initialState.now_playing, action) => {
   }
 };
 
-const albumsReducer = (state = initialState.albums, action) => {
+export const albumsReducer = (state = initialState.albums, action) => {
   switch (action.type) {
     case 'NEW_ALBUMS':
       return action.payload;
@@ -20,7 +20,7 @@ const albumsReducer = (state = initialState.albums, action) => {
   }
 };
 
-const artistsReducer = (state = initialState.artists, action) => {
+export const artistsReducer = (state = initialState.artists, action) => {
   switch (action.type) {
     case 'NEW_ARTISTS':
       return action.payload;
@@ -29,7 +29,7 @@ const artistsReducer = (state = initialState.artists, action) => {
   }
 };
 
-const userReducer = (state = initialState.user, action) => {
+export const userReducer = (state = initialState.user, action) => {
   switch (action.type) {
     case 'SET_USER_INFO':
       return action.payload;
@@ -37,5 +37,3 @@ const userReducer = (state = initialState.user, action) => {
       return state;
   }
 };
-
-export default {nowPlayingReducer, albumsReducer, artistsReducer, userReducer};

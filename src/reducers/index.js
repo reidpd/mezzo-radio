@@ -1,9 +1,6 @@
 import { combineReducers } from 'redux';
 
-import nowPlayingReducer from './reducers';
-import albumsReducer from './reducers';
-import artistsReducer from './reducers';
-import userReducer from './reducers';
+import { nowPlayingReducer, albumsReducer, artistsReducer, userReducer } from './reducers';
 
 const appReducer = combineReducers({
   nowPlayingReducer,
