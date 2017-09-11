@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import loginSVG from '../log_in.svg';
 
 /**
  * Our login page
@@ -9,8 +8,9 @@ export default class Login extends Component {
   render() {
     return (
       <div className="login">
-        <h2>Here's our login page!</h2>
-        <a href="/login">Log Into Spotify</a>
+        <h2>Welcome to Mezzo Radio! Please log into Spotify to access the main interface.</h2>
+        <br></br>
+        <a href="https://mezzo-radio-api.herokuapp.com/auth/spotify">Log Into Spotify</a>
       </div>
     );
   }

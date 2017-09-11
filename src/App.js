@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import Login from './components/component_Login';
+import User from './components/component_User';
+import Error from './components/component_Error';
 import './App.css';
 // import Auth from './components/auth';
 
 class App extends Component {
+
   render() {
-    // injected via react router
-    const {children} = this.props;
     return (
-      <div className="spotify-login">
-        <h1>Example Spotify + React + React-Router Login Flow</h1>
-        <div className="page-content">
-          <p>This is an example of the Authorization Code flow using routes.</p>
-          {children}
+      <Router>
+        <div className="App">
+          <Route exact path="/" component={Login} />
+          <Route exact path="/interface/:accessToken/:refreshToken" component={Interface} />
+          <Route exact path="/user/:accessToken/:refreshToken" component={User} />
+          <Route exact path="/error/:errorMsg" component={Error} />
         </div>
-      </div>
+      </Router>
     );
   }
+
 }
 
 export default App;

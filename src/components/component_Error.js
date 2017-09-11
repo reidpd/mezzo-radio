@@ -12,6 +12,8 @@ export default class Login extends Component {
       <div className="error">
         <h2>An Error Occured</h2>
         <p>{errorMsg}</p>
+        <br></br>
+        <a href="/">Wanna Try Again?</a>
       </div>
     );
   }
