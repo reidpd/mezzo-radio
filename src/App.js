@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Login from './components/component_Login';
+import Interface from './components/interface/component_Interface.js';
 import User from './components/component_User';
 import Error from './components/component_Error';
 import './App.css';
@@ -14,7 +15,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <Route exact path="/" component={Login} />
-          <Route exact path="/interface/:accessToken/:refreshToken" component={Interface} />
+          <Route exact path="/interface" component={Interface} />
           <Route exact path="/user/:accessToken/:refreshToken" component={User} />
           <Route exact path="/error/:errorMsg" component={Error} />
         </div>

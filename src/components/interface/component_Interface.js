@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { credentials } from '../../config/auth.js';
+import {} from '../../actions';
+
 const Spotify = require('spotify-web-api-node');
-import { credentials } from '../../auth.js';
 const spotifyApi = new Spotify(credentials);
 
-export default class Interface extends Component {
+const mapStateToProps = (state) => {}
+
+const mapDispatchToProps = (dispatch) => {}
+
+class Interface extends Component {
+  componentDidMount = () => {
+    let obj;
+
+  }
+
   render() {
     return (
       <div className="interface_container">
@@ -12,3 +25,6 @@ export default class Interface extends Component {
     )
   }
 }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Interface);
+export default Interface;
