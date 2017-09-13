@@ -5,4 +5,4 @@ const redirectUri = process.env.SPOTIFY_CALLBACK_URL;
 
 const credentials = { clientId, clientSecret, redirectUri, passReqToCallback: true };
 
-module.exports = { credentials };
+module.exports = credentials;
