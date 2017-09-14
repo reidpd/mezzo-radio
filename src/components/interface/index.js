@@ -15,6 +15,10 @@ The Mezzo-Radio experience contains the following big components:
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+// import SearchBar from '../search_bar';
+import Crate from '../crate';
+// import RecordStack from "../record/stack";
+// import RecordPlayer from '../record/player';
 import { setTokens, setUserInfo } from '../../actions';
 
 const actions = { setTokens, setUserInfo };
@@ -54,11 +58,14 @@ class Interface extends Component {
   render() {
     return (
       <div className="interface_container">
-        <p>MADE IT!</p>
+        <h1>Mezzo-Radio Header</h1>
+        {/* <RecordStack /> */}
+        {/* <Crate /> */}
+        <SearchBar />
+        {/* <RecordPlayer /> */}
       </div>
     )
   }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Interface);
 export default connect(mapStateToProps, mapDispatchToProps)(Interface);

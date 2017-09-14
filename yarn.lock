@@ -5393,6 +5393,14 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
+redux-form-saga@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/redux-form-saga/-/redux-form-saga-0.1.2.tgz#3fa4825722789f0fc09ce8760af9d0ec69c1d4dc"
+
+redux-saga@^0.15.6:
+  version "0.15.6"
+  resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-0.15.6.tgz#8638dc522de6c6c0a496fe8b2b5466287ac2dc4d"
+
 redux@^3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"

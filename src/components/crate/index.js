@@ -11,4 +11,27 @@ entered in the 'interface/search_bar'.
 
 */
 
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const Crate = ({}) => (
+  <div className="crate-container">
+    <div className="crate-panels-container">
+      <div className="crate-panel-top-container">
+        <p>Cover art will go here</p>
+      </div>
+      <div className="crate-panel-left-container">
+        <p>Albums will go here</p>
+      </div>
+      <div className="crate-panel-front-container">
+        <ArtistsPresentational />
+      </div>
+    </div>
+  </div>
+);
+
+Crate.propTypes = {
+  : PropTypes.
+};
+
+export default Crate;
