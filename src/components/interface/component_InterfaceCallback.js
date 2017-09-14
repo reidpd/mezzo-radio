@@ -21,34 +21,16 @@ class InterfaceCallback extends Component {
     const uri = window.location.href;
     const paramsIdx = uri.indexOf('?') + 1;
     const lengthyStr = uri.substring(paramsIdx);
-    const paramSplit = lengthyStr.split('&');
-    paramSplit.forEach(str => {
-      const pair = str.split('=');
-      let key = pair[0], val = pair[1];
-      params[key] = val;
+    const obj = JSON.parse(decodeURIComponent(lengthyStr));
+
+    // Set the access token on the API object to use it in later calls
+    spotifyApi.setAccessToken(obj.access_token);
+    spotifyApi.setRefreshToken(obj.refresh_token);
+
+    // use the access token to access the Spotify Web API
+    spotifyApi.getMe().then(({ body }) => {
+      console.log(body);
     });
-    console.log('obj === ', params);
-    // console.log('cookie === ', document.cookie.split('=')[1]);
-    // console.log(document.cookie.split('=')[1] !== params.state);
-    // const stringToEncode = credentials.clientID + ':' + credentials.clientSecret;
-    // const idSecretEncoding = base64.encode(stringToEncode);
-    console.log(spotifyApi);
-    axios.post(
-      'https://mezzo-radio-api.herokuapp.com/get_tokens',
-      { code: params.code }
-    ).then(response => console.log(response));
-    // spotifyApi.authorizationCodeGrant(params.code).then(data => {
-    //   const { expires_in, access_token, refresh_token } = data.body;
-    //
-    //   // Set the access token on the API object to use it in later calls
-    //   spotifyApi.setAccessToken(access_token);
-    //   spotifyApi.setRefreshToken(refresh_token);
-    //
-    //   // use the access token to access the Spotify Web API
-    //   spotifyApi.getMe().then(({ body }) => {
-    //     console.log(body);
-    //   });
-    // })
 
   }
 
