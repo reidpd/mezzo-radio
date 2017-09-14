@@ -3,6 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {} from '../../actions';
 require('dotenv').config();
+const axios = require('axios');
+const base64 = require('base-64');
 
 const credentials = require('../../config/auth.js');
 const Spotify = require('spotify-web-api-node');
@@ -28,7 +30,13 @@ class InterfaceCallback extends Component {
     console.log('obj === ', params);
     // console.log('cookie === ', document.cookie.split('=')[1]);
     // console.log(document.cookie.split('=')[1] !== params.state);
+    // const stringToEncode = credentials.clientID + ':' + credentials.clientSecret;
+    // const idSecretEncoding = base64.encode(stringToEncode);
     console.log(spotifyApi);
+    axios.post(
+      'https://mezzo-radio-api.herokuapp.com/get_tokens',
+      { code: params.code }
+    ).then(response => console.log(response));
     // spotifyApi.authorizationCodeGrant(params.code).then(data => {
     //   const { expires_in, access_token, refresh_token } = data.body;
     //
