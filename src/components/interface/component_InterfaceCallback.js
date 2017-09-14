@@ -1,3 +1,12 @@
+/*
+
+This component was initially built to handle an OAuth callback address that would,
+upon storing access/refresh tokens in redux, would change React Router address to a cleaner URL.
+
+Its future existence is currently TBD.
+
+*/
+
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';

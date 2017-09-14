@@ -1,3 +1,17 @@
+/*
+
+This is the central interface container for the app, where primary components for app usage are organized.
+
+The Mezzo-Radio experience contains the following big components:
+  - A 'search_bar' for users to find artists/albums/genres they like
+  - A 'crate' to house records / search results
+  - A 'record/stack' to organize a queue of upcoming selections
+  - A 'record/player' to play desired music
+
+  - *** Future feature: 'crate-queue', collection of past crates for instant replay ***
+
+*/
+
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
