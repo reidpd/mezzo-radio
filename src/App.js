@@ -7,7 +7,6 @@ import InterfaceCallback from './components/interface/component_InterfaceCallbac
 import User from './components/component_User';
 import Error from './components/component_Error';
 import './App.css';
-// import Auth from './components/auth';
 
 class App extends Component {
 

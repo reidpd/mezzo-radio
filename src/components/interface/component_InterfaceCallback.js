@@ -3,13 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {} from '../../actions';
 require('dotenv').config();
-const axios = require('axios');
-const base64 = require('base-64');
 
-const credentials = require('../../config/auth.js');
-const Spotify = require('spotify-web-api-node');
-const spotifyApi = new Spotify(credentials);
-console.log(spotifyApi);
+const spotify = require('../../config/spotifyWebApi.js');
+console.log(spotify);
 
 const mapStateToProps = (state) => {}
 
@@ -24,13 +20,11 @@ class InterfaceCallback extends Component {
     const obj = JSON.parse(decodeURIComponent(lengthyStr));
 
     // Set the access token on the API object to use it in later calls
-    spotifyApi.setAccessToken(obj.access_token);
-    spotifyApi.setRefreshToken(obj.refresh_token);
+    spotify.setAccessToken(obj.access_token);
+    spotify.setRefreshToken(obj.refresh_token);
 
     // use the access token to access the Spotify Web API
-    spotifyApi.getMe().then(({ body }) => {
-      console.log(body);
-    });
+    spotify.getMe().then(({ body }) => console.log(body) );
 
   }
 
