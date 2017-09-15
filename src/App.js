@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Login from './components/component_Login';
 import Interface from './components/interface';
 import InterfaceCallback from './components/interface/component_InterfaceCallback.js';
-import User from './components/component_User';
+// import User from './components/component_User';
 import Error from './components/component_Error';
 import './App.css';
 

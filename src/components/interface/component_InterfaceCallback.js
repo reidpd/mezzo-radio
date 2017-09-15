@@ -14,7 +14,7 @@ import {} from '../../actions';
 require('dotenv').config();
 
 const spotify = require('../../config/spotifyWebApi.js');
-console.log(spotify);
+console.log(spotify.__proto__);
 
 const mapStateToProps = (state) => {}
 
