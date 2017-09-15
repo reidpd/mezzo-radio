@@ -61,7 +61,7 @@ class Interface extends Component {
         <h1>Mezzo-Radio Header</h1>
         {/* <RecordStack /> */}
         {/* <Crate /> */}
-        {/* <SearchBar /> */}
+        <SearchBar />
         {/* <RecordPlayer /> */}
       </div>
     )

@@ -23,4 +23,23 @@ that are
 
 */
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { reduxForm, Field } from 'redux-form';
+
+import { search } from '../../redux/actions'; // importing our action
+
+export default class SearchBar extends Component {
+  render() {
+    const { handleSubmit } = this.props; // handleSubmit is provided by reduxForm
+    const { submit } = handleSubmit(search); // creating our submit handler by passing our action
+    // to handleSubmit as it stated in redux-form documentation
+    // and bind our submit handler to onSubmit action:
+
+    return (
+      <form onSubmit={submit}>
+        <Field component="input" name="artist" type="text" placeholder="Artist Search" />
+        <button type="submit">FIND</button>
+      </form>
+    );
+  }
+}

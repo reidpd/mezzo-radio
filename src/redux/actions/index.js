@@ -15,7 +15,7 @@ import { createFormAction } from 'redux-form-saga';
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const SET_TOKENS = 'SET_TOKENS';
 
-export const searchBarSubmit = createFormAction('SEARCH');
+export const search = createFormAction('SEARCH');
 
 /** set the app's access and refresh tokens */
 export const setTokens = ({access_token, refresh_token, expires_in}) => {
