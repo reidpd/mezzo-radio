@@ -14,5 +14,35 @@ a) ARTIST_PERUSED
 
 */
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React,{Component} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {} from '../../../../redux/actions';
+
+const mapStateToProps = (state) => {
+  return {
+    artists: state.artistReducer,
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({},dispatch);
+}
+
+class ArtistsPresentational extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {};
+    }
+
+    render() {
+        return (
+            <div className="class-name">
+                <p>Artists will go here!</p>
+            </div>
+        );
+    }
+}
+
+export default connect (mapStateToProps,mapDispatchToProps)(ArtistsPresentational);

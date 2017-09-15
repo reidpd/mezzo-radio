@@ -22,3 +22,5 @@ that are
 4) housed by 'crate/panels'.
 
 */
+
+import React, { Component } from 'react';

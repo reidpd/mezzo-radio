@@ -1,6 +1,6 @@
 // ACTIONS GO HERE
 
-const spotify = require('../config/spotifyWebApi.js');
+const spotify = require('../../config/spotifyWebApi.js');
 
 // our constants
 export const SPOTIFY_TOKENS = 'SPOTIFY_TOKENS';

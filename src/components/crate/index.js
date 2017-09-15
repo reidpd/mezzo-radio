@@ -12,7 +12,9 @@ entered in the 'interface/search_bar'.
 */
 
 import React from 'react';
-import PropTypes from 'prop-types';
+import ArtistsPresentational from './panels/front';
+import AlbumsPresentational from './panels/left';
+
 
 const Crate = ({}) => (
   <div className="crate-container">
@@ -21,7 +23,7 @@ const Crate = ({}) => (
         <p>Cover art will go here</p>
       </div>
       <div className="crate-panel-left-container">
-        <p>Albums will go here</p>
+        {/* <AlbumsPresentational /> */}
       </div>
       <div className="crate-panel-front-container">
         <ArtistsPresentational />
@@ -30,8 +32,5 @@ const Crate = ({}) => (
   </div>
 );
 
-Crate.propTypes = {
-  : PropTypes.
-};
 
 export default Crate;
