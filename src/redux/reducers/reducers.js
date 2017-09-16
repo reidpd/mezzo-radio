@@ -5,7 +5,7 @@ import {
   SET_ARTISTS,
   SET_ALBUMS,
 } from '../actions';
-import { search } from '../routines';
+import { search, searchRelatedArtists } from '../routines';
 
 export const nowPlayingReducer = (state = initialState.now_playing, action) => {
   switch (action.type) {
@@ -47,6 +47,10 @@ export const artistsReducer = (state = initialState.artists, action) => {
       return action.payload;
     case search.FULFILL:
       return action.payload;
+    case searchRelatedArtists.TRIGGER:
+      return state;
+    case searchRelatedArtists.SUCCESS:
+      return action.payload.body.artists;
     case SET_ARTISTS:
       return action.payload;
     default:

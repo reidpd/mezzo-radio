@@ -19,6 +19,8 @@ for changing the state of redux reducers with their payload.
 // export const SPOTIFY_ME_FAILURE = 'SPOTIFY_ME_FAILURE';
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const SET_TOKENS = 'SET_TOKENS';
+export const SET_CURRENT_ARTIST = 'SET_CURRENT_ARTIST';
+export const SET_CURRENT_ALBUM = 'SET_CURRENT_ALBUM';
 export const SET_ARTISTS = 'SET_ARTISTS';
 export const SET_ALBUMS = 'SET_ALBUMS';
 
@@ -65,3 +67,10 @@ export const setAlbums = (data) => {
     payload: data
   };
 };
+
+export const setCurrentArtist = (artistId) => {
+  return {
+    type: SET_CURRENT_ALBUM,
+    payload: artistId
+  }
+}

@@ -10,7 +10,8 @@ function* searchRelatedArtistsWatcherSaga() {
 }
 
 function* handleSearchRelatedArtistsSaga(action) {
-  const bandId = action.payload.bandId;
+  const bandId = action.payload;
+  console.log(bandId)
 
   try {
     yield put(searchRelatedArtists.request());
@@ -53,5 +54,6 @@ function* handleSearchSaga(action) {
 export default function* rootSaga() {
   yield all([
     searchWatcherSaga(),
+    searchRelatedArtistsWatcherSaga(),
   ])
 }

@@ -8,6 +8,7 @@ const appReducer = combineReducers({
   nowPlayingReducer,
   albumsReducer,
   artistsReducer,
+  // currentArtistReducer,
   userReducer,
   tokensReducer,
 });
