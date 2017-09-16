@@ -56,7 +56,8 @@ class Interface extends Component {
       this.props.setTokens(obj);
 
       // use the access token to access the Spotify Web API
-      spotify.getMe().then(({ body }) => this.props.setUserInfo(body) );
+      // must restore this line: add to bug list
+      // spotify.getMe().then(({ body }) => this.props.setUserInfo(body) );
       spotifyPromises = new SpotifyPromisesClass;
 
     }

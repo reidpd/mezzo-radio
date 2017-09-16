@@ -11,7 +11,7 @@ const ArtistList = (props) => {
   console.log(props)
   return (
     <div>
-      { !props.data.items ? props.data.map(item => <Artist data={item} />) : props.data.items.map(item => <Artist data={item} />) }
+      { props.data.map(item => <Artist data={item} />) }
     </div>
   )
 }

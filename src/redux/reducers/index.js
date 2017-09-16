@@ -34,8 +34,16 @@ export const nowPlayingReducer = (state = initialState.now_playing, action) => {
   }
 };
 
+export const albumFocusReducer = (state = initialState.albumFocus, action) => {
+  switch (action.type) {
+    // case
+    default:
+      return state;
+  }
+}
+
 export const albumsReducer = (state = initialState.albums, action) => {
-  console.log(action);
+  // console.log(action);
   switch (action.type) {
     case search.TRIGGER:
       return initialState.albums;
@@ -45,6 +53,8 @@ export const albumsReducer = (state = initialState.albums, action) => {
       return initialState.albums;
     // case search.FULFILL:
     //   return action.payload;
+    case artistFocus.SUCCESS:
+      return action.payload.albums.body;
     case SET_ALBUMS:
       return action.payload;
     default:
@@ -52,13 +62,30 @@ export const albumsReducer = (state = initialState.albums, action) => {
   }
 };
 
+export const artistFocusReducer = (state = initialState.artistFocus, action) => {
+  switch (action.type) {
+    case search.SUCCESS:
+      return action.payload.body.artists.items[0];
+    // case SET_FOCUS_ARTIST:
+    //   return action.payload;
+    case artistFocus.TRIGGER:
+      return initialState.artistFocus;
+    case artistFocus.REQUEST:
+      return initialState.artistFocus;
+    case artistFocus.SUCCESS:
+      return action.payload.focusArtistData;
+    default:
+      return state;
+  }
+};
+
 export const artistsReducer = (state = initialState.artists, action) => {
-  console.log(action);
+  // console.log(action);
   switch (action.type) {
     case search.TRIGGER:
       return initialState.artists;
     case search.SUCCESS:
-      return action.payload.body.artists;
+      return action.payload.body.artists.items;
     case search.FAILURE:
       return initialState.artists;
     // case search.FULFILL:
@@ -66,7 +93,8 @@ export const artistsReducer = (state = initialState.artists, action) => {
     case artistFocus.TRIGGER:
       return state;
     case artistFocus.SUCCESS:
-      return action.payload.body.artists;
+      console.log(action.payload.relatedArtists.body.artists);
+      return action.payload.relatedArtists.body.artists;
     case SET_ARTISTS:
       return action.payload;
     default:
@@ -97,9 +125,10 @@ export const tokensReducer = (state = initialState.tokens, action) => {
 const appReducer = combineReducers({
   form: reduxFormReducer,
   nowPlayingReducer,
+  albumFocusReducer,
   albumsReducer,
+  artistFocusReducer,
   artistsReducer,
-  // currentArtistReducer,
   userReducer,
   tokensReducer,
 });

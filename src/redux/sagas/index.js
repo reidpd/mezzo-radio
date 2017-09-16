@@ -23,7 +23,8 @@ function* artistFocusWatcherSaga() {
 }
 
 function* artistFocusSaga(action) {
-  const bandId = action.payload;
+  const artistId = action.payload.artistId;
+  const focusArtistData = action.payload.data;
   // console.log(bandId)
 
   try {
@@ -31,20 +32,20 @@ function* artistFocusSaga(action) {
     const promiseMethodOne = spotifyPromises.getArtistRelatedArtists;
     const promiseMethodTwo = spotifyPromises.getArtistAlbums;
     const [relatedArtists, albums] = yield all([
-      call(promiseMethodOne, bandId), // relatedArtists
-      call(promiseMethodTwo, bandId) // albums
+      call(promiseMethodOne, artistId), // relatedArtists
+      call(promiseMethodTwo, artistId) // albums
     ]);
-    yield put(artistFocus.success({ relatedArtists, albums }));
+    yield put(artistFocus.success({ relatedArtists, albums, focusArtistData }));
   } catch (error) {
     yield put(artistFocus.failure(error.message))
   }
 }
 
 function* searchWatcherSaga() {
-  yield takeEvery(search.TRIGGER, handleSearchSaga); // see details what is REQUEST param below
+  yield takeEvery(search.TRIGGER, searchSaga); // see details what is REQUEST param below
 }
 
-function* handleSearchSaga(action) {
+function* searchSaga(action) {
   const searchTerm = action.payload.searchTerm;
 
   try {

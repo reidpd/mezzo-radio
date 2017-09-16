@@ -7,7 +7,9 @@ This file is responsible for hosting data which 'redux/reducers' consume as thei
 export default {
   now_playing: null,
   albums: { items: [] },
-  artists: { items: [] },
+  artists: [],
+  artistFocus: null,
+  albumFocus: null,
   tokens: null,
   user: null,
 };

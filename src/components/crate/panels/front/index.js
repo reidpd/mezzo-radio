@@ -20,10 +20,12 @@ import {bindActionCreators} from 'redux';
 import {} from '../../../../redux/actions';
 
 import ArtistList from '../../../lists/by/artist/plural';
+import Artist from '../../../lists/by/artist/single';
 
 const mapStateToProps = (state) => {
   return {
     artists: state.artistsReducer,
+    artistFocus: state.artistFocusReducer,
   };
 }
 
@@ -40,11 +42,20 @@ class ArtistsPresentational extends Component {
 
     render() {
         console.log('artistsReducer === ', this.props.artists);
-        return (
-            <div className="class-name">
-              <ArtistList data={this.props.artists} />
-            </div>
-        );
+        if (this.props.artistFocus === null) {
+          return (
+              <div className="class-name">
+                <ArtistList data={this.props.artists} />
+              </div>
+          );
+        } else {
+          return (
+              <div className="artists-presentational-container">
+                <Artist data={this.props.artistFocus} />
+                <ArtistList data={this.props.artists} />
+              </div>
+          )
+        }
     }
 }
 
