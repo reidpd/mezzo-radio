@@ -23,7 +23,7 @@ const Crate = ({}) => (
         <p>Cover art will go here</p>
       </div>
       <div className="crate-panel-left-container">
-        {/* <AlbumsPresentational /> */}
+        <AlbumsPresentational />
       </div>
       <div className="crate-panel-front-container">
         <ArtistsPresentational />

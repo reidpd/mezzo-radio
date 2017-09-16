@@ -1,7 +1,7 @@
 export default {
   now_playing: null,
-  albums: null,
-  artists: null,
+  albums: { items: [] },
+  artists: { items: [] },
   tokens: null,
   user: null,
 };

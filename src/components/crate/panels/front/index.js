@@ -19,9 +19,11 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {} from '../../../../redux/actions';
 
+import ArtistList from '../../../lists/by/artist/plural';
+
 const mapStateToProps = (state) => {
   return {
-    artists: state.artistReducer,
+    artists: state.artistsReducer,
   };
 }
 
@@ -31,15 +33,16 @@ const mapDispatchToProps = (dispatch) => {
 
 class ArtistsPresentational extends Component {
 
-    constructor(props){
-        super(props);
-        this.state = {};
-    }
+    // constructor(props){
+    //     super(props);
+    //     this.state = {};
+    // }
 
     render() {
+        console.log('artistsReducer === ', this.props.artists);
         return (
             <div className="class-name">
-                <p>Artists will go here!</p>
+              <ArtistList data={this.props.artists} />
             </div>
         );
     }

@@ -99,8 +99,8 @@ class Interface extends Component {
       <div className="interface_container">
         <h1>Mezzo-Radio Header</h1>
         {/* <RecordStack /> */}
-        {/* <Crate /> */}
-        <SearchBar />
+        <Crate />
+        <SearchBar form='simple' />
         {/* <RecordPlayer /> */}
         <button onClick={this.search}>Search</button>
         <button onClick={this.searchArtists}>searchArtists</button>

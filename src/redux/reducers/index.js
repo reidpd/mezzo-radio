@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
 
-import { nowPlayingReducer, albumsReducer, artistsReducer, userReducer, tokensReducer } from './reducers';
+import { nowPlayingReducer, albumsReducer, artistsReducer, userReducer, tokensReducer } from './reducers.js';
 
 const appReducer = combineReducers({
   form: reduxFormReducer,

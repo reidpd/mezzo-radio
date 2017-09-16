@@ -20,7 +20,7 @@ export default class SpotifyPromisesClass {
   constructor() { this.spotify = spotify; }
 
   search = (query) => {
-    this.spotify.search(query, ['album', 'artist']).then(data => data, err => err);
+    return this.spotify.search(query, ['album', 'artist']).then(data => data, err => err);
   }
 
   getArtistRelatedArtists = (artistId) => {

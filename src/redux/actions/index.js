@@ -10,7 +10,7 @@ for changing the state of redux reducers with their payload.
 // import { createFormAction } from 'redux-form-saga';
 // export const search = createFormAction('SEARCH');
 
-import { createRoutine } from 'redux-saga-routines';
+// import { createRoutine } from 'redux-saga-routines';
 
 // our constants
 // export const SPOTIFY_TOKENS = 'SPOTIFY_TOKENS';
@@ -19,8 +19,10 @@ import { createRoutine } from 'redux-saga-routines';
 // export const SPOTIFY_ME_FAILURE = 'SPOTIFY_ME_FAILURE';
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const SET_TOKENS = 'SET_TOKENS';
+export const SET_ARTISTS = 'SET_ARTISTS';
+export const SET_ALBUMS = 'SET_ALBUMS';
 
-export const search = createRoutine('SEARCH');
+// export const search = createRoutine('SEARCH');
 
 
 /** set the app's access and refresh tokens */
@@ -45,5 +47,21 @@ export const setUserInfo = (user) => {
   return {
     type: SET_USER_INFO,
     payload: user,
+  };
+};
+
+// send an object that changes the redux list of artists
+export const setArtists = (data) => {
+  return {
+    type: SET_ARTISTS,
+    payload: data
+  };
+};
+
+// send an object that changes the redux list of albums
+export const setAlbums = (data) => {
+  return {
+    type: SET_ALBUMS,
+    payload: data
   };
 };

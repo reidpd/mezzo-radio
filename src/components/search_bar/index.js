@@ -24,37 +24,33 @@ that are
 */
 
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+// import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 
-import { search } from '../../redux/actions'; // importing our action
+import { search } from '../../redux/routines'; // importing our action
 
-const mapStateToProps = (state) => state;
+// const mapStateToProps = (state) => state;
 
-const actions = { search };
-const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch);
+// const actions = { search };
+// const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch);
 
 class SearchBar extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
-    const { handleSubmit } = this.props; // handleSubmit is provided by reduxForm
-    const { submit } = handleSubmit(search); // creating our submit handler by passing our action
+    // const { handleSubmit } = this.props; // handleSubmit is provided by reduxForm
+    // const { submit } = handleSubmit(search); // creating our submit handler by passing our action
     // to handleSubmit as it stated in redux-form documentation
     // and bind our submit handler to onSubmit action:
-
     return (
-      <form onSubmit={submit}>
-        <Field component="input" name="artist" type="text" placeholder="Artist Search" />
+      <form onSubmit={this.props.handleSubmit(search)}>
+        <Field component="input" name="searchTerm" type="text" placeholder="Artist Search" />
         <button type="submit">FIND</button>
       </form>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar)
+export default reduxForm()(SearchBar)
 
 /*
 
