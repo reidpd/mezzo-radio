@@ -1,25 +1,42 @@
+/*
+
+This file is responsible for hosting 'redux/saga's.
+
+There are two kinds of sagas: 'watcher' sagas, and 'worker' sagas.
+
+The watcher sagas are the ones exported to the store, where middleware is run through them.
+These watcher sagas keep track of the worker sagas,
+which enforce a synchronous fashion to async requests, therefore
+allowing the code to be easily tested in the future.
+
+*/
+
 import { delay } from 'redux-saga';
 import { put, takeEvery, all, call } from 'redux-saga/effects';
 import { SubmissionError } from 'redux-form';
-import { search, searchRelatedArtists } from '../routines'; // importing our routines
+import { search, artistFocus, albumFocus } from '../routines'; // importing our routines
 import SpotifyPromisesClass from '../../spotify';
 const spotifyPromises = new SpotifyPromisesClass;
 
-function* searchRelatedArtistsWatcherSaga() {
-  yield takeEvery(searchRelatedArtists.TRIGGER, handleSearchRelatedArtistsSaga);
+function* artistFocusWatcherSaga() {
+  yield takeEvery(artistFocus.TRIGGER, artistFocusSaga);
 }
 
-function* handleSearchRelatedArtistsSaga(action) {
+function* artistFocusSaga(action) {
   const bandId = action.payload;
-  console.log(bandId)
+  // console.log(bandId)
 
   try {
-    yield put(searchRelatedArtists.request());
-    const promiseMethod = spotifyPromises.getArtistRelatedArtists;
-    const response = yield call(promiseMethod, bandId);
-    yield put(searchRelatedArtists.success(response));
+    yield put(artistFocus.request());
+    const promiseMethodOne = spotifyPromises.getArtistRelatedArtists;
+    const promiseMethodTwo = spotifyPromises.getArtistAlbums;
+    const [relatedArtists, albums] = yield all([
+      call(promiseMethodOne, bandId), // relatedArtists
+      call(promiseMethodTwo, bandId) // albums
+    ]);
+    yield put(artistFocus.success({ relatedArtists, albums }));
   } catch (error) {
-    yield put(searchRelatedArtists.failure(error.message))
+    yield put(artistFocus.failure(error.message))
   }
 }
 
@@ -44,7 +61,7 @@ function* handleSearchSaga(action) {
   } catch (error) {
     // if request failed
     yield put(search.failure(error.message));
-  // } finally {
+  // } finally { // not sure if 'finally' clause is really necessary: found it in original docs pulled from.
   //   // trigger fulfill action
   //   yield put(search.fulfill());
   }
@@ -54,6 +71,6 @@ function* handleSearchSaga(action) {
 export default function* rootSaga() {
   yield all([
     searchWatcherSaga(),
-    searchRelatedArtistsWatcherSaga(),
+    artistFocusWatcherSaga(),
   ])
 }

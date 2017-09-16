@@ -18,8 +18,10 @@ import {
   SET_TOKENS,
   SET_ARTISTS,
   SET_ALBUMS,
+  SET_FOCUS_ALBUM,
+  SET_FOCUS_ARTIST,
 } from '../actions';
-import { search, searchRelatedArtists } from '../routines';
+import { search, artistFocus, albumFocus } from '../routines';
 
 export const nowPlayingReducer = (state = initialState.now_playing, action) => {
   switch (action.type) {
@@ -40,9 +42,9 @@ export const albumsReducer = (state = initialState.albums, action) => {
     case search.SUCCESS:
       return action.payload.body.albums;
     case search.FAILURE:
-      return action.payload;
-    case search.FULFILL:
-      return action.payload;
+      return initialState.albums;
+    // case search.FULFILL:
+    //   return action.payload;
     case SET_ALBUMS:
       return action.payload;
     default:
@@ -58,12 +60,12 @@ export const artistsReducer = (state = initialState.artists, action) => {
     case search.SUCCESS:
       return action.payload.body.artists;
     case search.FAILURE:
-      return action.payload;
-    case search.FULFILL:
-      return action.payload;
-    case searchRelatedArtists.TRIGGER:
+      return initialState.artists;
+    // case search.FULFILL:
+    //   return action.payload;
+    case artistFocus.TRIGGER:
       return state;
-    case searchRelatedArtists.SUCCESS:
+    case artistFocus.SUCCESS:
       return action.payload.body.artists;
     case SET_ARTISTS:
       return action.payload;

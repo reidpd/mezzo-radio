@@ -27,6 +27,10 @@ export default class SpotifyPromisesClass {
     return this.spotify.getArtistRelatedArtists(artistId).then(data => data, err => err);
   }
 
+  getArtistAlbums = (artistId) => {
+    return this.spotify.getArtistAlbums(artistId).then(data => data, err => console.log(err))
+  }
+
   getArtistAlbumsWithTracks = (artistId) => {
     this.spotify.getArtistAlbums(artistId)
     .then(data => data.body.items.map(item => item.id), err => console.log(err))
