@@ -16,7 +16,7 @@ within try/catch blocks of generators within 'redux/saga/index.js'.
 
 const spotify = require('../config/spotifyWebApi.js');
 
-export default class spotifyPromisesClass {
+export default class SpotifyPromisesClass {
   constructor() { this.spotify = spotify; }
 
   search = (query) => {

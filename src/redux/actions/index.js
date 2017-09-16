@@ -6,7 +6,12 @@ for changing the state of redux reducers with their payload.
 */
 
 // const spotify = require('../../config/spotifyWebApi.js');
-import { createFormAction } from 'redux-form-saga';
+
+// import { createFormAction } from 'redux-form-saga';
+// export const search = createFormAction('SEARCH');
+
+import { createRoutine } from 'redux-saga-routines';
+
 // our constants
 // export const SPOTIFY_TOKENS = 'SPOTIFY_TOKENS';
 // export const SPOTIFY_ME_BEGIN = 'SPOTIFY_ME_BEGIN';
@@ -15,7 +20,8 @@ import { createFormAction } from 'redux-form-saga';
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const SET_TOKENS = 'SET_TOKENS';
 
-export const search = createFormAction('SEARCH');
+const search = createRoutine('SEARCH');
+
 
 /** set the app's access and refresh tokens */
 export const setTokens = ({access_token, refresh_token, expires_in}) => {

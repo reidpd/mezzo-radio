@@ -3,6 +3,7 @@ import 'babel-polyfill';
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import formActionSaga from 'redux-form-saga';
+import { routinesWatcherSaga } from 'redux-saga-routines';
 
 import rootReducer from '../reducers';
 import rootSaga from '../sagas';
@@ -16,7 +17,7 @@ export default createStore(
   applyMiddleware(sagaMiddleware),
 );
 
-const sagas = [rootSaga, formActionSaga];
+const sagas = [rootSaga, formActionSaga, routinesWatcherSaga];
 
 sagas.forEach(saga => sagaMiddleware.run(saga));
 

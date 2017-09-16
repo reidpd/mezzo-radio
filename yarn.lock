@@ -5422,6 +5422,10 @@ redux-form@^7.0.4:
     lodash-es "^4.17.3"
     prop-types "^15.5.9"
 
+redux-saga-routines@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/redux-saga-routines/-/redux-saga-routines-1.1.2.tgz#e1e2f3827cc2bd95eef8ce2c4c5fe247fec0d069"
+
 redux-saga@^0.15.6:
   version "0.15.6"
   resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-0.15.6.tgz#8638dc522de6c6c0a496fe8b2b5466287ac2dc4d"

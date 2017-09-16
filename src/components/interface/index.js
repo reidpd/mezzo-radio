@@ -28,7 +28,7 @@ import Crate from '../crate';
 import { setTokens, setUserInfo } from '../../redux/actions';
 
 // Spotify Connections
-import spotifyPromisesClass from '../../spotify';
+import SpotifyPromisesClass from '../../spotify';
 const spotify = require('../../config/spotifyWebApi.js');
 let spotifyPromises;
 
@@ -57,7 +57,7 @@ class Interface extends Component {
 
       // use the access token to access the Spotify Web API
       spotify.getMe().then(({ body }) => this.props.setUserInfo(body) );
-      spotifyPromises = new spotifyPromisesClass;
+      spotifyPromises = new SpotifyPromisesClass;
 
     }
 
@@ -100,7 +100,7 @@ class Interface extends Component {
         <h1>Mezzo-Radio Header</h1>
         {/* <RecordStack /> */}
         {/* <Crate /> */}
-        {/* <SearchBar /> */}
+        <SearchBar />
         {/* <RecordPlayer /> */}
         <button onClick={this.search}>Search</button>
         <button onClick={this.searchArtists}>searchArtists</button>

@@ -23,23 +23,45 @@ that are
 
 */
 
-import React, { Component } from 'react'
-import { reduxForm, Field } from 'redux-form';
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+// import { reduxForm, Field } from 'redux-form';
 
 import { search } from '../../redux/actions'; // importing our action
 
-export default class SearchBar extends Component {
+const mapStateToProps = (state) => state;
+
+const actions = { search };
+const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch);
+
+class SearchBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { searchTerm: '' };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange = (event) => this.setState({ searchTerm: event.target.value });
+  handleSubmit = (event) => { event.preventDefault(); this.props.search(this.state.searchTerm); }
+
   render() {
-    const { handleSubmit } = this.props; // handleSubmit is provided by reduxForm
-    const { submit } = handleSubmit(search); // creating our submit handler by passing our action
+    // const { handleSubmit } = this.props; // handleSubmit is provided by reduxForm
+    // const { submit } = this.props.search(); // creating our submit handler by passing our action
     // to handleSubmit as it stated in redux-form documentation
     // and bind our submit handler to onSubmit action:
-
     return (
-      <form onSubmit={submit}>
-        <Field component="input" name="artist" type="text" placeholder="Artist Search" />
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Search the crate for your favorite artists or albums!
+          <input type="text" value={this.state.searchTerm} onChange={this.handleChange} />
+        </label>
         <button type="submit">FIND</button>
       </form>
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar)

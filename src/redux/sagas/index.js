@@ -2,7 +2,10 @@ import { delay } from 'redux-saga';
 import { put, takeEvery, all, call } from 'redux-saga/effects';
 import { SubmissionError } from 'redux-form';
 import { search } from '../actions'; // importing our action
-import spotify from '../../config/spotifyWebApi.js'
+// import spotify from '../../config/spotifyWebApi.js'
+import SpotifyPromisesClass from '../../spotify';
+// const spotify = require('../../config/spotifyWebApi.js');
+const spotifyPromises = new SpotifyPromisesClass;
 
 function* searchWatcherSaga() {
   yield takeEvery(search.REQUEST, handleSearchSaga); // see details what is REQUEST param below
@@ -12,12 +15,12 @@ function* handleSearchSaga(action) {
   const { search } = action.payload;
 
   try {
-    yield call(spotify.login, { search }); // calling our api method
+    yield call(spotifyPromises.search, { search }); // calling our api method
     // it should return promise
     // promise should be resolved if login successfull
     // or rejected if login credentials is wrong
 
-    // so if apiClient promise resolved, then we can notify our form about successful response
+    // so if spotifyPromises promise resolved, then we can notify our form about successful response
     yield put(search.success());
     // do something else here ...
   } catch (error) {
