@@ -20,7 +20,7 @@ import { createRoutine } from 'redux-saga-routines';
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const SET_TOKENS = 'SET_TOKENS';
 
-const search = createRoutine('SEARCH');
+export const search = createRoutine('SEARCH');
 
 
 /** set the app's access and refresh tokens */
