@@ -12,17 +12,25 @@ The Mezzo-Radio experience contains the following big components:
 
 */
 
+// React, Redux Boilerplate
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+
+// Components
 import SearchBar from '../search_bar';
 import Crate from '../crate';
 // import RecordStack from "../record/stack";
 // import RecordPlayer from '../record/player';
-import { setTokens, setUserInfo } from '../../redux/actions';
-const actions = { setTokens, setUserInfo };
 
+
+// Redux Actions
+import { setTokens, setUserInfo } from '../../redux/actions';
+
+// Spotify Connections
+import spotifyPromisesClass from '../../spotify';
 const spotify = require('../../config/spotifyWebApi.js');
+let spotifyPromises;
 
 const mapStateToProps = (state) => {
   return {
@@ -31,6 +39,7 @@ const mapStateToProps = (state) => {
   };
 };
 
+const actions = { setTokens, setUserInfo };
 const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch);
 
 class Interface extends Component {
@@ -48,18 +57,13 @@ class Interface extends Component {
 
       // use the access token to access the Spotify Web API
       spotify.getMe().then(({ body }) => this.props.setUserInfo(body) );
-
+      spotifyPromises = new spotifyPromisesClass;
 
     }
 
   }
 
-  search = () => {
-    spotify.search('alt', ['album', 'artist', 'track'])
-      .then(data => {
-        console.log('results for spotify.search(alt): ', data)
-      }, err => { console.log('Something went wrong! Your error message is: ', err) });
-  }
+  search = () => spotifyPromises.search('alt-J');
 
   searchArtists = () => {
     spotify.searchArtists('fleet')
@@ -82,6 +86,14 @@ class Interface extends Component {
       }, err => { console.log('Something went wrong! Your error message is: ', err) });
   }
 
+  getArtistAlbums = () => {
+    spotify.getArtistAlbums('4MXUO7sVCaFgFjoTI5ox5c')
+      .then(data => data.body.items.map(item => item.id), err => console.log(err))
+      .then(ids => {
+        spotify.getAlbums(ids).then(data => console.log(data), err => console.log(err));
+      }, err => console.log(err));
+  }
+
   render() {
     return (
       <div className="interface_container">
@@ -94,6 +106,7 @@ class Interface extends Component {
         <button onClick={this.searchArtists}>searchArtists</button>
         <button onClick={this.searchAlbums}>searchAlbums</button>
         <button onClick={this.getArtistRelatedArtists}>getArtistRelatedArtists</button>
+        <button onClick={this.getArtistAlbums}>getArtistAlbums</button>
       </div>
     )
   }
