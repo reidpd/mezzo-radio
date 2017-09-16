@@ -1,13 +1,26 @@
 import { delay } from 'redux-saga';
 import { put, takeEvery, all, call } from 'redux-saga/effects';
 import { SubmissionError } from 'redux-form';
-import { search } from '../routines'; // importing our routines
-// import spotify from '../../config/spotifyWebApi.js'
+import { search, searchRelatedArtists } from '../routines'; // importing our routines
 import SpotifyPromisesClass from '../../spotify';
-// const spotify = require('../../config/spotifyWebApi.js');
 const spotifyPromises = new SpotifyPromisesClass;
 
-console.log(call)
+function* searchRelatedArtistsWatcherSaga() {
+  yield takeEvery(searchRelatedArtists.TRIGGER, handleSearchRelatedArtistsSaga);
+}
+
+function* handleSearchRelatedArtistsSaga(action) {
+  const bandId = action.payload.bandId;
+
+  try {
+    yield put(searchRelatedArtists.request());
+    const promiseMethod = spotifyPromises.getArtistRelatedArtists;
+    const response = yield call(promiseMethod, bandId);
+    yield put(searchRelatedArtists.success(response));
+  } catch (error) {
+    yield put(searchRelatedArtists.failure(error.message))
+  }
+}
 
 function* searchWatcherSaga() {
   yield takeEvery(search.TRIGGER, handleSearchSaga); // see details what is REQUEST param below
@@ -36,14 +49,9 @@ function* handleSearchSaga(action) {
   }
 }
 
-function* helloSaga() {
-  console.log('Hello Sagas!')
-}
-
 // single entry point to start all Sagas at once
 export default function* rootSaga() {
   yield all([
-    helloSaga(),
     searchWatcherSaga(),
   ])
 }
