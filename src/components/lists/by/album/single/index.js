@@ -11,8 +11,8 @@ import { connect } from 'react-redux';
 // import { setHoverAlbum, setFocusAlbum } from '../../../../../redux/actions';
 // const actions = { setHoverAlbum, setFocusAlbum };
 import { bindRoutineCreators } from 'redux-saga-routines';
-import { albumHover, albumFocus } from '../../../../../redux/routines';
-const routines = { albumHover, albumFocus };
+import { albumHover, albumFocus, startAlbum } from '../../../../../redux/routines';
+const routines = { albumHover, albumFocus, startAlbum };
 
 const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
@@ -20,20 +20,19 @@ const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
 class Album extends Component {
   constructor(props) { super(props) }
 
-  handleClick = (data) => {
-    if (data) { this.props.albumFocus(data) }
-  }
+  handleClick = (data) => this.props.albumFocus(data);
+  handleDoubleClick = (context_uri) => this.props.startAlbum(context_uri);
 
-  handleMouseOver = (data) => {
-    if (data) { this.props.albumHover(data) }
-  }
+  handleMouseHover = (input) => this.props.albumHover(input);
 
   render() {
     return (
       <div>
         <a
           onClick={ () => this.handleClick(this.props.data) }
-          onMouseOver={ () => this.handleMouseOver(this.props.data) }>
+          onDoubleClick={ () => this.handleDoubleClick(this.props.data.uri) }
+          onMouseEnter={ () => this.handleMouseHover(this.props.data) }
+          onMouseLeave={ () => this.handleMouseHover({ images: [{ url: '' }] }) }>
           Album: {this.props.data.name}
         </a>
       </div>

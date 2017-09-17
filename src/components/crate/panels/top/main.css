@@ -1,0 +1,7 @@
+.record-cover-presentational-container {
+  max-height: 300px;
+  max-width: 300px;
+  overflow: auto;
+  margin: auto;
+  display: block;
+}

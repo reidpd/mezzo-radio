@@ -9,3 +9,31 @@ It primarily renders the container div styled after the player of choice (tbd), 
   - And 'record/player/controls' for sound manipulation features necessary for a good time :-) .
 
 */
+
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindRoutineCreators } from 'redux-saga-routines';
+const routines = { /* playbackToggle */ };
+
+const mapStateToProps = state => state;
+const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
+
+class RecordPlayer extends Component {
+  constructor(props) { super(props) }
+
+  playbackToggle = () => {
+    // this.props.playbackToggle();
+  }
+
+  render() {
+    return (
+      <div className="record-player-container">
+        Record Player
+        {/* <PlayPauseBtn onClick={this.playbackToggle}/> */}
+        {/* <RewindSongBtn /> */}
+      </div>
+    )
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecordPlayer);

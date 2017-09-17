@@ -10,3 +10,4 @@ export const search = createRoutine('SEARCH');
 export const artistFocus = createRoutine('ARTIST_FOCUS');
 export const albumFocus = createRoutine('ALBUM_FOCUS');
 export const albumHover = createRoutine('ALBUM_HOVER');
+export const startAlbum = createRoutine('START_ALBUM');

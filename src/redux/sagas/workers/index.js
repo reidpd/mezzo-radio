@@ -4,14 +4,38 @@ This is where redux saga worker generator functions live.
 
 */
 
+import { delay } from 'redux-saga';
 import { put, all, call } from 'redux-saga/effects';
-import { search, artistFocus, albumFocus, albumHover } from '../../routines'; // importing our routines
+import { search, artistFocus, albumFocus, albumHover, startAlbum } from '../../routines'; // importing our routines
 import SpotifyPromisesClass from '../../../spotify';
 const spotifyPromises = new SpotifyPromisesClass;
 
+export function* startAlbumSaga(action) {
+  const context_uri = action.payload;
+  try {
+    yield put(startAlbum.request());
+    const promiseMethod = spotifyPromises.startAlbum;
+    const response = yield call(promiseMethod, context_uri);
+    yield put(startAlbum.success(response));
+  } catch (error) {
+    yield put(startAlbum.failure(error.message))
+  }
+}
+
+export function* albumFocusSaga(action) {
+  try { yield put(albumFocus.success(action.payload)) }
+  catch (error) { yield put(albumHover.failure(error.message)) }
+}
+
 export function* albumHoverSaga(action) {
   const albumData = action.payload;
-  try { yield put(albumHover.success(albumData)) }
+  const images = action.payload.images
+  try {
+    // if (images[0].url.length === 0) {
+    //   yield delay(1500);
+    // }
+    yield put(albumHover.success(albumData))
+  }
   catch (error) { yield put(albumHover.failure(error.message)) }
 }
 

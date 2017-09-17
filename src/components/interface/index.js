@@ -64,35 +64,39 @@ class Interface extends Component {
 
   }
 
-  search = () => spotifyPromises.search('alt-J');
+  // search = () => spotifyPromises.search('alt-J');
+  //
+  // searchArtists = () => {
+  //   spotify.searchArtists('fleet')
+  //     .then(data => {
+  //       console.log('results for spotify.searchArtists(fleet): ', data)
+  //     }, err => { console.log('Something went wrong! Your error message is: ', err) })
+  // }
+  //
+  // searchAlbums = () => {
+  //   spotify.searchAlbums('brown')
+  //     .then(data => {
+  //       console.log('results for spotify.searchAlbums(brown): ', data)
+  //     }, err => { console.log('Something went wrong! Your error message is: ', err) });
+  // }
+  //
+  // getArtistRelatedArtists = () => {
+  //   spotify.getArtistRelatedArtists('4EVpmkEwrLYEg6jIsiPMIb')
+  //     .then(data => {
+  //       console.log('results for spotify.getArtistRelatedArtists(${alt-J id}): ', data.body);
+  //     }, err => { console.log('Something went wrong! Your error message is: ', err) });
+  // }
+  //
+  // getArtistAlbums = () => {
+  //   spotify.getArtistAlbums('4MXUO7sVCaFgFjoTI5ox5c')
+  //     .then(data => data.body.items.map(item => item.id), err => console.log(err))
+  //     .then(ids => {
+  //       spotify.getAlbums(ids).then(data => console.log(data), err => console.log(err));
+  //     }, err => console.log(err));
+  // }
 
-  searchArtists = () => {
-    spotify.searchArtists('fleet')
-      .then(data => {
-        console.log('results for spotify.searchArtists(fleet): ', data)
-      }, err => { console.log('Something went wrong! Your error message is: ', err) })
-  }
-
-  searchAlbums = () => {
-    spotify.searchAlbums('brown')
-      .then(data => {
-        console.log('results for spotify.searchAlbums(brown): ', data)
-      }, err => { console.log('Something went wrong! Your error message is: ', err) });
-  }
-
-  getArtistRelatedArtists = () => {
-    spotify.getArtistRelatedArtists('4EVpmkEwrLYEg6jIsiPMIb')
-      .then(data => {
-        console.log('results for spotify.getArtistRelatedArtists(${alt-J id}): ', data.body);
-      }, err => { console.log('Something went wrong! Your error message is: ', err) });
-  }
-
-  getArtistAlbums = () => {
-    spotify.getArtistAlbums('4MXUO7sVCaFgFjoTI5ox5c')
-      .then(data => data.body.items.map(item => item.id), err => console.log(err))
-      .then(ids => {
-        spotify.getAlbums(ids).then(data => console.log(data), err => console.log(err));
-      }, err => console.log(err));
+  getMyCurrentPlaybackState = () => {
+    spotifyPromises.getPlaybackState();
   }
 
   render() {
@@ -108,6 +112,7 @@ class Interface extends Component {
         <button onClick={this.searchAlbums}>searchAlbums</button>
         <button onClick={this.getArtistRelatedArtists}>getArtistRelatedArtists</button>
         <button onClick={this.getArtistAlbums}>getArtistAlbums</button>
+        <button onClick={this.getMyCurrentPlaybackState}>getMyCurrentPlaybackState</button>
       </div>
     )
   }

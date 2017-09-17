@@ -42,6 +42,27 @@ export default class SpotifyPromisesClass {
   // getAlbumTracks = (albumId) => {
   //   this.spotify.getAlbumTracks(albumId).then(data => data, err => err);
   // }
+
+  getPlaybackState = () => {
+    this.spotify.getMyCurrentPlaybackState().then(response => console.log(response), err => console.log(err));
+  }
+
+  startAlbum = (context_uri) => {
+    return this.spotify.play({context_uri}).then(response => response, err => console.log(err));
+  }
+
+  playbackToggle = () => {
+    this.spotify.getMyCurrentPlaybackState()
+      .then(response => {
+        if (response.body.is_playing) {
+          this.spotify.pause()
+          .then(response => console.log(response), err => console.log(err));
+        } else {
+          this.spotify.play()
+          .then(response => console.log(response), err => console.log(err));
+        }
+      }, err => console.log(err))
+  }
 }
 
 // search = () => {

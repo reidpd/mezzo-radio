@@ -21,11 +21,12 @@ import {
   SET_FOCUS_ALBUM,
   SET_FOCUS_ARTIST,
 } from '../actions';
-import { search, artistFocus, albumFocus, albumHover } from '../routines';
+import { search, artistFocus, albumFocus, albumHover, startAlbum } from '../routines';
 
 export const nowPlayingReducer = (state = initialState.now_playing, action) => {
   switch (action.type) {
-    case 'SONG_START':
+    case startAlbum.SUCCESS:
+      console.log(action.payload);
       return action.payload;
     case 'SONG_END':
       return initialState.now_playing;
@@ -45,7 +46,8 @@ export const albumHoverReducer = (state = initialState.albumHover, action) => {
 
 export const albumFocusReducer = (state = initialState.albumFocus, action) => {
   switch (action.type) {
-    // case
+    case albumFocus.SUCCESS:
+      return action.payload;
     default:
       return state;
   }
@@ -54,8 +56,8 @@ export const albumFocusReducer = (state = initialState.albumFocus, action) => {
 export const albumsReducer = (state = initialState.albums, action) => {
   // console.log(action);
   switch (action.type) {
-    case search.TRIGGER:
-      return initialState.albums;
+    // case search.TRIGGER:
+    //   return initialState.albums;
     case search.SUCCESS:
       return action.payload.body.albums;
     case search.FAILURE:
