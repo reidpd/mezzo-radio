@@ -21,7 +21,7 @@ import {
   SET_FOCUS_ALBUM,
   SET_FOCUS_ARTIST,
 } from '../actions';
-import { search, artistFocus, albumFocus } from '../routines';
+import { search, artistFocus, albumFocus, albumHover } from '../routines';
 
 export const nowPlayingReducer = (state = initialState.now_playing, action) => {
   switch (action.type) {
@@ -33,6 +33,15 @@ export const nowPlayingReducer = (state = initialState.now_playing, action) => {
       return state;
   }
 };
+
+export const albumHoverReducer = (state = initialState.albumHover, action) => {
+  switch (action.type) {
+    case albumHover.SUCCESS:
+      return action.payload;
+    default:
+      return state;
+  }
+}
 
 export const albumFocusReducer = (state = initialState.albumFocus, action) => {
   switch (action.type) {
@@ -125,6 +134,7 @@ export const tokensReducer = (state = initialState.tokens, action) => {
 const appReducer = combineReducers({
   form: reduxFormReducer,
   nowPlayingReducer,
+  albumHoverReducer,
   albumFocusReducer,
   albumsReducer,
   artistFocusReducer,

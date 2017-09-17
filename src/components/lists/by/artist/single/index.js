@@ -1,3 +1,10 @@
+/*
+
+This is where the model component lives for individual Artists.
+Collections of these create ArtistLists.
+
+*/
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindRoutineCreators } from 'redux-saga-routines';

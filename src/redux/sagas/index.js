@@ -14,9 +14,22 @@ allowing the code to be easily tested in the future.
 import { delay } from 'redux-saga';
 import { put, takeEvery, all, call } from 'redux-saga/effects';
 import { SubmissionError } from 'redux-form';
-import { search, artistFocus, albumFocus } from '../routines'; // importing our routines
+import { search, artistFocus, albumFocus, albumHover } from '../routines'; // importing our routines
+import { setHoverAlbum, setFocusAlbum } from '../actions';
 import SpotifyPromisesClass from '../../spotify';
 const spotifyPromises = new SpotifyPromisesClass;
+
+function* albumHoverWatcherSaga() {
+  yield takeEvery(albumHover.TRIGGER, albumHoverSaga);
+}
+
+function* albumHoverSaga(action) {
+  const albumData = action.payload;
+
+  try {
+    yield put(albumHover.success(albumData));
+  } catch (error) { yield put(albumHover.failure(error.message)); }
+}
 
 function* artistFocusWatcherSaga() {
   yield takeEvery(artistFocus.TRIGGER, artistFocusSaga);
@@ -36,9 +49,7 @@ function* artistFocusSaga(action) {
       call(promiseMethodTwo, artistId) // albums
     ]);
     yield put(artistFocus.success({ relatedArtists, albums, focusArtistData }));
-  } catch (error) {
-    yield put(artistFocus.failure(error.message))
-  }
+  } catch (error) { yield put(artistFocus.failure(error.message)) }
 }
 
 function* searchWatcherSaga() {
@@ -73,5 +84,6 @@ export default function* rootSaga() {
   yield all([
     searchWatcherSaga(),
     artistFocusWatcherSaga(),
+    albumHoverWatcherSaga(),
   ])
 }

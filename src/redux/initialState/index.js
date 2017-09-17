@@ -10,6 +10,7 @@ export default {
   artists: [],
   artistFocus: null,
   albumFocus: null,
+  albumHover: null,
   tokens: null,
   user: null,
 };
