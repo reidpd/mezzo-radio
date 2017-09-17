@@ -18,12 +18,10 @@ const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
 
 class Album extends Component {
-  constructor(props) {
-    super(props);
-  }
+  constructor(props) { super(props) }
 
   handleClick = (data) => {
-    if (data) { console.log(data) }
+    if (data) { this.props.albumFocus(data) }
   }
 
   handleMouseOver = (data) => {

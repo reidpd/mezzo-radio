@@ -6,7 +6,7 @@ import formActionSaga from 'redux-form-saga';
 import { routinesWatcherSaga } from 'redux-saga-routines';
 
 import rootReducer from '../reducers';
-import rootSaga from '../sagas';
+import rootSaga from '../sagas/watchers';
 // import promiseMiddleware from 'redux-promise-middleware';
 // import thunkMiddleware from 'redux-thunk';
 
