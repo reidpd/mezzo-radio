@@ -8,25 +8,21 @@ This component is responsible for housing dynamic search results for albums ente
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import {} from '../../../../redux/actions';
-
 import AlbumList from '../../../lists/by/album/plural';
+import { bindRoutineCreators } from 'redux-saga-routines';
+import { albumHover } from '../../../../redux/routines';
+const routines = { albumHover };
 
-const mapStateToProps = (state) => {
-  return {
-    albums: state.albumsReducer,
-  };
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({}, dispatch);
-}
+const mapStateToProps = state => {  return { albums: state.albumsReducer }  };
+const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
 
 class AlbumsPresentational extends Component {
+
+  handleMouseLeave = input => this.props.albumHover(input);
+
   render() {
     return (
-      <div className="artists-presentational">
+      <div className="artists-presentational" onMouseLeave={() => { this.handleMouseLeave({ images: [{ url: '' }] }) }}>
         <AlbumList data={this.props.albums} />
       </div>
     )

@@ -34,7 +34,7 @@ class Album extends Component {
           onClick={ () => this.handleClick(this.props.data) }
           onDoubleClick={ () => this.handleDoubleClick(this.props.data.uri) }
           onMouseEnter={ () => this.handleMouseHover(this.props.data) }
-          onMouseLeave={ () => this.handleMouseHover({ images: [{ url: '' }] }) }>
+          /* onMouseLeave={ () => this.handleMouseHover({ images: [{ url: '' }] }) } */ >
           Album: {this.props.data.name}
         </a>
       </div>
