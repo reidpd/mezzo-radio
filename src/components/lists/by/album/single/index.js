@@ -6,6 +6,7 @@ Collections of these create AlbumLists.
 */
 
 import React, { Component } from 'react';
+import './main.css';
 import { connect } from 'react-redux';
 // import { bindActionCreators } from 'redux';
 // import { setHoverAlbum, setFocusAlbum } from '../../../../../redux/actions';
@@ -29,6 +30,7 @@ class Album extends Component {
     return (
       <div>
         <a
+          className="single-album-anchor"
           onClick={ () => this.handleClick(this.props.data) }
           onDoubleClick={ () => this.handleDoubleClick(this.props.data.uri) }
           onMouseEnter={ () => this.handleMouseHover(this.props.data) }

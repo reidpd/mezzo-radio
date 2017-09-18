@@ -106,13 +106,13 @@ class Interface extends Component {
         {/* <RecordStack /> */}
         <Crate />
         <SearchBar form='simple' />
-        <RecordPlayer />
-        <button onClick={this.search}>Search</button>
+        {/* <RecordPlayer /> */}
+        {/* <button onClick={this.search}>Search</button>
         <button onClick={this.searchArtists}>searchArtists</button>
         <button onClick={this.searchAlbums}>searchAlbums</button>
         <button onClick={this.getArtistRelatedArtists}>getArtistRelatedArtists</button>
         <button onClick={this.getArtistAlbums}>getArtistAlbums</button>
-        <button onClick={this.getMyCurrentPlaybackState}>getMyCurrentPlaybackState</button>
+        <button onClick={this.getMyCurrentPlaybackState}>getMyCurrentPlaybackState</button> */}
       </div>
     )
   }

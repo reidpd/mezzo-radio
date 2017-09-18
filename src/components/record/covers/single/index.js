@@ -38,7 +38,7 @@ import React, { Component } from 'react';
 const RecordCover = (props) => {
   return (
     <div>
-      <img src={props.imgSrc} alt="a pretty picture" />
+      <img src={props.imgSrc} alt="" />
     </div>
   )
 }

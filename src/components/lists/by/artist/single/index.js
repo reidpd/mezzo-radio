@@ -11,6 +11,7 @@ import { bindRoutineCreators } from 'redux-saga-routines';
 // import { bindActionCreators } from 'redux';
 import { artistFocus } from '../../../../../redux/routines';
 // import { setFocusArtist } from '../../../../../redux/actions';
+import './main.css';
 
 const mapStateToProps = state => state;
 
@@ -35,8 +36,8 @@ class Artist extends Component {
 
   render() {
     return (
-      <div>
-        <a onClick={() => { this.handleClick(this.artistId, this.props.data) }}>
+      <div className="single-artist-container">
+        <a className="single-artist-anchor" onClick={() => { this.handleClick(this.artistId, this.props.data) }}>
           Name: {this.props.data.name}
         </a>
       </div>

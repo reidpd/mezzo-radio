@@ -12,6 +12,7 @@ entered in the 'interface/search_bar'.
 */
 
 import React from 'react';
+import './main.css';
 import ArtistsPresentational from './panels/front';
 import AlbumsPresentational from './panels/left';
 import RecordCoverPresentational from './panels/top';
@@ -20,14 +21,20 @@ import RecordCoverPresentational from './panels/top';
 const Crate = ({}) => (
   <div className="crate-container">
     <div className="crate-panels-container">
-      <div className="crate-panel-top-container">
-        <RecordCoverPresentational />
+      <div className="crate-panels-top-half">
+        <div className="crate-panel-top-container">
+          <div className="top-panel-content">
+            <RecordCoverPresentational />
+          </div>
+        </div>
       </div>
-      <div className="crate-panel-left-container">
-        <AlbumsPresentational />
-      </div>
-      <div className="crate-panel-front-container">
-        <ArtistsPresentational />
+      <div className="crate-panels-bottom-half">
+        <div className="crate-panel-left-container">
+          <AlbumsPresentational />
+        </div>
+        <div className="crate-panel-front-container">
+          <ArtistsPresentational />
+        </div>
       </div>
     </div>
   </div>

@@ -9,8 +9,8 @@ export default {
   albums: { items: [] },
   artists: [],
   artistFocus: null,
-  albumFocus: { images: [{ url: "http://i.imgur.com/nszu54A.jpg" }] },
-  albumHover: { images: [{ url: "http://i.imgur.com/nszu54A.jpg" }] },
+  albumFocus: { images: [{ url: "" }] },
+  albumHover: { images: [{ url: "" }] },
   tokens: null,
   user: null,
 };
