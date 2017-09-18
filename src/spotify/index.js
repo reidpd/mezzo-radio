@@ -55,13 +55,17 @@ export default class SpotifyPromisesClass {
     this.spotify.getMyCurrentPlaybackState()
       .then(response => {
         if (response.body.is_playing) {
-          this.spotify.pause()
-          .then(response => console.log(response), err => console.log(err));
+          return this.spotify.pause()
+          .then(response => response, err => console.log(err));
         } else {
-          this.spotify.play()
-          .then(response => console.log(response), err => console.log(err));
+          return this.spotify.play()
+          .then(response => response, err => console.log(err));
         }
       }, err => console.log(err))
+  }
+
+  skipToPrevious = () => {
+    return this.spotify.skipToPrevious().then(res => res, err => err);
   }
 }
 

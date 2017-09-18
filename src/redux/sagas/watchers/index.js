@@ -13,18 +13,15 @@ allowing the code to be easily tested in the future.
 */
 
 import { takeEvery, all } from 'redux-saga/effects';
-import { search, artistFocus, albumFocus, albumHover, startAlbum } from '../../routines';
+import { search, artistFocus, albumFocus, albumHover, startAlbum, /* playbackToggle */ } from '../../routines';
 import {} from '../../actions';
-import { searchSaga, artistFocusSaga, albumHoverSaga, albumFocusSaga, startAlbumSaga } from '../workers';
+import { searchSaga, artistFocusSaga, albumHoverSaga, albumFocusSaga, startAlbumSaga, /* playbackToggleSaga */ } from '../workers';
 
+// function* playbackToggleWatcherSaga() { yield takeEvery(playbackToggle.TRIGGER, playbackToggleSaga) }
 function* startAlbumWatcherSaga() { yield takeEvery(startAlbum.TRIGGER, startAlbumSaga) }
-
 function* albumHoverWatcherSaga() { yield takeEvery(albumHover.TRIGGER, albumHoverSaga) }
-
 function* albumFocusWatcherSaga() { yield takeEvery(albumFocus.TRIGGER, albumFocusSaga) }
-
 function* artistFocusWatcherSaga() { yield takeEvery(artistFocus.TRIGGER, artistFocusSaga) }
-
 function* searchWatcherSaga() { yield takeEvery(search.TRIGGER, searchSaga) }
 
 export default function* rootSaga() {
@@ -34,5 +31,6 @@ export default function* rootSaga() {
     albumHoverWatcherSaga(),
     albumFocusWatcherSaga(),
     startAlbumWatcherSaga(),
+    // playbackToggleWatcherSaga(),
   ])
 }

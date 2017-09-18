@@ -7,3 +7,15 @@ WHEN the button clicked,
     will either play or pause, depending on what the previous playback state of the user's device.
 
 */
+
+import React, { Component } from 'react';
+import SpotifyPromisesClass from '../../../../../spotify';
+const spotifyPromises = new SpotifyPromisesClass;
+
+const PlayPauseBtn = props => {
+  return (
+    <button onClick={spotifyPromises.playbackToggle}>playbackToggle</button>
+  )
+}
+
+export default PlayPauseBtn;

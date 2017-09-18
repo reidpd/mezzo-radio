@@ -7,3 +7,15 @@ from the selected 'record/disk' on the 'record/player/platter'.
 Its future existence is still TBD.
 
 */
+
+import React from 'react';
+import SpotifyPromisesClass from '../../../../../spotify';
+const spotifyPromises = new SpotifyPromisesClass;
+
+const RewindSongBtn = props => {
+  return (
+    <button onClick={spotifyPromises.skipToPrevious}>skipBack</button>
+  )
+}
+
+export default RewindSongBtn;

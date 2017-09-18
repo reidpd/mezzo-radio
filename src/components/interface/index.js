@@ -21,7 +21,7 @@ import { connect } from 'react-redux';
 import SearchBar from '../search_bar';
 import Crate from '../crate';
 // import RecordStack from "../record/stack";
-// import RecordPlayer from '../record/player';
+import RecordPlayer from '../record/player';
 
 
 // Redux Actions
@@ -64,7 +64,7 @@ class Interface extends Component {
 
   }
 
-  // search = () => spotifyPromises.search('alt-J');
+  search = () => spotifyPromises.playbackToggle();
   //
   // searchArtists = () => {
   //   spotify.searchArtists('fleet')
@@ -106,7 +106,7 @@ class Interface extends Component {
         {/* <RecordStack /> */}
         <Crate />
         <SearchBar form='simple' />
-        {/* <RecordPlayer /> */}
+        <RecordPlayer />
         <button onClick={this.search}>Search</button>
         <button onClick={this.searchArtists}>searchArtists</button>
         <button onClick={this.searchAlbums}>searchAlbums</button>
