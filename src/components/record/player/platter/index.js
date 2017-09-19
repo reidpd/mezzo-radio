@@ -12,3 +12,20 @@ WHEN a 'record/covers/single' has been clicked
 Similar tests will be written at a later date.
 
 */
+
+import './main.css';
+import React, { Component } from 'react';
+
+class Platter extends Component {
+  constructor(props) { super(props) }
+
+  render() {
+    return (
+      <div className="record-platter">
+        <div className="center-num">.</div>
+      </div>
+    )
+  }
+}
+
+export default Platter;

@@ -24,6 +24,7 @@ that are
 */
 
 import React, { Component } from 'react';
+import './main.css';
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
@@ -42,7 +43,7 @@ class SearchBar extends Component {
     // to handleSubmit as it stated in redux-form documentation
     // and bind our submit handler to onSubmit action:
     return (
-      <form onSubmit={this.props.handleSubmit(search)}>
+      <form className="search-bar-form" onSubmit={this.props.handleSubmit(search)}>
         <Field component="input" name="searchTerm" type="text" placeholder="Artist Search" />
         <button type="submit">FIND</button>
       </form>

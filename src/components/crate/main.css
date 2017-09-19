@@ -3,7 +3,8 @@ CSS File for 'components/crate'
 */
 
 .crate-container {
-  display: block;
+  display: inline-block;
+  float: left;
   margin: auto;
   margin-bottom: 10px;
 }

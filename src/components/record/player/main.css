@@ -1,0 +1,26 @@
+.record-player-square {
+  display: inline-block;
+  float: right;
+  border: 3px solid black;
+  border-radius: 3px;
+  width: 350px;
+  height: 350px;
+  background-color: #E5E4E2;
+  margin-bottom: 10px;
+}
+
+.platter-side {
+  display: inline-block;
+  width: 90%;
+}
+
+.needle-side {
+  width: 10%;
+  height: 100%;
+  border: 1px solid blue;
+  float: right;
+}
+
+.record-player-controls-container {
+  clear: right;
+}
