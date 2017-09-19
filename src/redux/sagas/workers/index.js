@@ -67,7 +67,7 @@ export function* artistFocusSaga(action) {
 
 export function* searchSaga(action) {
   const searchTerm = action.payload.searchTerm;
-  console.log(searchTerm)
+  // console.log(searchTerm)
 
   try {
     // trigger request action

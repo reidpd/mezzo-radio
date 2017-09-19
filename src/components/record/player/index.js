@@ -13,12 +13,12 @@ It primarily renders the container div styled after the player of choice (tbd), 
 import './main.css';
 import React, { Component } from 'react';
 import Platter from './platter';
+// import Needle from './needle';
 import { connect } from 'react-redux';
 import Controls from './controls';
 import { bindRoutineCreators } from 'redux-saga-routines';
 const routines = { /* playbackToggle */ };
 
-// import Needle from './needle';
 
 const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
@@ -37,9 +37,10 @@ class RecordPlayer extends Component {
           <div className="platter-side">
             <Platter />
           </div>
-          <div className="needle-side"></div>
+          <div className="needle-side">
+            {/* <Needle /> */}
+          </div>
         </div>
-        {/* <Needle /> */}
         <div className="record-player-controls-container">
           <Controls />
         </div>

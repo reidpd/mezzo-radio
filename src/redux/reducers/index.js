@@ -26,7 +26,6 @@ import { search, artistFocus, albumFocus, albumHover, startAlbum } from '../rout
 export const nowPlayingReducer = (state = initialState.now_playing, action) => {
   switch (action.type) {
     case startAlbum.SUCCESS:
-      console.log(action.payload);
       return action.payload;
     case 'SONG_END':
       return initialState.now_playing;
@@ -104,7 +103,6 @@ export const artistsReducer = (state = initialState.artists, action) => {
     case artistFocus.TRIGGER:
       return state;
     case artistFocus.SUCCESS:
-      console.log(action.payload.relatedArtists.body.artists);
       return action.payload.relatedArtists.body.artists;
     case SET_ARTISTS:
       return action.payload;

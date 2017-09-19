@@ -38,7 +38,6 @@ class ArtistsPresentational extends Component {
     // }
 
     render() {
-        console.log('artistsReducer === ', this.props.artists);
         if (this.props.artistFocus === null) {
           return (
               <div className="class-name">

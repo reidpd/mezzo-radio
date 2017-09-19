@@ -30,18 +30,14 @@ class RecordCoverPresentational extends Component {
     super(props);
     const hoverImages = this.props.albumHover.images;
     const focusImages = this.props.albumFocus.images;
-    this.img = !hoverImages ? this.imageFilter(focusImages) : this.imageFilter(hoverImages);
-    this.images = [focusImages, hoverImages];
   }
 
   imageFilter = (array) => {
     const correctImage = array.filter(item => item.height === 300);
-    console.log(correctImage);
     return correctImage.length > 0 ? correctImage[0].url: array[0].url;
   }
 
   render() {
-    console.log('this.images === ', this.img);
     return (
       <div className="record-cover-presentational-container">
         <RecordCover imgSrc={(this.imageFilter(this.props.albumHover.images)) || (this.imageFilter(this.props.albumFocus.images))} />

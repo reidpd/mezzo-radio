@@ -12,7 +12,9 @@ import RewindSongBtn from './rewind_song';
 import { /*  playbackToggle  */ } from '../../../../redux/routines';
 const routines = { /* playbackToggle */ };
 
-const mapStateToProps = state => { state };
+const mapStateToProps = state => {
+  return { state };
+};
 const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
 
 class Controls extends Component {

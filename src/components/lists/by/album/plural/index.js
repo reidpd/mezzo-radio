@@ -8,7 +8,6 @@ import React, { Component } from 'react';
 import Album from '../single';
 
 const AlbumList = (props) => {
-  console.log(props);
   return (
     <div>
       { props.data.items.map(item => <Album data={item} />) }
