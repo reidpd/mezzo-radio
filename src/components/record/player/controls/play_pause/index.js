@@ -10,11 +10,20 @@ WHEN the button clicked,
 
 import React, { Component } from 'react';
 import SpotifyPromisesClass from '../../../../../spotify';
+import { recordSpinToggle } from '../../../../../redux/routines';
+import store from '../../../../../redux/store';
 const spotifyPromises = new SpotifyPromisesClass;
+const { getState, dispatch } = store;
 
 const PlayPauseBtn = props => {
+  this.handleClick = () => {
+    spotifyPromises.playbackToggle;
+    const playbackStatus = getState().recordSpinReducer;
+    dispatch(recordSpinToggle.trigger(!playbackStatus));
+  }
+
   return (
-    <button onClick={spotifyPromises.playbackToggle}>playbackToggle</button>
+    <button onClick={this.handleClick}>playbackToggle</button>
   )
 }
 

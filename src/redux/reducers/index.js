@@ -21,10 +21,21 @@ import {
   SET_FOCUS_ALBUM,
   SET_FOCUS_ARTIST,
 } from '../actions';
-import { search, artistFocus, albumFocus, albumHover, startAlbum } from '../routines';
+import { setUserInfo, recordSpinToggle, search, artistFocus, albumFocus, albumHover, startAlbum } from '../routines';
+
+export const recordSpinReducer = (state = false, action) => {
+  switch (action.type) {
+    case recordSpinToggle.SUCCESS:
+      return action.payload;
+    default:
+      return state;
+  }
+}
 
 export const nowPlayingReducer = (state = initialState.now_playing, action) => {
   switch (action.type) {
+    case setUserInfo.SUCCESS:
+      return action.payload;
     case startAlbum.SUCCESS:
       return action.payload;
     case 'SONG_END':
@@ -46,7 +57,6 @@ export const albumHoverReducer = (state = initialState.albumHover, action) => {
 export const albumFocusReducer = (state = initialState.albumFocus, action) => {
   switch (action.type) {
     case albumFocus.SUCCESS:
-      console.log('albumFocusReducer === ', action.payload);
       return action.payload;
     default:
       return state;
@@ -114,7 +124,7 @@ export const artistsReducer = (state = initialState.artists, action) => {
 
 export const userReducer = (state = initialState.user, action) => {
   switch (action.type) {
-    case SET_USER_INFO:
+    case setUserInfo.SUCCESS:
       return action.payload;
     default:
       return state;
@@ -135,6 +145,7 @@ export const tokensReducer = (state = initialState.tokens, action) => {
 const appReducer = combineReducers({
   form: reduxFormReducer,
   nowPlayingReducer,
+  recordSpinReducer,
   albumHoverReducer,
   albumFocusReducer,
   albumsReducer,

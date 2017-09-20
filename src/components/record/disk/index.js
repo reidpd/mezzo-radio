@@ -28,3 +28,29 @@ When an 'album/single' is clicked on
 
 
 */
+
+import './main.css';
+import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import { bindRoutineCreators } from 'redux-saga-routines';
+import {} from '../../../redux/routines';
+
+const mapStateToProps = state => {
+  return { isPlaying: state.recordSpinReducer }
+};
+
+const routines = {};
+const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
+
+
+class RecordDisk extends Component {
+  render() {
+    if (this.props.isPlaying) {
+      return ( <div className="record-disk-spinning"></div> )
+    } else {
+      return ( <div className="record-disk"></div> )
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecordDisk);

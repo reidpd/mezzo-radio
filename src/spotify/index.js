@@ -13,11 +13,18 @@ within the redux-saga architecture of the app as its 'clientApi',
 within try/catch blocks of generators within 'redux/saga/index.js'.
 
 */
-
+// import {recordSpinToggle} from '../redux/routines';
+// import store from '../redux/store';
+/* Importing the store yields this error: "TypeError: __WEBPACK_IMPORTED_MODULE_4__spotify__.a is not a constructor", must investigate later */
+// const { dispatch, getState } = store;
 const spotify = require('../config/spotifyWebApi.js');
 
 export default class SpotifyPromisesClass {
   constructor() { this.spotify = spotify; }
+
+  getMe = () => {
+    return this.spotify.getMe().then(response => response, error => error);
+  }
 
   search = (query) => {
     return this.spotify.search(query, ['album', 'artist']).then(data => data, err => err);
@@ -54,6 +61,7 @@ export default class SpotifyPromisesClass {
   playbackToggle = () => {
     this.spotify.getMyCurrentPlaybackState()
       .then(response => {
+        // store.dispatch(recordSpinToggle(!response.body.is_playing));
         if (response.body.is_playing) {
           return this.spotify.pause()
           .then(response => response, err => console.log(err));
@@ -67,32 +75,8 @@ export default class SpotifyPromisesClass {
   skipToPrevious = () => {
     return this.spotify.skipToPrevious().then(res => res, err => err);
   }
-}
 
-// search = () => {
-//   spotify.search('alt', ['album', 'artist', 'track'])
-//     .then(data => {
-//       console.log('results for spotify.search(alt): ', data)
-//     }, err => { console.log('Something went wrong! Your error message is: ', err) });
-// }
-//
-// searchArtists = () => {
-//   spotify.searchArtists('fleet')
-//     .then(data => {
-//       console.log('results for spotify.searchArtists(fleet): ', data)
-//     }, err => { console.log('Something went wrong! Your error message is: ', err) })
-// }
-//
-// searchAlbums = () => {
-//   spotify.searchAlbums('brown')
-//     .then(data => {
-//       console.log('results for spotify.searchAlbums(brown): ', data)
-//     }, err => { console.log('Something went wrong! Your error message is: ', err) });
-// }
-//
-// getArtistRelatedArtists = () => {
-//   spotify.getArtistRelatedArtists('4EVpmkEwrLYEg6jIsiPMIb')
-//     .then(data => {
-//       console.log('results for spotify.getArtistRelatedArtists(${alt-J id}): ', data.body);
-//     }, err => { console.log('Something went wrong! Your error message is: ', err) });
-// }
+  skipToNext =() => {
+    return this.spotify.skipToNext().then(res => res, err => err);
+  }
+}

@@ -12,7 +12,7 @@ import rootSaga from '../sagas/watchers';
 
 const sagaMiddleware = createSagaMiddleware();
 
-export default createStore(
+const store = createStore(
   rootReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   applyMiddleware(sagaMiddleware),
@@ -21,6 +21,8 @@ export default createStore(
 const sagas = [rootSaga, formActionSaga, routinesWatcherSaga];
 
 sagas.forEach(saga => sagaMiddleware.run(saga));
+
+export default store;
 
 // export default createStore(
 //   rootReducer,

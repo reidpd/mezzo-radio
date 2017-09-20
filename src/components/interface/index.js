@@ -26,8 +26,8 @@ import RecordPlayer from '../record/player';
 
 
 // Redux
-import { setTokens, setUserInfo } from '../../redux/actions';
-import { albumFocus } from '../../redux/routines';
+import { setTokens } from '../../redux/actions';
+import { albumFocus, setUserInfo, recordSpinToggle } from '../../redux/routines';
 
 // Spotify Connections
 import SpotifyPromisesClass from '../../spotify';
@@ -42,7 +42,7 @@ const mapStateToProps = (state) => {
 };
 
 const actions = { setTokens, setUserInfo };
-const routines = { albumFocus };
+const routines = { albumFocus, setUserInfo, recordSpinToggle };
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(actions, dispatch),
@@ -61,18 +61,20 @@ class Interface extends Component {
       // Set the access token on the API object to use it in later calls
       spotify.setAccessToken(obj.access_token);
       spotify.setRefreshToken(obj.refresh_token);
+      // must restore this line: add to bug list
+      spotify.getMe().then(response => this.props.routines.setUserInfo(response.body), error => console.log(error) );
       this.props.actions.setTokens(obj);
 
       spotify.getMyCurrentPlaybackState()
         .then(response => {
+          console.log(response.body);
+          this.props.routines.recordSpinToggle(response.body.is_playing);
           if (response.body.is_playing) {
             this.props.routines.albumFocus(response.body.item.album);
           }
         }, err => console.log(err))
       // use the access token to access the Spotify Web API
-      // must restore this line: add to bug list
-      // spotify.getMe().then(({ body }) => this.props.setUserInfo(body) );
-      spotifyPromises = new SpotifyPromisesClass;
+      spotifyPromises = new SpotifyPromisesClass();
 
     }
 

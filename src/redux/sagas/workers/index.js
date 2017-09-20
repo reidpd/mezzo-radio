@@ -6,7 +6,7 @@ This is where redux saga worker generator functions live.
 
 import { delay } from 'redux-saga';
 import { put, all, call } from 'redux-saga/effects';
-import { search, artistFocus, albumFocus, albumHover, startAlbum,
+import { search, artistFocus, albumFocus, albumHover, startAlbum, setUserInfo, recordSpinToggle
 /* playbackToggle */ } from '../../routines'; // importing our routines
 import SpotifyPromisesClass from '../../../spotify';
 const spotifyPromises = new SpotifyPromisesClass;
@@ -48,6 +48,11 @@ export function* albumHoverSaga(action) {
   catch (error) { yield put(albumHover.failure(error)) }
 }
 
+export function* recordSpinSaga(action) {
+  try { yield put(recordSpinToggle.success(action.payload)) }
+  catch (error) { yield put(recordSpinToggle.failure(error)) }
+}
+
 export function* artistFocusSaga(action) {
   const artistId = action.payload.artistId;
   const focusArtistData = action.payload.data;
@@ -84,6 +89,12 @@ export function* searchSaga(action) {
   //   // trigger fulfill action
   //   yield put(search.fulfill());
   }
+}
+
+export function* setUserInfoSaga(action) {
+  console.log(action.payload)
+  try { yield put(setUserInfo.success(action.payload)) }
+  catch (error) { yield put(setUserInfo.failure(error)) }
 }
 
 export function* apiFailureSaga(action) {

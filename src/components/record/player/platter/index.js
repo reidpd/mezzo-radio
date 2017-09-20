@@ -15,6 +15,7 @@ Similar tests will be written at a later date.
 
 import './main.css';
 import React, { Component } from 'react';
+import RecordDisk from '../../disk';
 
 class Platter extends Component {
   constructor(props) { super(props) }
@@ -22,7 +23,8 @@ class Platter extends Component {
   render() {
     return (
       <div className="record-platter">
-        <div className="center-num">.</div>
+        {/* <div className="center-num">.</div> */}
+        <RecordDisk />
       </div>
     )
   }
