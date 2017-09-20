@@ -27,13 +27,13 @@ export function* startAlbumSaga(action) {
     const response = yield call(promiseMethod, context_uri);
     yield put(startAlbum.success(response));
   } catch (error) {
-    yield put(startAlbum.failure(error.message))
+    yield put(startAlbum.failure(error))
   }
 }
 
 export function* albumFocusSaga(action) {
   try { yield put(albumFocus.success(action.payload)) }
-  catch (error) { yield put(albumHover.failure(error.message)) }
+  catch (error) { yield put(albumHover.failure(error)) }
 }
 
 export function* albumHoverSaga(action) {
@@ -45,7 +45,7 @@ export function* albumHoverSaga(action) {
     // }
     yield all([ put(albumHover.success(albumData)) ]);
   }
-  catch (error) { yield put(albumHover.failure(error.message)) }
+  catch (error) { yield put(albumHover.failure(error)) }
 }
 
 export function* artistFocusSaga(action) {
@@ -62,7 +62,7 @@ export function* artistFocusSaga(action) {
       call(promiseMethodTwo, artistId) // albums
     ]);
     yield put(artistFocus.success({ relatedArtists, albums, focusArtistData }));
-  } catch (error) { yield put(artistFocus.failure(error.message)) }
+  } catch (error) { yield put(artistFocus.failure(error)) }
 }
 
 export function* searchSaga(action) {
@@ -79,9 +79,14 @@ export function* searchSaga(action) {
     yield put(search.success(response));
   } catch (error) {
     // if request failed
-    yield put(search.failure(error.message));
+    yield put(search.failure(error));
   // } finally { // not sure if 'finally' clause is really necessary: found it in original docs pulled from.
   //   // trigger fulfill action
   //   yield put(search.fulfill());
   }
+}
+
+export function* apiFailureSaga(action) {
+  const error = action.error;
+  console.log('apiFailureSaga reports an error: ', error);
 }

@@ -46,6 +46,7 @@ export const albumHoverReducer = (state = initialState.albumHover, action) => {
 export const albumFocusReducer = (state = initialState.albumFocus, action) => {
   switch (action.type) {
     case albumFocus.SUCCESS:
+      console.log('albumFocusReducer === ', action.payload);
       return action.payload;
     default:
       return state;

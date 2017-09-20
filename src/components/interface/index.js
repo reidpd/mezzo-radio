@@ -15,6 +15,7 @@ The Mezzo-Radio experience contains the following big components:
 // React, Redux Boilerplate
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
+import { bindRoutineCreators } from 'redux-saga-routines';
 import { connect } from 'react-redux';
 
 // Components
@@ -24,8 +25,9 @@ import Crate from '../crate';
 import RecordPlayer from '../record/player';
 
 
-// Redux Actions
+// Redux
 import { setTokens, setUserInfo } from '../../redux/actions';
+import { albumFocus } from '../../redux/routines';
 
 // Spotify Connections
 import SpotifyPromisesClass from '../../spotify';
@@ -40,7 +42,13 @@ const mapStateToProps = (state) => {
 };
 
 const actions = { setTokens, setUserInfo };
-const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch);
+const routines = { albumFocus };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(actions, dispatch),
+    routines: bindRoutineCreators(routines, dispatch)
+  }
+}
 
 class Interface extends Component {
   componentDidMount = () => {
@@ -53,8 +61,14 @@ class Interface extends Component {
       // Set the access token on the API object to use it in later calls
       spotify.setAccessToken(obj.access_token);
       spotify.setRefreshToken(obj.refresh_token);
-      this.props.setTokens(obj);
+      this.props.actions.setTokens(obj);
 
+      spotify.getMyCurrentPlaybackState()
+        .then(response => {
+          if (response.body.is_playing) {
+            this.props.routines.albumFocus(response.body.item.album);
+          }
+        }, err => console.log(err))
       // use the access token to access the Spotify Web API
       // must restore this line: add to bug list
       // spotify.getMe().then(({ body }) => this.props.setUserInfo(body) );
@@ -64,7 +78,7 @@ class Interface extends Component {
 
   }
 
-  search = () => spotifyPromises.playbackToggle();
+  // search = () => spotifyPromises.playbackToggle();
   //
   // searchArtists = () => {
   //   spotify.searchArtists('fleet')
