@@ -43,7 +43,7 @@ export function* albumHoverSaga(action) {
     // if (images[0].url.length === 0) {
     //   yield delay(1500);
     // }
-    yield put(albumHover.success(albumData))
+    yield all([ put(albumHover.success(albumData)) ]);
   }
   catch (error) { yield put(albumHover.failure(error.message)) }
 }

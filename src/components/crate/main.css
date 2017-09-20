@@ -36,7 +36,7 @@ CSS File for 'components/crate'
 	-webkit-transform: skewX(40deg);
 	   -moz-transform: skewX(40deg);
 	     -o-transform: skewX(40deg);
-	background-image: url("https://img.discogs.com/nSFC7EXbZ230iM_UinvbdDvdFAA=/300x300/filters:strip_icc():format(jpeg):quality(40)/discogs-avatars/U-3788435-1473102241.jpeg.jpg");
+	background-image: url("../../images/record_covers.jpg");
   border: 5px solid #555;
   overflow: visible;
 }
