@@ -22,6 +22,10 @@ const spotify = require('../config/spotifyWebApi.js');
 export default class SpotifyPromisesClass {
   constructor() { this.spotify = spotify; }
 
+  handleError = (error) => {
+    console.log("handleError input === ", error);
+  }
+
   getMe = () => {
     return this.spotify.getMe().then(response => response, error => error);
   }
@@ -51,11 +55,19 @@ export default class SpotifyPromisesClass {
   // }
 
   getPlaybackState = () => {
-    this.spotify.getMyCurrentPlaybackState().then(response => console.log(response), err => console.log(err));
+    this.spotify.getMyCurrentPlaybackState().then(response => response, err => console.log(err));
   }
 
   startAlbum = (context_uri) => {
     return this.spotify.play({context_uri}).then(response => response, err => console.log(err));
+  }
+
+  play = () => {
+    return this.spotify.play().then(res => res, error => error);
+  }
+
+  pause = () => {
+    return this.spotify.pause().then(res => res, error => error);
   }
 
   playbackToggle = () => {

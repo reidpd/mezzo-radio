@@ -9,22 +9,47 @@ WHEN the button clicked,
 */
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindRoutineCreators } from 'redux-saga-routines';
+import { playbackToggle } from '../../../../../redux/routines';
 import SpotifyPromisesClass from '../../../../../spotify';
 import { recordSpinToggle } from '../../../../../redux/routines';
 import store from '../../../../../redux/store';
+
 const spotifyPromises = new SpotifyPromisesClass;
 const { getState, dispatch } = store;
 
-const PlayPauseBtn = props => {
-  this.handleClick = () => {
-    spotifyPromises.playbackToggle;
-    const playbackStatus = getState().recordSpinReducer;
-    dispatch(recordSpinToggle.trigger(!playbackStatus));
-  }
-
-  return (
-    <button onClick={this.handleClick}>playbackToggle</button>
-  )
+const mapStateToProps = state => {
+  return { state };
 }
 
-export default PlayPauseBtn;
+const routines = { playbackToggle };
+const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
+
+class PlayPauseBtn extends Component {
+  handleClick = () => {
+    this.props.playbackToggle();
+  }
+
+  render() {
+    return (
+      <button onClick={this.handleClick}>playbackToggle</button>
+    )
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlayPauseBtn);
+
+// const PlayPauseBtn = props => {
+//   this.handleClick = () => {
+//     spotifyPromises.playbackToggle;
+//     const playbackStatus = getState().recordSpinReducer;
+//     dispatch(recordSpinToggle.trigger(!playbackStatus));
+//   }
+//
+//   return (
+//     <button onClick={this.handleClick}>playbackToggle</button>
+//   )
+// }
+//
+// export default PlayPauseBtn;

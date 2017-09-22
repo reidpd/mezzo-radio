@@ -6,18 +6,25 @@ This is where redux saga worker generator functions live.
 
 import { delay } from 'redux-saga';
 import { put, all, call } from 'redux-saga/effects';
-import { search, artistFocus, albumFocus, albumHover, startAlbum, setUserInfo, recordSpinToggle
-/* playbackToggle */ } from '../../routines'; // importing our routines
+import { search, artistFocus, albumFocus, albumHover, startAlbum, setUserInfo, recordSpinToggle, playbackToggle, } from '../../routines'; // importing our routines
 import SpotifyPromisesClass from '../../../spotify';
 const spotifyPromises = new SpotifyPromisesClass;
 
-// export function* playbackToggleSaga(action) {
-//   try {
-//     yield put(playbackToggle.request());
-//     const promiseMethod = spotifyPromises.playbackToggle;
-//   }
-//   catch (error) { yield put(playbackToggle.failure(error.message)) }
-// }
+export function* playbackToggleSaga(action) {
+  try {
+    const promiseMethodOne = spotifyPromises.getPlaybackState;
+    const playbackState = yield call(promiseMethodOne);
+    yield put(playbackToggle.request(playbackState));
+    let promiseMethodTwo;
+    if (playbackState.body.is_playing) {
+      promiseMethodTwo = spotifyPromises.pause;
+    } else { promiseMethodTwo = spotifyPromises.play }
+    const response = yield call(promiseMethodTwo);
+    yield put(playbackToggle.success(response))
+    yield put(recordSpinToggle.success(!playbackState.body.is_playing));
+  }
+  catch (error) { yield put(playbackToggle.failure(error.message)) }
+}
 
 export function* startAlbumSaga(action) {
   const context_uri = action.payload;
