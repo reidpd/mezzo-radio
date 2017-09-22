@@ -18,12 +18,21 @@ within try/catch blocks of generators within 'redux/saga/index.js'.
 /* Importing the store yields this error: "TypeError: __WEBPACK_IMPORTED_MODULE_4__spotify__.a is not a constructor", must investigate later */
 // const { dispatch, getState } = store;
 const spotify = require('../config/spotifyWebApi.js');
+const axios = require('axios');
 
 export default class SpotifyPromisesClass {
   constructor() { this.spotify = spotify; }
 
   handleError = (error) => {
-    console.log("handleError input === ", error);
+    if (error.statusCode === 401) {
+      // axios.get('https://mezzo-radio-api.herokuapp.com/refresh')
+      // .then(response => console.log('axios response ===', response))
+      // .catch(error => console.log('axios error === ', error));
+      const refresh_token = this.spotify.getRefreshToken();
+      window.location.assign('https://mezzo-radio-api.herokuapp.com/refresh/' + refresh_token);
+    } else {
+      console.log("handleError input === ", error);
+    }
   }
 
   getMe = () => {

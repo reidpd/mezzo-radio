@@ -61,8 +61,9 @@ class Interface extends Component {
       // Set the access token on the API object to use it in later calls
       spotify.setAccessToken(obj.access_token);
       spotify.setRefreshToken(obj.refresh_token);
+      spotifyPromises = new SpotifyPromisesClass();
       // must restore this line: add to bug list
-      spotify.getMe().then(response => this.props.routines.setUserInfo(response.body), error => console.log(error) );
+      spotify.getMe().then(response => this.props.routines.setUserInfo(response.body), error => spotifyPromises.handleError(error) );
       this.props.actions.setTokens(obj);
 
       spotify.getMyCurrentPlaybackState()
@@ -74,7 +75,6 @@ class Interface extends Component {
           }
         }, err => console.log(err))
       // use the access token to access the Spotify Web API
-      spotifyPromises = new SpotifyPromisesClass();
 
     }
 
