@@ -27,7 +27,7 @@ import RecordPlayer from '../record/player';
 
 // Redux
 import { setTokens } from '../../redux/actions';
-import { albumFocus, setUserInfo, recordSpinToggle } from '../../redux/routines';
+import { albumFocus, setUserInfo, recordSpinToggle, playbackState } from '../../redux/routines';
 
 // Spotify Connections
 import SpotifyPromisesClass from '../../spotify';
@@ -42,7 +42,7 @@ const mapStateToProps = (state) => {
 };
 
 const actions = { setTokens, setUserInfo };
-const routines = { albumFocus, setUserInfo, recordSpinToggle };
+const routines = { albumFocus, setUserInfo, recordSpinToggle, playbackState };
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(actions, dispatch),
@@ -67,7 +67,8 @@ class Interface extends Component {
 
       spotify.getMyCurrentPlaybackState()
         .then(response => {
-          console.log(response.body);
+          console.log(response);
+          this.props.routines.playbackState(); // refactor this later for fewer API requests
           this.props.routines.recordSpinToggle(response.body.is_playing);
           if (response.body.is_playing) {
             this.props.routines.albumFocus(response.body.item.album);

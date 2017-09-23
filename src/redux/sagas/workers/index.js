@@ -115,7 +115,7 @@ export function* searchSaga(action) {
 }
 
 export function* setUserInfoSaga(action) {
-  // console.log(action.payload)
+  console.log(action.payload)
   try { yield put(setUserInfo.success(action.payload)) }
   catch (error) { yield put(setUserInfo.failure(error)) }
 }

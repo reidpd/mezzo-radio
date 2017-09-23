@@ -13,3 +13,62 @@ WHEN a 'track/single' is paused, THEN the progress bar will remain motionless.
 WHEN a new 'album/single' is clicked, THEN the progress bar value will revert to its default, left-most side position.
 
 */
+
+import './main.css';
+import React, { Component } from 'react';
+import Slider from 'material-ui/Slider';
+import {connect} from 'react-redux';
+import { bindRoutineCreators } from 'redux-saga-routines';
+import {} from '../../../../../redux/routines';
+
+const routines = {};
+const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
+const mapStateToProps = state => {
+  return {
+    stateVals: {
+      max: state.progressBarReducer.state.max,
+      value: state.progressBarReducer.state.value,
+    }
+  }
+}
+
+class ProgressBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      max: this.props.max,
+      value: this.props.value,
+    };
+  };
+
+  handleChange = (event, value) => {
+    this.setState({value});
+    // change spotify timeline
+  }
+
+  shouldComponentUpdate() {
+    return true;
+  }
+
+  render() {
+    console.log(this.props);
+    return (
+      <div className="progress-slider-container">
+        <Slider
+          className="progress-slider"
+          min={0}
+          max={this.props.stateVals.max}
+          defaultValue={this.props.stateVals.value}
+          value={this.props.stateVals.value}
+          onChange={this.handleChange}
+        />
+        <p>
+          <span>The Value of this slider is </span>
+          <span>{this.props.stateVals.value}</span>
+        </p>
+      </div>
+    )
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProgressBar);

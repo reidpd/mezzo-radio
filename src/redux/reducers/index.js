@@ -139,6 +139,21 @@ export const userReducer = (state = initialState.user, action) => {
   }
 };
 
+export const progressBarReducer = (initState = initialState.progressBar, action) => {
+  switch (action.type) {
+    case playbackState.SUCCESS:
+      console.log('progressBar with playbackStateSuccess ===', action.payload)
+      const state = {
+        max: action.payload.body.item.duration_ms,
+        value: action.payload.body.progress_ms,
+      };
+      const payload = { state };
+      return payload;
+    default:
+      return initState;
+  }
+}
+
 export const tokensReducer = (state = initialState.tokens, action) => {
   switch (action.type) {
     case SET_TOKENS:
@@ -159,6 +174,7 @@ const appReducer = combineReducers({
   albumsReducer,
   artistFocusReducer,
   artistsReducer,
+  progressBarReducer,
   userReducer,
   tokensReducer,
 });
