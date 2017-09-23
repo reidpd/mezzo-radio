@@ -62,7 +62,6 @@ class Interface extends Component {
       spotify.setAccessToken(obj.access_token);
       spotify.setRefreshToken(obj.refresh_token);
       spotifyPromises = new SpotifyPromisesClass();
-      // must restore this line: add to bug list
       spotify.getMe().then(response => this.props.routines.setUserInfo(response.body), error => spotifyPromises.handleError(error) );
       this.props.actions.setTokens(obj);
 
@@ -74,45 +73,7 @@ class Interface extends Component {
             this.props.routines.albumFocus(response.body.item.album);
           }
         }, err => console.log(err))
-      // use the access token to access the Spotify Web API
-
     }
-
-  }
-
-  // search = () => spotifyPromises.playbackToggle();
-  //
-  // searchArtists = () => {
-  //   spotify.searchArtists('fleet')
-  //     .then(data => {
-  //       console.log('results for spotify.searchArtists(fleet): ', data)
-  //     }, err => { console.log('Something went wrong! Your error message is: ', err) })
-  // }
-  //
-  // searchAlbums = () => {
-  //   spotify.searchAlbums('brown')
-  //     .then(data => {
-  //       console.log('results for spotify.searchAlbums(brown): ', data)
-  //     }, err => { console.log('Something went wrong! Your error message is: ', err) });
-  // }
-  //
-  // getArtistRelatedArtists = () => {
-  //   spotify.getArtistRelatedArtists('4EVpmkEwrLYEg6jIsiPMIb')
-  //     .then(data => {
-  //       console.log('results for spotify.getArtistRelatedArtists(${alt-J id}): ', data.body);
-  //     }, err => { console.log('Something went wrong! Your error message is: ', err) });
-  // }
-  //
-  // getArtistAlbums = () => {
-  //   spotify.getArtistAlbums('4MXUO7sVCaFgFjoTI5ox5c')
-  //     .then(data => data.body.items.map(item => item.id), err => console.log(err))
-  //     .then(ids => {
-  //       spotify.getAlbums(ids).then(data => console.log(data), err => console.log(err));
-  //     }, err => console.log(err));
-  // }
-
-  getMyCurrentPlaybackState = () => {
-    spotifyPromises.getPlaybackState();
   }
 
   render() {
@@ -124,12 +85,6 @@ class Interface extends Component {
         <RecordPlayer />
         <br></br>
         <SearchBar form='simple' />
-        {/* <button onClick={this.search}>Search</button>
-        <button onClick={this.searchArtists}>searchArtists</button>
-        <button onClick={this.searchAlbums}>searchAlbums</button>
-        <button onClick={this.getArtistRelatedArtists}>getArtistRelatedArtists</button>
-        <button onClick={this.getArtistAlbums}>getArtistAlbums</button>
-        <button onClick={this.getMyCurrentPlaybackState}>getMyCurrentPlaybackState</button> */}
       </div>
     )
   }

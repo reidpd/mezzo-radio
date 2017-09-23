@@ -21,7 +21,10 @@ import {
   SET_FOCUS_ALBUM,
   SET_FOCUS_ARTIST,
 } from '../actions';
-import { setUserInfo, recordSpinToggle, search, artistFocus, albumFocus, albumHover, startAlbum } from '../routines';
+import {
+  setUserInfo, recordSpinToggle, search,
+  artistFocus, albumFocus, albumHover,
+  startAlbum, playbackToggle, playbackState } from '../routines';
 
 export const recordSpinReducer = (state = false, action) => {
   switch (action.type) {
@@ -37,6 +40,11 @@ export const nowPlayingReducer = (state = initialState.now_playing, action) => {
     case setUserInfo.SUCCESS:
       return action.payload;
     case startAlbum.SUCCESS:
+      return action.payload;
+    // case playbackToggle.SUCCESS:
+    //   return action.payload;
+    case playbackState.SUCCESS:
+      console.log(action)
       return action.payload;
     case 'SONG_END':
       return initialState.now_playing;

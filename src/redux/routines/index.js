@@ -14,3 +14,4 @@ export const albumHover = createRoutine('ALBUM_HOVER');
 export const startAlbum = createRoutine('START_ALBUM');
 export const recordSpinToggle = createRoutine('RECORD_SPIN_TOGGLE');
 export const playbackToggle = createRoutine('PLAYBACK_TOGGLE');
+export const playbackState = createRoutine('PLAYBACK_STATE');

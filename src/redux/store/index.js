@@ -7,8 +7,6 @@ import { routinesWatcherSaga } from 'redux-saga-routines';
 
 import rootReducer from '../reducers';
 import rootSaga from '../sagas/watchers';
-// import promiseMiddleware from 'redux-promise-middleware';
-// import thunkMiddleware from 'redux-thunk';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -23,9 +21,3 @@ const sagas = [rootSaga, formActionSaga, routinesWatcherSaga];
 sagas.forEach(saga => sagaMiddleware.run(saga));
 
 export default store;
-
-// export default createStore(
-//   rootReducer,
-//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-//   // applyMiddleware(thunkMiddleware, promiseMiddleware())
-// );

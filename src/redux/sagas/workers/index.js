@@ -6,24 +6,39 @@ This is where redux saga worker generator functions live.
 
 import { delay } from 'redux-saga';
 import { put, all, call } from 'redux-saga/effects';
-import { search, artistFocus, albumFocus, albumHover, startAlbum, setUserInfo, recordSpinToggle, playbackToggle, } from '../../routines'; // importing our routines
+import { search, artistFocus, albumFocus, albumHover,
+        startAlbum, setUserInfo, recordSpinToggle,
+        playbackToggle, playbackState } from '../../routines'; // importing our routines
 import SpotifyPromisesClass from '../../../spotify';
 const spotifyPromises = new SpotifyPromisesClass;
 
 export function* playbackToggleSaga(action) {
   try {
     const promiseMethodOne = spotifyPromises.getPlaybackState;
-    const playbackState = yield call(promiseMethodOne);
-    yield put(playbackToggle.request(playbackState));
-    let promiseMethodTwo;
-    if (playbackState.body.is_playing) {
+    const currentPlaybackState = yield call(promiseMethodOne);
+    yield put(playbackToggle.request(currentPlaybackState));
+    // const currentPlaybackState = yield* playbackStateSaga(); // for later refactor, saga sequencing
+    let promiseMethodTwo, spin_directive;
+    if (currentPlaybackState.body.is_playing) {
       promiseMethodTwo = spotifyPromises.pause;
-    } else { promiseMethodTwo = spotifyPromises.play }
+      spin_directive = false;
+    } else {
+      promiseMethodTwo = spotifyPromises.play;
+      spin_directive = true;
+    }
     const response = yield call(promiseMethodTwo);
     yield put(playbackToggle.success(response))
-    yield put(recordSpinToggle.success(!playbackState.body.is_playing));
-  }
-  catch (error) { yield put(playbackToggle.failure(error.message)) }
+    yield put(recordSpinToggle.success(spin_directive));
+  } catch (error) { yield put(playbackToggle.failure(error)) }
+}
+
+export function* playbackStateSaga(action) {
+  try {
+    yield put(playbackState.request());
+    const promiseMethod = spotifyPromises.getPlaybackState;
+    const currentPlaybackState = yield call(promiseMethod);
+    yield put(playbackState.success(currentPlaybackState));
+  } catch(error) { yield put(playbackState.failure(error)) }
 }
 
 export function* startAlbumSaga(action) {
@@ -31,8 +46,8 @@ export function* startAlbumSaga(action) {
   try {
     yield put(startAlbum.request());
     const promiseMethod = spotifyPromises.startAlbum;
-    const response = yield call(promiseMethod, context_uri);
-    yield put(startAlbum.success(response));
+    const response = yield all([ call(promiseMethod, context_uri) ]);
+    yield put(startAlbum.success(response[0]));
   } catch (error) {
     yield put(startAlbum.failure(error))
   }
@@ -86,7 +101,8 @@ export function* searchSaga(action) {
     yield put(search.request());
     // perform request to spotify to fetch some data
     const promiseMethod = spotifyPromises.search;
-    const response = yield call(promiseMethod, searchTerm);
+    const effects = [ call(promiseMethod, searchTerm) ];
+    const [response] = yield all([ ...effects ]);
     // if request successfully finished
     yield put(search.success(response));
   } catch (error) {
@@ -99,7 +115,7 @@ export function* searchSaga(action) {
 }
 
 export function* setUserInfoSaga(action) {
-  console.log(action.payload)
+  // console.log(action.payload)
   try { yield put(setUserInfo.success(action.payload)) }
   catch (error) { yield put(setUserInfo.failure(error)) }
 }

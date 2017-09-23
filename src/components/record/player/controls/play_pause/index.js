@@ -11,7 +11,7 @@ WHEN the button clicked,
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindRoutineCreators } from 'redux-saga-routines';
-import { playbackToggle } from '../../../../../redux/routines';
+import { playbackToggle, playbackState } from '../../../../../redux/routines';
 import SpotifyPromisesClass from '../../../../../spotify';
 import { recordSpinToggle } from '../../../../../redux/routines';
 import store from '../../../../../redux/store';
@@ -23,11 +23,12 @@ const mapStateToProps = state => {
   return { state };
 }
 
-const routines = { playbackToggle };
+const routines = { playbackToggle, playbackState };
 const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
 
 class PlayPauseBtn extends Component {
   handleClick = () => {
+    // this.props.playbackState();
     this.props.playbackToggle();
   }
 

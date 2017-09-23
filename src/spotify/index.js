@@ -64,7 +64,7 @@ export default class SpotifyPromisesClass {
   // }
 
   getPlaybackState = () => {
-    this.spotify.getMyCurrentPlaybackState().then(response => response, err => console.log(err));
+    return this.spotify.getMyCurrentPlaybackState().then(response => response, err => console.log(err));
   }
 
   startAlbum = (context_uri) => {
