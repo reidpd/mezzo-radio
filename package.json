@@ -10,6 +10,7 @@
     "cookie-parser": "^1.4.3",
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
+    "material-ui": "^0.19.2",
     "morgan": "^1.8.2",
     "path": "^0.12.7",
     "querystring": "^0.2.0",
