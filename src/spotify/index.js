@@ -39,43 +39,43 @@ export default class SpotifyPromisesClass {
   }
 
   search = (query) => {
-    return this.spotify.search(query, ['album', 'artist']).then(data => data, err => err);
+    return this.spotify.search(query, ['album', 'artist']).then(data => data, error => this.handleError(error));
   }
 
   getArtistRelatedArtists = (artistId) => {
-    return this.spotify.getArtistRelatedArtists(artistId).then(data => data, err => err);
+    return this.spotify.getArtistRelatedArtists(artistId).then(data => data, error => this.handleError(error));
   }
 
   getArtistAlbums = (artistId) => {
-    return this.spotify.getArtistAlbums(artistId).then(data => data, err => console.log(err))
+    return this.spotify.getArtistAlbums(artistId).then(data => data, error => this.handleError(error))
   }
 
   getArtistAlbumsWithTracks = (artistId) => {
     this.spotify.getArtistAlbums(artistId)
-    .then(data => data.body.items.map(item => item.id), err => console.log(err))
+    .then(data => data.body.items.map(item => item.id), error => this.handleError(error))
     .then(ids => {
       this.spotify.getAlbums(ids).then(data => data.body.albums)
-    }, err => console.log(err));
+    }, error => this.handleError(error));
   }
 
   // getAlbumTracks = (albumId) => {
-  //   this.spotify.getAlbumTracks(albumId).then(data => data, err => err);
+  //   this.spotify.getAlbumTracks(albumId).then(data => data, error => error);
   // }
 
   getPlaybackState = () => {
-    return this.spotify.getMyCurrentPlaybackState().then(response => response, err => console.log(err));
+    return this.spotify.getMyCurrentPlaybackState().then(response => response, error => this.handleError(error));
   }
 
   startAlbum = (context_uri) => {
-    return this.spotify.play({context_uri}).then(response => response, err => console.log(err));
+    return this.spotify.play({context_uri}).then(response => response, error => this.handleError(error));
   }
 
   play = () => {
-    return this.spotify.play().then(res => res, error => error);
+    return this.spotify.play().then(res => res, this.handleError(error));
   }
 
   pause = () => {
-    return this.spotify.pause().then(res => res, error => error);
+    return this.spotify.pause().then(res => res, this.handleError(error));
   }
 
   playbackToggle = () => {
@@ -84,19 +84,19 @@ export default class SpotifyPromisesClass {
         // store.dispatch(recordSpinToggle(!response.body.is_playing));
         if (response.body.is_playing) {
           return this.spotify.pause()
-          .then(response => response, err => console.log(err));
+          .then(response => response, error => this.handleError(error));
         } else {
           return this.spotify.play()
-          .then(response => response, err => console.log(err));
+          .then(response => response, error => this.handleError(error));
         }
-      }, err => console.log(err))
+      }, error => console.log(error))
   }
 
   skipToPrevious = () => {
-    return this.spotify.skipToPrevious().then(res => res, err => err);
+    return this.spotify.skipToPrevious().then(res => res, error => this.handleError(error));
   }
 
   skipToNext =() => {
-    return this.spotify.skipToNext().then(res => res, err => err);
+    return this.spotify.skipToNext().then(res => res, error => this.handleError(error));
   }
 }

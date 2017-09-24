@@ -71,7 +71,8 @@ class ProgressBar extends Component {
   }
 
   handleChange = (event, value) => {
-    this.setState({ value });
+    console.log(value);
+    // this.setState({ value });
     // change spotify timeline
   }
 
