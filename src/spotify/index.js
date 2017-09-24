@@ -12,11 +12,11 @@ More specifically, these functions are intended to be used
 within the redux-saga architecture of the app as its 'clientApi',
 within try/catch blocks of generators within 'redux/saga/index.js'.
 
+Any interactions involving the redux store should be abstracted away from this file.
+This file is only concerned with interacting with the Spotify API.
+
 */
-// import {recordSpinToggle} from '../redux/routines';
-// import store from '../redux/store';
-/* Importing the store yields this error: "TypeError: __WEBPACK_IMPORTED_MODULE_4__spotify__.a is not a constructor", must investigate later */
-// const { dispatch, getState } = store;
+
 const spotify = require('../config/spotifyWebApi.js');
 
 export default class SpotifyPromisesClass {
@@ -24,9 +24,6 @@ export default class SpotifyPromisesClass {
 
   handleError = (error) => {
     if (error.statusCode === 401) {
-      // axios.get('https://mezzo-radio-api.herokuapp.com/refresh')
-      // .then(response => console.log('axios response ===', response))
-      // .catch(error => console.log('axios error === ', error));
       const refresh_token = this.spotify.getRefreshToken();
       window.location.assign('https://mezzo-radio-api.herokuapp.com/refresh/' + refresh_token);
     } else {
@@ -71,11 +68,11 @@ export default class SpotifyPromisesClass {
   }
 
   play = () => {
-    return this.spotify.play().then(res => res, this.handleError(error));
+    return this.spotify.play().then(res => res, error => this.handleError(error));
   }
 
   pause = () => {
-    return this.spotify.pause().then(res => res, this.handleError(error));
+    return this.spotify.pause().then(res => res, error => this.handleError(error));
   }
 
   playbackToggle = () => {
