@@ -1,0 +1,82 @@
+/*
+CSS File for 'components/crate'
+*/
+
+.crate-container {
+  display: inline-block;
+  float: left;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.crate-panels-container {
+  width: 600px;
+  height: 600px;
+}
+
+.crate-panels-top-half, .crate-panels-bottom-half {
+  display: block;
+}
+
+.crate-panels-top-half {
+
+}
+
+.crate-panels-bottom-half {
+  margin-top: -1%;
+}
+
+.crate-panel-top-container {
+  clear: right;
+  margin-right: 7%;
+  margin-left: 15%;
+  display: inline-block;
+	width: 300px;
+	height: 300px;
+	-webkit-transform: skewX(40deg);
+	   -moz-transform: skewX(40deg);
+	     -o-transform: skewX(40deg);
+	background-image: url("../../images/record_covers.jpg");
+  border: 5px solid #555;
+  overflow: visible;
+}
+
+.top-panel-content {
+  display: inline-block;
+  float: right;
+  /*height: 100px;*/
+  /*width: 100px;*/
+  margin-right: -125px;
+  -webkit-transform: skewX(-40deg);
+	   -moz-transform: skewX(-40deg);
+	     -o-transform: skewX(-40deg);
+}
+
+.crate-panel-left-container {
+  display: inline-block;
+  clear: right;
+  float: left;
+  margin-top: -25%;
+  margin-left: 50px;
+  margin-right: 0px;
+	width: 250px;
+	height: 300px;
+	-webkit-transform: skewY(50deg);
+	   -moz-transform: skewY(50deg);
+	     -o-transform: skewY(50deg);
+	/*background: blue;*/
+  border: 5px solid #555;
+  overflow-x: auto;
+  overflow-y: scroll;
+  background-image: url("https://www.forms-surfaces.com/sites/default/files/imagecache/gal-reg-2x/images/1.7.0_wood_veneer_standard_AMWA_04272011_0.jpg");
+}
+
+.crate-panel-front-container {
+  width: 300px;
+	height: 300px;
+	float: right;
+  display: inline-block;
+  background-image: url("https://www.forms-surfaces.com/sites/default/files/imagecache/gal-reg-2x/images/1.7.0_wood_veneer_standard_AMWA_04272011_0.jpg");
+  border: 5px solid #555;
+  overflow: auto;
+}

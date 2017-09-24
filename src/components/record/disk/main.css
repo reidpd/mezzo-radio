@@ -1,0 +1,26 @@
+.record-disk {
+  width: 300px;
+	height: 300px;
+	background-image: url("https://lh6.ggpht.com/o5BSjt4xYPQXWMyfZgfhE3eA179gZLw56cBSQfupjtuM2WaZTp6z9Qqr2ar_Sz6eSmKL=w300");
+	-moz-border-radius: 100%;
+	-webkit-border-radius: 100%;
+	border-radius: 100%;
+}
+
+.record-disk-spinning {
+	width: 300px;
+	height: 300px;
+	background-image: url("https://lh6.ggpht.com/o5BSjt4xYPQXWMyfZgfhE3eA179gZLw56cBSQfupjtuM2WaZTp6z9Qqr2ar_Sz6eSmKL=w300");
+	-moz-border-radius: 100%;
+	-webkit-border-radius: 100%;
+	border-radius: 100%;
+  animation-name: spinning;
+  animation-duration: 3000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes spinning {
+  from { transform: rotate(0deg) }
+  to { transform: rotate(360deg) }
+}
