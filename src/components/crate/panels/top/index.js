@@ -26,11 +26,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => bindRoutineCreators({}, dispatch);
 
 class RecordCoverPresentational extends Component {
-  constructor(props) {
-    super(props);
-    const hoverImages = this.props.albumHover.images;
-    const focusImages = this.props.albumFocus.images;
-  }
+  // constructor(props) {
+  //   super(props);
+  //   const hoverImages = this.props.albumHover.images;
+  //   const focusImages = this.props.albumFocus.images;
+  // }
 
   imageFilter = (array) => {
     const correctImage = array.filter(item => item.height === 300);

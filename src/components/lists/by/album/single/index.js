@@ -19,7 +19,7 @@ const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
 
 class Album extends Component {
-  constructor(props) { super(props) }
+  // constructor(props) { super(props) }
 
   handleClick = (data) => this.props.albumFocus(data);
   handleDoubleClick = (context_uri) => this.props.startAlbum(context_uri);

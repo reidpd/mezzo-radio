@@ -4,7 +4,7 @@ This is where the model component for a single LP cover / piece-of-cover-art liv
 
 */
 
-import React, { Component } from 'react';
+import React from 'react';
 // import { connect } from 'react-redux';
 // import { bindRoutineCreators } from 'redux-saga-routines';
 // import {} from '../../../../redux/routines';

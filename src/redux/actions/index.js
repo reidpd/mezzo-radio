@@ -22,14 +22,26 @@ export const setTokens = ({access_token, refresh_token, expires_in}) => {
 }
 
 /*  Create action {} containing user information  */
-export const setUserInfo = payload => { type: SET_USER_INFO, payload };
+export const setUserInfo = payload => {
+  return { type: SET_USER_INFO, payload };
+}
 
 // send an object that changes the redux list of artists
-export const setArtists = payload => { type: SET_ARTISTS, payload };
+export const setArtists = payload => {
+  return { type: SET_ARTISTS, payload };
+}
 
 // send an object that changes the redux list of albums
-export const setAlbums = payload => { type: SET_ALBUMS, payload };
+export const setAlbums = payload => {
+  return { type: SET_ALBUMS, payload };
+}
 
-export const setHoverAlbum = payload => { type: SET_HOVER_ALBUM, payload };
-export const setFocusAlbum = payload => { type: SET_FOCUS_ALBUM, payload };
-export const setFocusArtist = payload => { type: SET_FOCUS_ARTIST, payload };
+export const setHoverAlbum = payload => {
+  return { type: SET_HOVER_ALBUM, payload };
+}
+export const setFocusAlbum = payload => {
+  return { type: SET_FOCUS_ALBUM, payload };
+}
+export const setFocusArtist = payload => {
+  return { type: SET_FOCUS_ARTIST, payload };
+}

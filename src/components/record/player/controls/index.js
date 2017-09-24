@@ -25,7 +25,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
 
 class Controls extends Component {
-  constructor(props) { super(props) }
+  // constructor(props) { super(props) }
 
   render() {
     return (

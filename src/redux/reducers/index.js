@@ -11,20 +11,22 @@ these reducers is lent to their props.
 
 import { combineReducers } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
+import { timeReducer } from './time';
+
 
 import initialState from '../initialState';
 import {
-  SET_USER_INFO,
+  // SET_USER_INFO,
   SET_TOKENS,
   SET_ARTISTS,
   SET_ALBUMS,
-  SET_FOCUS_ALBUM,
-  SET_FOCUS_ARTIST,
+  // SET_FOCUS_ALBUM,
+  // SET_FOCUS_ARTIST,
 } from '../actions';
 import {
   setUserInfo, recordSpinToggle, search,
   artistFocus, albumFocus, albumHover,
-  startAlbum, playbackToggle, playbackState } from '../routines';
+  startAlbum, /* playbackToggle, */ playbackState } from '../routines';
 
 export const recordSpinReducer = (state = false, action) => {
   switch (action.type) {
@@ -177,6 +179,7 @@ const appReducer = combineReducers({
   progressBarReducer,
   userReducer,
   tokensReducer,
+  timeReducer,
 });
 
 const rootReducer = (state, action) => appReducer(state, action);

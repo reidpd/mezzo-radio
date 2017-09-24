@@ -18,7 +18,6 @@ within try/catch blocks of generators within 'redux/saga/index.js'.
 /* Importing the store yields this error: "TypeError: __WEBPACK_IMPORTED_MODULE_4__spotify__.a is not a constructor", must investigate later */
 // const { dispatch, getState } = store;
 const spotify = require('../config/spotifyWebApi.js');
-const axios = require('axios');
 
 export default class SpotifyPromisesClass {
   constructor() { this.spotify = spotify; }

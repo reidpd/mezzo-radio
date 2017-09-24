@@ -24,7 +24,7 @@ const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
 
 class RecordPlayer extends Component {
-  constructor(props) { super(props) }
+  // constructor(props) { super(props) }
 
   playbackToggle = () => {
     // this.props.playbackToggle();

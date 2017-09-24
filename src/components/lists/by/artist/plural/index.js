@@ -4,7 +4,7 @@ This is where artist lists will be built.
 
 */
 
-import React, { Component } from 'react';
+import React from 'react';
 import Artist from '../single';
 
 const ArtistList = (props) => {

@@ -18,7 +18,7 @@ import AlbumsPresentational from './panels/left';
 import RecordCoverPresentational from './panels/top';
 
 
-const Crate = ({}) => (
+const Crate = () => (
   <div className="crate-container">
     <div className="crate-panels-container">
       <div className="crate-panels-top-half">

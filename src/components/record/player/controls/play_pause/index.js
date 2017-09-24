@@ -11,13 +11,12 @@ WHEN the button clicked,
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindRoutineCreators } from 'redux-saga-routines';
-import { playbackToggle, playbackState } from '../../../../../redux/routines';
-import SpotifyPromisesClass from '../../../../../spotify';
-import { recordSpinToggle } from '../../../../../redux/routines';
-import store from '../../../../../redux/store';
+import { playbackToggle, playbackState, /* recordSpinToggle */ } from '../../../../../redux/routines';
+// import SpotifyPromisesClass from '../../../../../spotify';
+// const spotifyPromises = new SpotifyPromisesClass();
+// import store from '../../../../../redux/store';
+// const { getState, dispatch } = store;
 
-const spotifyPromises = new SpotifyPromisesClass;
-const { getState, dispatch } = store;
 
 const mapStateToProps = state => {
   return { state };

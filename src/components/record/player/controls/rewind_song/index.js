@@ -10,7 +10,7 @@ Its future existence is still TBD.
 
 import React from 'react';
 import SpotifyPromisesClass from '../../../../../spotify';
-const spotifyPromises = new SpotifyPromisesClass;
+const spotifyPromises = new SpotifyPromisesClass();
 
 const RewindSongBtn = props => {
   return (

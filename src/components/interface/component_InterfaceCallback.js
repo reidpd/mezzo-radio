@@ -16,13 +16,16 @@ require('dotenv').config();
 const spotify = require('../../config/spotifyWebApi.js');
 console.log(spotify.__proto__);
 
-const mapStateToProps = (state) => {}
+const mapStateToProps = state => {
+  return { state };
+};
 
-const mapDispatchToProps = (dispatch) => {}
+const actions = {};
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
 class InterfaceCallback extends Component {
   componentDidMount = () => {
-    const params = {};
+    // const params = {};
     const uri = window.location.href;
     const paramsIdx = uri.indexOf('?') + 1;
     const lengthyStr = uri.substring(paramsIdx);
@@ -47,4 +50,4 @@ class InterfaceCallback extends Component {
 }
 
 // export default connect(mapStateToProps, mapDispatchToProps)(Interface);
-export default InterfaceCallback;
+export default connect(mapStateToProps, mapDispatchToProps)(InterfaceCallback);
