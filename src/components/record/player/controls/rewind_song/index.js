@@ -8,14 +8,30 @@ Its future existence is still TBD.
 
 */
 
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindRoutineCreators } from 'redux-saga-routines';
+import { nextTrack } from '../../../../../redux/routines';
+
 import SpotifyPromisesClass from '../../../../../spotify';
 const spotifyPromises = new SpotifyPromisesClass();
 
-const RewindSongBtn = props => {
-  return (
-    <button onClick={spotifyPromises.skipToPrevious}>skipBack</button>
-  )
+const mapStateToProps = state => { return { state }; }
+
+const routines = { nextTrack };
+const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
+
+class RewindSongBtn extends Component {
+  handleClick = () => {
+    spotifyPromises.skipToPrevious();
+    this.props.nextTrack();
+  }
+
+  render() {
+    return (
+      <button onClick={this.handleClick}>skipBack</button>
+    )
+  }
 }
 
-export default RewindSongBtn;
+export default connect(mapStateToProps, mapDispatchToProps)(RewindSongBtn);

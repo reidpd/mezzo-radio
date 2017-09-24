@@ -14,9 +14,15 @@ allowing the code to be easily tested in the future.
 
 // import { effects } from 'redux-saga'
 import { takeEvery, all } from 'redux-saga/effects';
-import { setUserInfo, search, artistFocus, albumFocus, albumHover, startAlbum, recordSpinToggle, playbackToggle, playbackState } from '../../routines';
-import {} from '../../actions';
-import { setUserInfoSaga, searchSaga, recordSpinSaga, artistFocusSaga, albumHoverSaga, albumFocusSaga, startAlbumSaga, apiFailureSaga, playbackToggleSaga, playbackStateSaga } from '../workers';
+import { setUserInfo, search, artistFocus,
+        albumFocus, albumHover, startAlbum,
+        recordSpinToggle, playbackToggle, playbackState,
+        nextTrack } from '../../routines';
+// import {} from '../../actions';
+import { setUserInfoSaga, searchSaga, recordSpinSaga,
+        artistFocusSaga, albumHoverSaga, albumFocusSaga,
+        startAlbumSaga, apiFailureSaga, playbackToggleSaga,
+        playbackStateSaga, nextTrackSaga } from '../workers';
 
 function* playbackStateWatcherSaga() { yield takeEvery(playbackState.TRIGGER, playbackStateSaga) }
 
@@ -25,6 +31,7 @@ function* playbackToggleWatcherSaga() {
   yield all([...effects]);
 }
 
+function* nextTrackWatcherSaga() { yield takeEvery(nextTrack.TRIGGER, nextTrackSaga) }
 function* startAlbumWatcherSaga() { yield takeEvery(startAlbum.TRIGGER, startAlbumSaga) }
 function* albumHoverWatcherSaga() { yield takeEvery(albumHover.TRIGGER, albumHoverSaga) }
 function* albumFocusWatcherSaga() { yield takeEvery(albumFocus.TRIGGER, albumFocusSaga) }
@@ -52,6 +59,7 @@ export default function* rootSaga() {
     apiFailureWatcherSaga(),
     playbackToggleWatcherSaga(),
     playbackStateWatcherSaga(),
+    nextTrackWatcherSaga(),
   ];
   yield all([...effects]);
 }

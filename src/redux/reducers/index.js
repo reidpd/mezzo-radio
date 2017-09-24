@@ -11,7 +11,7 @@ these reducers is lent to their props.
 
 import { combineReducers } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
-import { timeReducer } from './time';
+import timeReducer from './time';
 
 
 import initialState from '../initialState';
@@ -46,7 +46,6 @@ export const nowPlayingReducer = (state = initialState.now_playing, action) => {
     // case playbackToggle.SUCCESS:
     //   return action.payload;
     case playbackState.SUCCESS:
-      console.log(action)
       return action.payload;
     case 'SONG_END':
       return initialState.now_playing;
@@ -144,7 +143,6 @@ export const userReducer = (state = initialState.user, action) => {
 export const progressBarReducer = (initState = initialState.progressBar, action) => {
   switch (action.type) {
     case playbackState.SUCCESS:
-      console.log('progressBar with playbackStateSuccess ===', action.payload)
       const state = {
         max: action.payload.body.item.duration_ms,
         value: action.payload.body.progress_ms,

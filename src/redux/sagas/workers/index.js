@@ -8,11 +8,26 @@ This is where redux saga worker generator functions live.
 import { put, all, call } from 'redux-saga/effects';
 import { search, artistFocus, albumFocus, albumHover,
         startAlbum, setUserInfo, recordSpinToggle,
-        playbackToggle, playbackState } from '../../routines'; // importing our routines
+        playbackToggle, playbackState, nextTrack,
+        startTimerAsync, stopTimerAsync, resetTimerAsync, } from '../../routines'; // importing our routines
+import { startTimer, stopTimer } from '../../actions';
 import SpotifyPromisesClass from '../../../spotify';
 const spotifyPromises = new SpotifyPromisesClass();
 
+export function* nextTrackSaga(action) {
+  try {
+    yield put(nextTrack.request());
+    const promiseMethodOne = spotifyPromises.getPlaybackState;
+    const currentPlaybackState = yield call(promiseMethodOne);
+    yield put(nextTrack.success(currentPlaybackState))
+    const payload = { now: new Date().getTime() };
+    yield put(resetTimerAsync.success(payload));
+    yield put(albumFocus.success(currentPlaybackState.body.item.album))
+  } catch(error) { yield put(playbackToggle.failure(error)) }
+}
+
 export function* playbackToggleSaga(action) {
+  let baseTime = action.payload;
   try {
     const promiseMethodOne = spotifyPromises.getPlaybackState;
     const currentPlaybackState = yield call(promiseMethodOne);
@@ -25,10 +40,19 @@ export function* playbackToggleSaga(action) {
     } else {
       promiseMethodTwo = spotifyPromises.play;
       spin_directive = true;
+      // set playbackInterval to increment progressBar value
     }
     const response = yield call(promiseMethodTwo);
     yield put(playbackToggle.success(response))
+    if (spin_directive === true) {
+      const payload = { baseTime, now: new Date().getTime() };
+      yield put(startTimerAsync.success(payload));
+    } else {
+      const payload = { now: new Date().getTime() };
+      yield put(stopTimerAsync.success(payload));
+    }
     yield put(recordSpinToggle.success(spin_directive));
+
   } catch (error) { yield put(playbackToggle.failure(error)) }
 }
 
@@ -46,8 +70,10 @@ export function* startAlbumSaga(action) {
   try {
     yield put(startAlbum.request());
     const promiseMethod = spotifyPromises.startAlbum;
-    const response = yield all([ call(promiseMethod, context_uri) ]);
-    yield put(startAlbum.success(response[0]));
+    const response = yield call(promiseMethod, context_uri);
+    yield put(startAlbum.success(response));
+    const payload = { now: new Date().getTime() };
+    yield put(resetTimerAsync.success(payload));
   } catch (error) {
     yield put(startAlbum.failure(error))
   }

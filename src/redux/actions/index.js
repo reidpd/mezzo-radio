@@ -13,6 +13,7 @@ export const SET_ARTISTS = 'SET_ARTISTS';
 export const SET_ALBUMS = 'SET_ALBUMS';
 export const SET_HOVER_ALBUM = 'SET_HOVER_ALBUM';
 export const SET_FOCUS_ALBUM = 'SET_FOCUS_ALBUM';
+// export const INCREMENT_CURRENT_TIME = 'INCREMENT_CURRENT_TIME';
 
 
 /** set the app's access and refresh tokens */
@@ -45,3 +46,29 @@ export const setFocusAlbum = payload => {
 export const setFocusArtist = payload => {
   return { type: SET_FOCUS_ARTIST, payload };
 }
+
+export const startTimer = (baseTime = 0) => {
+  return {
+    type: "START_TIMER",
+    baseTime,
+    now: new Date().getTime()
+  };
+}
+
+export const stopTimer = () => {
+  return {
+    type: "STOP_TIMER",
+    now: new Date().getTime()
+  };
+}
+
+export const resetTimer = () => {
+  return {
+    type: "RESET_TIMER",
+    now: new Date().getTime()
+  }
+}
+
+// export const incrementCurrentTime = payload => {
+//   return { type: INCREMENT_CURRENT_TIME, payload };
+// }

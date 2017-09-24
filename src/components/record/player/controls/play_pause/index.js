@@ -10,6 +10,7 @@ WHEN the button clicked,
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
 import { bindRoutineCreators } from 'redux-saga-routines';
 import { playbackToggle, playbackState, /* recordSpinToggle */ } from '../../../../../redux/routines';
 // import SpotifyPromisesClass from '../../../../../spotify';
@@ -19,7 +20,9 @@ import { playbackToggle, playbackState, /* recordSpinToggle */ } from '../../../
 
 
 const mapStateToProps = state => {
-  return { state };
+  return {
+    time: state.timeReducer.currentTimeReducer
+  };
 }
 
 const routines = { playbackToggle, playbackState };
@@ -28,7 +31,17 @@ const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
 class PlayPauseBtn extends Component {
   handleClick = () => {
     // this.props.playbackState();
-    this.props.playbackToggle();
+    const { baseTime, startedAt, stoppedAt } = this.props.time;
+    const elapsed = this.getElapsedTime(baseTime, startedAt, stoppedAt);
+    this.props.playbackToggle(elapsed);
+  }
+
+  getElapsedTime(baseTime, startedAt, stoppedAt = new Date().getTime()) {
+    if (!startedAt) {
+      return 0;
+    } else {
+      return stoppedAt - startedAt + baseTime;
+    }
   }
 
   render() {

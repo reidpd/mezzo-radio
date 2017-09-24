@@ -10,7 +10,7 @@ Its future existence is currently TBD.
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {} from '../../actions';
+import {} from '../../redux/actions';
 require('dotenv').config();
 
 const spotify = require('../../config/spotifyWebApi.js');

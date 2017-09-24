@@ -18,16 +18,24 @@ import './main.css';
 import React, { Component } from 'react';
 import Slider from 'material-ui/Slider';
 import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { bindRoutineCreators } from 'redux-saga-routines';
-import {} from '../../../../../redux/routines';
+import { startTimer, stopTimer, resetTimer } from '../../../../../redux/actions';
+import { nextTrack } from '../../../../../redux/routines';
 
-const routines = {};
-const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
+const actions = { startTimer, stopTimer, resetTimer };
+const routines = { nextTrack };
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators(actions, dispatch),
+    routines: bindRoutineCreators(routines, dispatch)
+  }
+};
 const mapStateToProps = state => {
   return {
-    stateVals: {
-      max: state.progressBarReducer.state.max,
-      value: state.progressBarReducer.state.value,
+    reducerState: {
+      currentTime: state.timeReducer.currentTimeReducer,
+      maxTime: state.timeReducer.maxTimeReducer
     }
   }
 }
@@ -41,30 +49,56 @@ class ProgressBar extends Component {
     };
   };
 
+  componentDidMount() {
+    this.interval = setInterval(this.forceUpdate.bind(this), this.props.updateInterval || 33);
+  }
+
+  componentDidUpdate() {
+    const { baseTime, startedAt, stoppedAt } = this.props.reducerState.currentTime;
+    if (!baseTime && !startedAt && !stoppedAt) {
+
+    } else {
+      const progress_ms = this.getElapsedTime(baseTime, startedAt, stoppedAt);
+      const max_ms = this.props.reducerState.maxTime;
+      if (progress_ms >= max_ms) {
+        this.props.routines.nextTrack();
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   handleChange = (event, value) => {
-    this.setState({value});
+    this.setState({ value });
     // change spotify timeline
   }
 
-  shouldComponentUpdate() {
-    return true;
+  getElapsedTime(baseTime, startedAt, stoppedAt = new Date().getTime()) {
+    if (!startedAt) {
+      return 0;
+    } else {
+      return stoppedAt - startedAt + baseTime;
+    }
   }
 
   render() {
-    console.log(this.props);
+    const { baseTime, startedAt, stoppedAt } = this.props.reducerState.currentTime;
+    const elapsed = this.getElapsedTime(baseTime, startedAt, stoppedAt);
     return (
       <div className="progress-slider-container">
         <Slider
           className="progress-slider"
           min={0}
-          max={this.props.stateVals.max}
-          defaultValue={this.props.stateVals.value}
-          value={this.props.stateVals.value}
+          max={this.props.reducerState.maxTime}
+          defaultValue={elapsed}
+          value={elapsed}
           onChange={this.handleChange}
         />
         <p>
           <span>The Value of this slider is </span>
-          <span>{this.props.stateVals.value}</span>
+          <span>{elapsed}</span>
         </p>
       </div>
     )

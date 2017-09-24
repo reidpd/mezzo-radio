@@ -25,5 +25,10 @@ export default {
       value: 0,
     },
   },
+  time: {
+    startedAt: undefined,
+    stoppedAt: undefined,
+    baseTime: undefined
+  },
   user: null,
 };
