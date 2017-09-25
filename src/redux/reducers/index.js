@@ -40,10 +40,6 @@ export const recordSpinReducer = (state = false, action) => {
 
 export const nowPlayingReducer = (state = initialState.now_playing, action) => {
   switch (action.type) {
-    case setUserInfo.SUCCESS:
-      return action.payload;
-    case startAlbum.SUCCESS:
-      return action.payload;
     // case playbackToggle.SUCCESS:
     //   return action.payload;
     case playbackState.SUCCESS:

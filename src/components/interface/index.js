@@ -85,7 +85,7 @@ class Interface extends Component {
   render() {
     return (
       <div className="interface_container">
-        <h1>Mezzo-Radio</h1>
+        <div className="logo-container"></div>
         {/* <RecordStack /> */}
         <Crate />
         <RecordPlayer />

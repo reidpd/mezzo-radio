@@ -35,7 +35,8 @@ const mapStateToProps = state => {
   return {
     reducerState: {
       currentTime: state.timeReducer.currentTimeReducer,
-      maxTime: state.timeReducer.maxTimeReducer
+      maxTime: state.timeReducer.maxTimeReducer,
+      playbackState: state.nowPlayingReducer,
     }
   }
 }
@@ -61,7 +62,7 @@ class ProgressBar extends Component {
       const progress_ms = this.getElapsedTime(baseTime, startedAt, stoppedAt);
       const max_ms = this.props.reducerState.maxTime;
       if (progress_ms >= max_ms) {
-        this.props.routines.nextTrack();
+        this.props.routines.nextTrack(this.props.reducerState.playbackState);
       }
     }
   }
