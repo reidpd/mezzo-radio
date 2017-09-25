@@ -20,7 +20,7 @@ import { bindRoutineCreators } from 'redux-saga-routines';
 import { connect } from 'react-redux';
 
 // Components
-import SearchBar from '../search_bar';
+// import SearchBar from '../search_bar';
 import Crate from '../crate';
 // import RecordStack from "../record/stack";
 import RecordPlayer from '../record/player';
@@ -90,7 +90,7 @@ class Interface extends Component {
         <Crate />
         <RecordPlayer />
         <br></br>
-        <SearchBar form='simple' />
+        {/* <SearchBar form='simple' /> */}
       </div>
     )
   }
