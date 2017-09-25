@@ -66,9 +66,7 @@ class ProgressBar extends Component {
     }
   }
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
+  componentWillUnmount() { clearInterval(this.interval) }
 
   handleChange = (event, value) => {
     console.log(value);
@@ -76,7 +74,7 @@ class ProgressBar extends Component {
     // change spotify timeline
   }
 
-  getElapsedTime(baseTime, startedAt, stoppedAt = new Date().getTime()) {
+  getElapsedTime = (baseTime, startedAt, stoppedAt = new Date().getTime()) => {
     if (!startedAt) {
       return 0;
     } else {
@@ -84,23 +82,33 @@ class ProgressBar extends Component {
     }
   }
 
+  parse_ms = (ms) => {
+    const totalSeconds = Math.floor(ms / 1000);
+    if (totalSeconds < 60) {
+      const seconds = (totalSeconds < 10) ? ['0', totalSeconds].join('') : totalSeconds;
+      return ["0", seconds].join(':');
+    }
+    const minutes = Math.floor(totalSeconds / 60);
+    const remainingSeconds = totalSeconds % (minutes * 60);
+    const seconds = (remainingSeconds < 10) ? ["0", remainingSeconds].join('') : remainingSeconds;
+    return [minutes, seconds].join(':');
+  }
+
   render() {
     const { baseTime, startedAt, stoppedAt } = this.props.reducerState.currentTime;
-    const elapsed = this.getElapsedTime(baseTime, startedAt, stoppedAt);
+    const elapsedMs = this.getElapsedTime(baseTime, startedAt, stoppedAt);
     return (
       <div className="progress-slider-container">
         <Slider
           className="progress-slider"
           min={0}
           max={this.props.reducerState.maxTime}
-          defaultValue={elapsed}
-          value={elapsed}
+          defaultValue={elapsedMs}
+          value={elapsedMs}
           onChange={this.handleChange}
         />
-        <p>
-          <span>The Value of this slider is </span>
-          <span>{elapsed}</span>
-        </p>
+        <p>Time Elapsed: {this.parse_ms(elapsedMs)}</p>
+        <p>Max Duration: {this.parse_ms(this.props.reducerState.maxTime)}</p>
       </div>
     )
   }

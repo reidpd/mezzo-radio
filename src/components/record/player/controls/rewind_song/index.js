@@ -14,15 +14,27 @@ import { nextTrack } from '../../../../../redux/routines';
 import SpotifyPromisesClass from '../../../../../spotify';
 const spotifyPromises = new SpotifyPromisesClass();
 
-const mapStateToProps = state => { return { state }; }
+const mapStateToProps = state => {
+  return {
+    playbackState: state.nowPlayingReducer,
+  };
+}
 
 const routines = { nextTrack };
 const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
 
 class RewindSongBtn extends Component {
+  // constructor(props) {
+  //   super(props);
+  // }
+
   handleClick = () => {
-    spotifyPromises.skipToPrevious();
-    this.props.nextTrack();
+    const track_number = this.props.playbackState.body.item.track_number || 1;
+    const disc_number = this.props.playbackState.body.item.disc_number || 1;
+    if (track_number > 1 || (track_number === 1 && disc_number > 1)) {
+      spotifyPromises.skipToPrevious();
+      this.props.nextTrack(this.props.playbackState);
+    }
   }
 
   render() {

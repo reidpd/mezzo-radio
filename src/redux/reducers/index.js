@@ -26,7 +26,8 @@ import {
 import {
   setUserInfo, recordSpinToggle, search,
   artistFocus, albumFocus, albumHover,
-  startAlbum, /* playbackToggle, */ playbackState } from '../routines';
+  startAlbum, /* playbackToggle, */ playbackState,
+  nextTrack } from '../routines';
 
 export const recordSpinReducer = (state = false, action) => {
   switch (action.type) {
@@ -46,6 +47,8 @@ export const nowPlayingReducer = (state = initialState.now_playing, action) => {
     // case playbackToggle.SUCCESS:
     //   return action.payload;
     case playbackState.SUCCESS:
+      return action.payload;
+    case nextTrack.SUCCESS:
       return action.payload;
     case 'SONG_END':
       return initialState.now_playing;
@@ -75,14 +78,10 @@ export const albumFocusReducer = (state = initialState.albumFocus, action) => {
 export const albumsReducer = (state = initialState.albums, action) => {
   // console.log(action);
   switch (action.type) {
-    // case search.TRIGGER:
-    //   return initialState.albums;
     case search.SUCCESS:
       return action.payload.body.albums;
     case search.FAILURE:
       return initialState.albums;
-    // case search.FULFILL:
-    //   return action.payload;
     case artistFocus.SUCCESS:
       return action.payload.albums.body;
     case SET_ALBUMS:
@@ -118,8 +117,6 @@ export const artistsReducer = (state = initialState.artists, action) => {
       return action.payload.body.artists.items;
     case search.FAILURE:
       return initialState.artists;
-    // case search.FULFILL:
-    //   return action.payload;
     case artistFocus.TRIGGER:
       return state;
     case artistFocus.SUCCESS:
