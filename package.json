@@ -32,7 +32,7 @@
     "webpack-hot-middleware": "^2.19.1"
   },
   "devDependencies": {
-    "react-scripts": "1.0.13"
+    "react-scripts": "^1.0.14"
   },
   "scripts": {
     "start": "react-scripts start",
