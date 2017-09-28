@@ -59,6 +59,7 @@ export default function* rootSaga() {
     playbackStateWatcherSaga(),
     nextTrackWatcherSaga(),
     updateTrackDisplayWatcherSaga(),
+    updateAlbumTracksWatcherSaga(),
   ];
   yield all([...effects]);
 }

@@ -1,10 +1,11 @@
 import React from 'react';
 
 const Track = props => {
-  const data = props.data.body.item || props.data.body.items;
-  if (!data.album) { return ( <div></div> ) }
+  console.log(props);
+  if (!props.data) { return (<div></div>) }
+  const data = props.data;
   const artists = [];
-  data.album.artists.forEach(obj => artists.push(obj.name));
+  data.artists.forEach(obj => artists.push(obj.name));
   return (
     <div>
       <ul>

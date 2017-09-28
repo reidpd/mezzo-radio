@@ -18,6 +18,17 @@ export default {
   artistFocus: null,
   albumFocus: { images: [{ url: "" }] },
   albumHover: { images: [{ url: "" }] },
+  trackNowPlaying: null,
+  trackCount: 0,
+  albumTracksNowPlaying: {
+    body: {
+      items: [
+        {
+          name: null,
+        }
+      ]
+    }
+  },
   tokens: null,
   progressBar: {
     state: {

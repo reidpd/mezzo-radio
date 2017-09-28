@@ -55,7 +55,17 @@ export const playbackStateReducer = (state = initialState.now_playing, action) =
   }
 };
 
-export const albumTracksNowPlayingReducer = (state = null, action) => {
+export const albumTracksNowPlayingReducer = (state = initialState.albumTracksNowPlaying, action) => {
+  switch (action.type) {
+    case updateAlbumTracks.SUCCESS:
+      console.log(action.payload);
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+export const trackNowPlayingReducer = (state = initialState.trackNowPlaying, action) => {
   switch (action.type) {
     case updateAlbumTracks.SUCCESS:
       return action.payload;
@@ -64,17 +74,12 @@ export const albumTracksNowPlayingReducer = (state = null, action) => {
   }
 }
 
-export const trackNowPlayingReducer = (state = null, action) => {
+export const trackCountReducer = (state = initialState.trackCount, action) => {
   switch (action.type) {
-    case updateAlbumTracks.SUCCESS:
-      return action.payload;
-    default:
-      return state;
-  }
-}
-
-export const trackCountReducer = (state = null, action) => {
-  switch (action.type) {
+    case startAlbum.SUCCESS:
+      return 0;
+    case playbackState.SUCCESS:
+      return action.payload.body.item.track_number;
     case nextTrackCount.TRIGGER:
       return action.payload;
     default:
@@ -190,6 +195,7 @@ const appReducer = combineReducers({
   form: reduxFormReducer,
   albumTracksNowPlayingReducer,
   trackNowPlayingReducer,
+  trackCountReducer,
   playbackStateReducer,
   recordSpinReducer,
   albumHoverReducer,

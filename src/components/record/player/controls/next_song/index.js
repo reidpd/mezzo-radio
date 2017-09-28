@@ -27,8 +27,12 @@ const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
 
 class NextSongBtn extends Component {
   handleClick = () => {
-    spotifyPromises.skipToNext();
-    this.props.nextTrack(this.props.playbackState);
+    // spotifyPromises.skipToNext();
+    const payload = {
+      skip: 'next',
+      playbackState: this.props.playbackState,
+    }
+    this.props.nextTrack(payload);
   }
   render() {
     return (

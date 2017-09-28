@@ -23,12 +23,23 @@ const routines = {};
 const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
 
 class TrackDisplay extends Component {
+  constructor(props) {
+    super(props);
+    this.trackData = this.props.albumTracks.body.items[this.props.trackCount-1];
+    console.log('this.trackData === ', this.trackData);
+  }
+
+  handleData = () => {
+    const albumTracks = this.props.albumTracks.body.items;
+    const trackIdx = this.props.trackCount - 1;
+    const track = albumTracks[trackIdx];
+    return track;
+  }
+
   render() {
-    console.log(this.props.playbackState)
     return (
       <div className="track-display-container">
-        <p>Track Display</p>
-        {/* <Track data={this.props.albumTracks} track_number={this.props.trackCount} /> */}
+        <Track data={this.handleData()}/>
       </div>
     )
   }

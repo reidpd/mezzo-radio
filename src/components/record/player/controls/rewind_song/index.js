@@ -32,7 +32,11 @@ class RewindSongBtn extends Component {
     const track_number = this.props.playbackState.body.item.track_number || 1;
     const disc_number = this.props.playbackState.body.item.disc_number || 1;
     if (track_number > 1 || (track_number === 1 && disc_number > 1)) {
-      spotifyPromises.skipToPrevious();
+      // spotifyPromises.skipToPrevious();
+      const payload = {
+        skip: 'prev',
+        playbackState: this.props.playbackState,
+      }
       this.props.nextTrack(this.props.playbackState);
     }
   }
