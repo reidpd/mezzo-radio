@@ -1,0 +1,5 @@
+/*
+
+This file is responsible for testing Redux actions.
+
+*/

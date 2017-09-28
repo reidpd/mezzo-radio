@@ -1,0 +1,5 @@
+/*
+
+This file is responsible for hosting testing files related to redux reducers.
+
+*/
