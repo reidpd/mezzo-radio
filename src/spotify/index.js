@@ -18,14 +18,16 @@ This file is only concerned with interacting with the Spotify API.
 */
 
 const spotify = require('../config/spotifyWebApi.js');
+require('dotenv').config();
 
 export default class SpotifyPromisesClass {
   constructor() { this.spotify = spotify; }
 
   handleError = (error) => {
     if (error.statusCode === 401) {
+      const env = process.env.NODE_ENV;
       const refresh_token = this.spotify.getRefreshToken();
-      window.location.assign('https://mezzo-radio-api.herokuapp.com/refresh/' + refresh_token);
+      window.location.assign('https://mezzo-radio-api.herokuapp.com/refresh/' + refresh_token + '/' + env);
     } else {
       console.log("handleError input === ", error);
     }
