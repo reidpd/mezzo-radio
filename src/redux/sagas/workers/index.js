@@ -10,8 +10,8 @@ import { search, artistFocus, albumFocus, albumHover,
         startAlbum, setUserInfo, recordSpinToggle,
         playbackToggle, playbackState, nextTrack,
         startTimerAsync, stopTimerAsync, resetTimerAsync,
-        setMaxTime, updateAlbumTracks, nextTrackCount } from '../../routines'; // importing our routines
-import { startTimer, stopTimer } from '../../actions';
+        setMaxTime, updateAlbumTracks, /*nextTrackCount*/ } from '../../routines'; // importing our routines
+import { /*startTimer, stopTimer*/ } from '../../actions';
 import SpotifyPromisesClass from '../../../spotify';
 const spotifyPromises = new SpotifyPromisesClass();
 
@@ -19,12 +19,12 @@ export function* nextTrackSaga(action) {
   const firstPlaybackState = action.payload.playbackState;
   const skip = action.payload.skip;
   try {
-    let skipPromise;
-    if (skip !== null) {
-      if (skip === 'next') { skipPromise = spotifyPromises.skipToNext; }
-      else if (skip === 'prev') { skipPromise = spotifyPromises.skipToPrevious; }
-      yield call(skipPromise);
-    }
+    // let skipPromise;
+    // if (skip !== null) {
+    //   if (skip === 'next') { skipPromise = spotifyPromises.skipToNext; }
+    //   else if (skip === 'prev') { skipPromise = spotifyPromises.skipToPrevious; }
+    //   call(skipPromise;
+    // }
     let currentPlaybackState = firstPlaybackState;
     // yield put(nextTrackCount.trigger(currentPlaybackState.body.item.track_number + 1))
     yield put(nextTrack.request());
@@ -35,16 +35,14 @@ export function* nextTrackSaga(action) {
     //   currentPlaybackState = yield call(promiseMethodOne);
     // }
     // still needs refactoring
-    if (skip === null) {
-      while (currentPlaybackState.body.item.duration_ms === firstPlaybackState.body.item.duration_ms) {
-        const promiseMethodOne = spotifyPromises.getPlaybackState;
-        currentPlaybackState = yield call(promiseMethodOne);
-      }
+    while (currentPlaybackState.body.item.duration_ms === firstPlaybackState.body.item.duration_ms) {
+      const promiseMethodOne = spotifyPromises.getPlaybackState;
+      currentPlaybackState = yield call(promiseMethodOne);
+      if (skip === null) { break }
     }
     yield put(nextTrack.success(currentPlaybackState))
     let payload = { now: new Date().getTime() };
     yield put(resetTimerAsync.success(payload));
-    console.log(currentPlaybackState.body.item.duration_ms);
     yield put(setMaxTime.trigger(currentPlaybackState.body.item.duration_ms));
     yield put(albumFocus.success(currentPlaybackState.body.item.album));
   } catch(error) { yield put(playbackToggle.failure(error)) }
@@ -92,12 +90,18 @@ export function* playbackStateSaga(action) {
 export function* startAlbumSaga(action) {
   const context_uri = action.payload.context_uri;
   const baseTime = action.payload.elapsed;
+  const firstPlaybackState = action.payload.playbackState;
   try {
     yield put(startAlbum.request());
-    const promiseMethod = spotifyPromises.startAlbum;
-    const response = yield call(promiseMethod, context_uri);
-    console.log('response from startAlbumSaga === ', response);
-    yield put(startAlbum.success());
+    const startAlbumPromiseMethod = spotifyPromises.startAlbum;
+    yield call(startAlbumPromiseMethod, context_uri);
+    let currentPlaybackState = firstPlaybackState;
+    while (firstPlaybackState.body.item.duration_ms === currentPlaybackState.body.item.duration_ms) {
+      const playbackStatePromise = spotifyPromises.getPlaybackState;
+      currentPlaybackState = yield call(playbackStatePromise);
+    }
+    yield put(startAlbum.success(currentPlaybackState));
+    yield put(setMaxTime.trigger(currentPlaybackState.body.item.duration_ms));
     const payload = { now: new Date().getTime(), baseTime };
     yield put(resetTimerAsync.success(payload));
   } catch (error) {
@@ -110,7 +114,6 @@ export function* updateAlbumTracksSaga(action) {
   try {
     const promiseMethod = spotifyPromises.getAlbumTracks;
     const response = yield call(promiseMethod, albumID);
-    console.log('updateAlbumTracks response === ', response)
     yield put(updateAlbumTracks.success(response));
   } catch (error) {
     yield put(updateAlbumTracks.failure(error));
@@ -171,7 +174,6 @@ export function* searchSaga(action) {
 }
 
 export function* setUserInfoSaga(action) {
-  console.log(action.payload)
   try { yield put(setUserInfo.success(action.payload)) }
   catch (error) { yield put(setUserInfo.failure(error)) }
 }

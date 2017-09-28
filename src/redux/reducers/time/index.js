@@ -12,7 +12,7 @@ There are reducers for keeping track of the following information:
 
 import { combineReducers } from 'redux';
 import initialState from '../../initialState';
-import { setMaxTime, setCurrentTime, startTimerAsync,
+import { setMaxTime, /*setCurrentTime,*/ startTimerAsync,
         stopTimerAsync, resetTimerAsync } from '../../routines';
 
 const currentTimeReducer = (state = initialState.time, action) => {

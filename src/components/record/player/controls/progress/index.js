@@ -62,7 +62,7 @@ class ProgressBar extends Component {
     } else {
       const progress_ms = this.getElapsedTime(baseTime, startedAt, stoppedAt);
       const max_ms = this.props.reducerState.maxTime;
-      if (progress_ms >= max_ms) {
+      if (progress_ms >= max_ms-500) {
         const payload = {
           skip: null,
           playbackState: this.props.reducerState.playbackState,

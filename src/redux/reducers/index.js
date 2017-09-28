@@ -46,8 +46,8 @@ export const playbackStateReducer = (state = initialState.now_playing, action) =
       return action.payload;
     case nextTrack.SUCCESS:
       return action.payload;
-    // case updateAlbumTracks.SUCCESS:
-    //   return action.payload;
+    case startAlbum.SUCCESS:
+      return action.payload;
     case 'SONG_END':
       return initialState.now_playing;
     default:
@@ -58,7 +58,6 @@ export const playbackStateReducer = (state = initialState.now_playing, action) =
 export const albumTracksNowPlayingReducer = (state = initialState.albumTracksNowPlaying, action) => {
   switch (action.type) {
     case updateAlbumTracks.SUCCESS:
-      console.log(action.payload);
       return action.payload;
     default:
       return state;
@@ -138,7 +137,6 @@ export const artistFocusReducer = (state = initialState.artistFocus, action) => 
 };
 
 export const artistsReducer = (state = initialState.artists, action) => {
-  // console.log(action);
   switch (action.type) {
     case search.TRIGGER:
       return initialState.artists;

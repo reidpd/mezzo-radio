@@ -17,7 +17,8 @@ const routines = { albumHover, albumFocus, startAlbum, startTimerAsync, resetTim
 
 const mapStateToProps = state => {
   return {
-    time: state.timeReducer.currentTimeReducer
+    time: state.timeReducer.currentTimeReducer,
+    playbackState: state.playbackStateReducer,
   }
 };
 const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
@@ -27,11 +28,12 @@ class Album extends Component {
 
   handleClick = (data) => this.props.albumFocus(data);
   handleDoubleClick = (data) => {
+    const playbackState = this.props.playbackState;
     const context_uri = data.uri;
     const albumID = data.id;
     const { baseTime, startedAt, stoppedAt } = this.props.time;
     const elapsed = this.getElapsedTime(baseTime, startedAt, stoppedAt);
-    this.props.startAlbum({ context_uri, albumID, elapsed });
+    this.props.startAlbum({ context_uri, albumID, elapsed, playbackState });
   };
 
   handleMouseHover = (input) => this.props.albumHover(input);

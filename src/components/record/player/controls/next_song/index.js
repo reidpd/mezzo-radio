@@ -31,7 +31,8 @@ class NextSongBtn extends Component {
     const payload = {
       skip: 'next',
       playbackState: this.props.playbackState,
-    }
+    };
+    spotifyPromises.skipToNext();
     this.props.nextTrack(payload);
   }
   render() {
