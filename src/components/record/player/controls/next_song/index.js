@@ -18,7 +18,7 @@ const spotifyPromises = new SpotifyPromisesClass();
 
 const mapStateToProps = state => {
   return {
-    playbackState: state.nowPlayingReducer
+    playbackState: state.playbackStateReducer
   };
 }
 

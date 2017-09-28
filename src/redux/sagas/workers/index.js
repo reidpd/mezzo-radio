@@ -10,7 +10,7 @@ import { search, artistFocus, albumFocus, albumHover,
         startAlbum, setUserInfo, recordSpinToggle,
         playbackToggle, playbackState, nextTrack,
         startTimerAsync, stopTimerAsync, resetTimerAsync,
-        setMaxTime } from '../../routines'; // importing our routines
+        setMaxTime, updateAlbumTracks } from '../../routines'; // importing our routines
 import { startTimer, stopTimer } from '../../actions';
 import SpotifyPromisesClass from '../../../spotify';
 const spotifyPromises = new SpotifyPromisesClass();
@@ -81,17 +81,30 @@ export function* playbackStateSaga(action) {
 }
 
 export function* startAlbumSaga(action) {
-  const context_uri = action.payload;
+  const context_uri = action.payload.context_uri;
+  const baseTime = action.payload.elapsed;
   try {
     yield put(startAlbum.request());
     const promiseMethod = spotifyPromises.startAlbum;
     const response = yield call(promiseMethod, context_uri);
     console.log('response from startAlbumSaga === ', response);
     yield put(startAlbum.success());
-    const payload = { now: new Date().getTime() };
+    const payload = { now: new Date().getTime(), baseTime };
     yield put(resetTimerAsync.success(payload));
   } catch (error) {
     yield put(startAlbum.failure(error))
+  }
+}
+
+export function* updateAlbumTracksSaga(action) {
+  const albumID = action.payload.albumID;
+  try {
+    const promiseMethod = spotifyPromises.getAlbumTracks;
+    const response = yield call(promiseMethod, albumID);
+    console.log('updateAlbumTracks response === ', response)
+    yield put(updateAlbumTracks.success(response.body));
+  } catch (error) {
+    yield put(updateAlbumTracks.failure(error));
   }
 }
 

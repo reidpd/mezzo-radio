@@ -27,7 +27,7 @@ import {
   setUserInfo, recordSpinToggle, search,
   artistFocus, albumFocus, albumHover,
   startAlbum, /* playbackToggle, */ playbackState,
-  nextTrack } from '../routines';
+  nextTrack, updateAlbumTracks, nextTrackCount } from '../routines';
 
 export const recordSpinReducer = (state = false, action) => {
   switch (action.type) {
@@ -38,7 +38,7 @@ export const recordSpinReducer = (state = false, action) => {
   }
 }
 
-export const nowPlayingReducer = (state = initialState.now_playing, action) => {
+export const playbackStateReducer = (state = initialState.now_playing, action) => {
   switch (action.type) {
     // case playbackToggle.SUCCESS:
     //   return action.payload;
@@ -46,12 +46,41 @@ export const nowPlayingReducer = (state = initialState.now_playing, action) => {
       return action.payload;
     case nextTrack.SUCCESS:
       return action.payload;
+    // case updateAlbumTracks.SUCCESS:
+    //   return action.payload;
     case 'SONG_END':
       return initialState.now_playing;
     default:
       return state;
   }
 };
+
+export const albumTracksNowPlayingReducer = (state = null, action) => {
+  switch (action.type) {
+    case updateAlbumTracks.SUCCESS:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+export const trackNowPlayingReducer = (state = null, action) => {
+  switch (action.type) {
+    case updateAlbumTracks.SUCCESS:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+export const trackCountReducer = (state = null, action) => {
+  switch (action.type) {
+    case nextTrackCount.TRIGGER:
+      return action.payload;
+    default:
+      return state;
+  }
+}
 
 export const albumHoverReducer = (state = initialState.albumHover, action) => {
   switch (action.type) {
@@ -72,7 +101,6 @@ export const albumFocusReducer = (state = initialState.albumFocus, action) => {
 }
 
 export const albumsReducer = (state = initialState.albums, action) => {
-  // console.log(action);
   switch (action.type) {
     case search.SUCCESS:
       return action.payload.body.albums;
@@ -160,7 +188,9 @@ export const tokensReducer = (state = initialState.tokens, action) => {
 
 const appReducer = combineReducers({
   form: reduxFormReducer,
-  nowPlayingReducer,
+  albumTracksNowPlayingReducer,
+  trackNowPlayingReducer,
+  playbackStateReducer,
   recordSpinReducer,
   albumHoverReducer,
   albumFocusReducer,

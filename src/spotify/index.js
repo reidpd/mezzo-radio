@@ -35,6 +35,10 @@ export default class SpotifyPromisesClass {
     return this.spotify.getMe().then(response => response, error => error);
   }
 
+  getAlbumTracks = (context_uri) => {
+    return this.spotify.getAlbumTracks(context_uri).then(res => res, error => this.handleError(error))
+  }
+
   search = (query) => {
     return this.spotify.search(query, ['album', 'artist']).then(data => data, error => this.handleError(error));
   }

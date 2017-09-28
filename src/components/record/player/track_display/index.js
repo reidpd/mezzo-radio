@@ -12,7 +12,11 @@ import {} from '../../../../redux/routines';
 import Track from '../../../lists/by/track/single';
 
 const mapStateToProps = state => {
-  return { playbackState: state.nowPlayingReducer };
+  return {
+    playbackState: state.playbackStateReducer,
+    albumTracks: state.albumTracksNowPlayingReducer,
+    trackCount: state.trackCountReducer,
+  };
 };
 
 const routines = {};
@@ -24,7 +28,7 @@ class TrackDisplay extends Component {
     return (
       <div className="track-display-container">
         <p>Track Display</p>
-        <Track data={this.props.playbackState} />
+        {/* <Track data={this.props.albumTracks} track_number={this.props.trackCount} /> */}
       </div>
     )
   }

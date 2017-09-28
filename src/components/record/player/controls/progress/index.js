@@ -36,7 +36,7 @@ const mapStateToProps = state => {
     reducerState: {
       currentTime: state.timeReducer.currentTimeReducer,
       maxTime: state.timeReducer.maxTimeReducer,
-      playbackState: state.nowPlayingReducer,
+      playbackState: state.playbackStateReducer,
     }
   }
 }
