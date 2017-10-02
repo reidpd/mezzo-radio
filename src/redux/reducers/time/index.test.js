@@ -1,5 +1,5 @@
 /*
 
-This file is responsible for testing Redux actions.
+This file is responsible for testing Redux reducers related to time.
 
 */

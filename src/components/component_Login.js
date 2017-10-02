@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 /**
  * Our login page
- * Has a login button that hit's the login url
+ * Has a login button that hits the login url
  */
 export default class Login extends Component {
   commenceOAuth = () => {
