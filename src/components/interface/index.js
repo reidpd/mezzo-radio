@@ -58,10 +58,7 @@ const mapDispatchToProps = (dispatch) => {
 class Interface extends Component {
   componentDidMount = () => {
     if (this.props.user === null) {
-      const uri = window.location.href;
-      const paramsIdx = uri.indexOf('?') + 1;
-      const lengthyStr = uri.substring(paramsIdx);
-      const obj = JSON.parse(decodeURIComponent(lengthyStr));
+      const obj = this.getTokensFromURI(window.location.href);
 
       // Set the access token on the API object to use it in later calls
       spotify.setAccessToken(obj.access_token);
@@ -86,6 +83,12 @@ class Interface extends Component {
           }
         }, err => console.log(err))
     }
+  }
+
+  getTokensFromURI = (uri) => {
+    const paramsIdx = uri.indexOf('?') + 1;
+    const paramStr = uri.substring(paramsIdx);
+    return JSON.parse(decodeURIComponent(paramStr));
   }
 
   render() {

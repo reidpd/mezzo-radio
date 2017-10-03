@@ -76,8 +76,7 @@ class ProgressBar extends Component {
 
   handleChange = (event, value) => {
     console.log(value);
-    // this.setState({ value });
-    // change spotify timeline
+    // change spotify timeline:requires PR update to be accepted in spotify-web-api-node library
   }
 
   getElapsedTime = (baseTime, startedAt, stoppedAt = new Date().getTime()) => {
@@ -89,6 +88,7 @@ class ProgressBar extends Component {
   }
 
   parse_ms = (ms) => {
+    // if (typeof ms !== 'number') { return "0" }
     const totalSeconds = Math.floor(ms / 1000);
     if (totalSeconds < 60) {
       const seconds = (totalSeconds < 10) ? ['0', totalSeconds].join('') : totalSeconds;

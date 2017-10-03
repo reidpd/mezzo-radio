@@ -13,6 +13,7 @@ export default {
       progress_ms: 0,
     },
   },
+  recordSpinToggle: false,
   albums: { items: [] },
   artists: [],
   artistFocus: null,

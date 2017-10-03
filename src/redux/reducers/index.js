@@ -29,8 +29,12 @@ import {
   startAlbum, /* playbackToggle, */ playbackState,
   nextTrack, updateAlbumTracks, nextTrackCount } from '../routines';
 
-export const recordSpinReducer = (state = false, action) => {
+export const recordSpinReducer = (state = initialState.recordSpinToggle, action) => {
+  console.log(action.type);
   switch (action.type) {
+    case 'RECORD_SPIN_TOGGLE_SUCCESS':
+      console.log('WE REACH THE RIGHT CASE');
+      return action.payload;
     case recordSpinToggle.SUCCESS:
       return action.payload;
     default:
@@ -164,7 +168,7 @@ export const userReducer = (state = initialState.user, action) => {
   }
 };
 
-export const progressBarReducer = (initState = initialState.progressBar, action) => {
+export const progressBarReducer = (state = initialState.progressBar, action) => {
   switch (action.type) {
     case playbackState.SUCCESS:
       const state = {
@@ -174,7 +178,7 @@ export const progressBarReducer = (initState = initialState.progressBar, action)
       const payload = { state };
       return payload;
     default:
-      return initState;
+      return state;
   }
 }
 
@@ -189,7 +193,7 @@ export const tokensReducer = (state = initialState.tokens, action) => {
 
 // Final Reducer Combination & Export
 
-const appReducer = combineReducers({
+export const appReducer = combineReducers({
   form: reduxFormReducer,
   albumTracksNowPlayingReducer,
   trackNowPlayingReducer,
@@ -207,6 +211,6 @@ const appReducer = combineReducers({
   timeReducer,
 });
 
-const rootReducer = (state, action) => appReducer(state, action);
+export const rootReducer = (state, action) => appReducer(state, action);
 
 export default rootReducer;
