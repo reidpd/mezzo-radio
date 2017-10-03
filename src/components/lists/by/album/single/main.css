@@ -1,3 +1,7 @@
 .single-album-anchor {
   color: white;
 }
+
+.single-album-anchor:hover {
+  color: white;
+}
