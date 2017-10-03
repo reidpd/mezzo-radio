@@ -58,7 +58,7 @@ class ProgressBar extends Component {
   componentDidUpdate() {
     const { baseTime, startedAt, stoppedAt } = this.props.reducerState.currentTime;
     if (!baseTime && !startedAt && !stoppedAt) {
-
+//     do nothing
     } else {
       const progress_ms = this.getElapsedTime(baseTime, startedAt, stoppedAt);
       const max_ms = this.props.reducerState.maxTime;

@@ -16,7 +16,7 @@ Any interactions involving the redux store should be abstracted away from this f
 This file is only concerned with interacting with the Spotify API.
 
 */
-
+require('dotenv').config();
 const spotify = require('../config/spotifyWebApi.js');
 
 export default class SpotifyPromisesClass {
@@ -24,8 +24,10 @@ export default class SpotifyPromisesClass {
 
   handleError = (error) => {
     if (error.statusCode === 401) {
+      const env = process.env.NODE_ENV;
       const refresh_token = this.spotify.getRefreshToken();
-      window.location.assign('https://mezzo-radio-api.herokuapp.com/refresh/' + refresh_token);
+      const url = 'https://mezzo-radio-api.herokuapp.com/refresh/' + refresh_token + '/' + env;
+      window.location.assign(url);
     } else {
       console.log("handleError input === ", error);
     }

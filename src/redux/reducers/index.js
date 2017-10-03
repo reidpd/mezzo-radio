@@ -192,8 +192,7 @@ export const tokensReducer = (state = initialState.tokens, action) => {
 }
 
 // Final Reducer Combination & Export
-
-export const appReducer = combineReducers({
+const appReducer = combineReducers({
   form: reduxFormReducer,
   albumTracksNowPlayingReducer,
   trackNowPlayingReducer,
@@ -205,7 +204,7 @@ export const appReducer = combineReducers({
   albumsReducer,
   artistFocusReducer,
   artistsReducer,
-  progressBarReducer,
+  // progressBarReducer,
   userReducer,
   tokensReducer,
   timeReducer,
