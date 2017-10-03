@@ -12,11 +12,11 @@ More specifically, these functions are intended to be used
 within the redux-saga architecture of the app as its 'clientApi',
 within try/catch blocks of generators within 'redux/saga/index.js'.
 
+Any interactions involving the redux store should be abstracted away from this file.
+This file is only concerned with interacting with the Spotify API.
+
 */
-// import {recordSpinToggle} from '../redux/routines';
-// import store from '../redux/store';
-/* Importing the store yields this error: "TypeError: __WEBPACK_IMPORTED_MODULE_4__spotify__.a is not a constructor", must investigate later */
-// const { dispatch, getState } = store;
+require('dotenv').config();
 const spotify = require('../config/spotifyWebApi.js');
 
 export default class SpotifyPromisesClass {
@@ -24,11 +24,10 @@ export default class SpotifyPromisesClass {
 
   handleError = (error) => {
     if (error.statusCode === 401) {
-      // axios.get('https://mezzo-radio-api.herokuapp.com/refresh')
-      // .then(response => console.log('axios response ===', response))
-      // .catch(error => console.log('axios error === ', error));
+      const env = process.env.NODE_ENV;
       const refresh_token = this.spotify.getRefreshToken();
-      window.location.assign('https://mezzo-radio-api.herokuapp.com/refresh/' + refresh_token);
+      const url = 'https://mezzo-radio-api.herokuapp.com/refresh/' + refresh_token + '/' + env;
+      window.location.assign(url);
     } else {
       console.log("handleError input === ", error);
     }
@@ -38,44 +37,48 @@ export default class SpotifyPromisesClass {
     return this.spotify.getMe().then(response => response, error => error);
   }
 
+  getAlbumTracks = (context_uri) => {
+    return this.spotify.getAlbumTracks(context_uri).then(res => res, error => this.handleError(error))
+  }
+
   search = (query) => {
-    return this.spotify.search(query, ['album', 'artist']).then(data => data, err => err);
+    return this.spotify.search(query, ['album', 'artist']).then(data => data, error => this.handleError(error));
   }
 
   getArtistRelatedArtists = (artistId) => {
-    return this.spotify.getArtistRelatedArtists(artistId).then(data => data, err => err);
+    return this.spotify.getArtistRelatedArtists(artistId).then(data => data, error => this.handleError(error));
   }
 
   getArtistAlbums = (artistId) => {
-    return this.spotify.getArtistAlbums(artistId).then(data => data, err => console.log(err))
+    return this.spotify.getArtistAlbums(artistId).then(data => data, error => this.handleError(error))
   }
 
   getArtistAlbumsWithTracks = (artistId) => {
     this.spotify.getArtistAlbums(artistId)
-    .then(data => data.body.items.map(item => item.id), err => console.log(err))
+    .then(data => data.body.items.map(item => item.id), error => this.handleError(error))
     .then(ids => {
       this.spotify.getAlbums(ids).then(data => data.body.albums)
-    }, err => console.log(err));
+    }, error => this.handleError(error));
   }
 
   // getAlbumTracks = (albumId) => {
-  //   this.spotify.getAlbumTracks(albumId).then(data => data, err => err);
+  //   this.spotify.getAlbumTracks(albumId).then(data => data, error => error);
   // }
 
   getPlaybackState = () => {
-    return this.spotify.getMyCurrentPlaybackState().then(response => response, err => console.log(err));
+    return this.spotify.getMyCurrentPlaybackState().then(response => response, error => this.handleError(error));
   }
 
   startAlbum = (context_uri) => {
-    return this.spotify.play({context_uri}).then(response => response, err => console.log(err));
+    return this.spotify.play({context_uri}).then(response => response, error => this.handleError(error));
   }
 
   play = () => {
-    return this.spotify.play().then(res => res, error => error);
+    return this.spotify.play().then(res => res, error => this.handleError(error));
   }
 
   pause = () => {
-    return this.spotify.pause().then(res => res, error => error);
+    return this.spotify.pause().then(res => res, error => this.handleError(error));
   }
 
   playbackToggle = () => {
@@ -84,19 +87,19 @@ export default class SpotifyPromisesClass {
         // store.dispatch(recordSpinToggle(!response.body.is_playing));
         if (response.body.is_playing) {
           return this.spotify.pause()
-          .then(response => response, err => console.log(err));
+          .then(response => response, error => this.handleError(error));
         } else {
           return this.spotify.play()
-          .then(response => response, err => console.log(err));
+          .then(response => response, error => this.handleError(error));
         }
-      }, err => console.log(err))
+      }, error => console.log(error))
   }
 
   skipToPrevious = () => {
-    return this.spotify.skipToPrevious().then(res => res, err => err);
+    return this.spotify.skipToPrevious().then(res => res, error => this.handleError(error));
   }
 
   skipToNext =() => {
-    return this.spotify.skipToNext().then(res => res, err => err);
+    return this.spotify.skipToNext().then(res => res, error => this.handleError(error));
   }
 }

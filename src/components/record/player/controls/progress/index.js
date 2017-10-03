@@ -35,7 +35,9 @@ const mapStateToProps = state => {
   return {
     reducerState: {
       currentTime: state.timeReducer.currentTimeReducer,
-      maxTime: state.timeReducer.maxTimeReducer
+      maxTime: state.timeReducer.maxTimeReducer,
+      playbackState: state.playbackStateReducer,
+      albumTracks: state.albumTracksNowPlayingReducer,
     }
   }
 }
@@ -56,26 +58,28 @@ class ProgressBar extends Component {
   componentDidUpdate() {
     const { baseTime, startedAt, stoppedAt } = this.props.reducerState.currentTime;
     if (!baseTime && !startedAt && !stoppedAt) {
-
+//     do nothing
     } else {
       const progress_ms = this.getElapsedTime(baseTime, startedAt, stoppedAt);
       const max_ms = this.props.reducerState.maxTime;
-      if (progress_ms >= max_ms) {
-        this.props.routines.nextTrack();
+      if (progress_ms >= max_ms-500) {
+        const payload = {
+          skip: null,
+          playbackState: this.props.reducerState.playbackState,
+        }
+        this.props.routines.nextTrack(payload);
       }
     }
   }
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
+  componentWillUnmount() { clearInterval(this.interval) }
 
   handleChange = (event, value) => {
-    this.setState({ value });
-    // change spotify timeline
+    console.log(value);
+    // change spotify timeline:requires PR update to be accepted in spotify-web-api-node library
   }
 
-  getElapsedTime(baseTime, startedAt, stoppedAt = new Date().getTime()) {
+  getElapsedTime = (baseTime, startedAt, stoppedAt = new Date().getTime()) => {
     if (!startedAt) {
       return 0;
     } else {
@@ -83,23 +87,34 @@ class ProgressBar extends Component {
     }
   }
 
+  parse_ms = (ms) => {
+    // if (typeof ms !== 'number') { return "0" }
+    const totalSeconds = Math.floor(ms / 1000);
+    if (totalSeconds < 60) {
+      const seconds = (totalSeconds < 10) ? ['0', totalSeconds].join('') : totalSeconds;
+      return ["0", seconds].join(':');
+    }
+    const minutes = Math.floor(totalSeconds / 60);
+    const remainingSeconds = totalSeconds % (minutes * 60);
+    const seconds = (remainingSeconds < 10) ? ["0", remainingSeconds].join('') : remainingSeconds;
+    return [minutes, seconds].join(':');
+  }
+
   render() {
     const { baseTime, startedAt, stoppedAt } = this.props.reducerState.currentTime;
-    const elapsed = this.getElapsedTime(baseTime, startedAt, stoppedAt);
+    const elapsedMs = this.getElapsedTime(baseTime, startedAt, stoppedAt);
     return (
       <div className="progress-slider-container">
         <Slider
           className="progress-slider"
           min={0}
           max={this.props.reducerState.maxTime}
-          defaultValue={elapsed}
-          value={elapsed}
+          defaultValue={elapsedMs}
+          value={elapsedMs}
           onChange={this.handleChange}
         />
-        <p>
-          <span>The Value of this slider is </span>
-          <span>{elapsed}</span>
-        </p>
+        <p>Time Elapsed: {this.parse_ms(elapsedMs)}</p>
+        <p>Max Duration: {this.parse_ms(this.props.reducerState.maxTime)}</p>
       </div>
     )
   }

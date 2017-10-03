@@ -31,24 +31,23 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class ArtistsPresentational extends Component {
-
-    // constructor(props){
-    //     super(props);
-    //     this.state = {};
-    // }
+    determineArtists = (artists) => {
+      return (artists[0] === this.props.artistFocus) ? artists.slice(1) : artists;
+    }
 
     render() {
         if (this.props.artistFocus === null) {
           return (
-              <div className="class-name">
+              <div className="artists-presentational-container">
                 <ArtistList data={this.props.artists} />
               </div>
           );
         } else {
+          const artists = this.determineArtists(this.props.artists);
           return (
               <div className="artists-presentational-container">
                 <Artist data={this.props.artistFocus} />
-                <ArtistList data={this.props.artists} />
+                <ArtistList data={artists} />
               </div>
           )
         }

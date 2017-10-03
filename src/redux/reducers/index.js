@@ -26,10 +26,15 @@ import {
 import {
   setUserInfo, recordSpinToggle, search,
   artistFocus, albumFocus, albumHover,
-  startAlbum, /* playbackToggle, */ playbackState } from '../routines';
+  startAlbum, /* playbackToggle, */ playbackState,
+  nextTrack, updateAlbumTracks, nextTrackCount } from '../routines';
 
-export const recordSpinReducer = (state = false, action) => {
+export const recordSpinReducer = (state = initialState.recordSpinToggle, action) => {
+  console.log(action.type);
   switch (action.type) {
+    case 'RECORD_SPIN_TOGGLE_SUCCESS':
+      console.log('WE REACH THE RIGHT CASE');
+      return action.payload;
     case recordSpinToggle.SUCCESS:
       return action.payload;
     default:
@@ -37,15 +42,15 @@ export const recordSpinReducer = (state = false, action) => {
   }
 }
 
-export const nowPlayingReducer = (state = initialState.now_playing, action) => {
+export const playbackStateReducer = (state = initialState.now_playing, action) => {
   switch (action.type) {
-    case setUserInfo.SUCCESS:
-      return action.payload;
-    case startAlbum.SUCCESS:
-      return action.payload;
     // case playbackToggle.SUCCESS:
     //   return action.payload;
     case playbackState.SUCCESS:
+      return action.payload;
+    case nextTrack.SUCCESS:
+      return action.payload;
+    case startAlbum.SUCCESS:
       return action.payload;
     case 'SONG_END':
       return initialState.now_playing;
@@ -53,6 +58,37 @@ export const nowPlayingReducer = (state = initialState.now_playing, action) => {
       return state;
   }
 };
+
+export const albumTracksNowPlayingReducer = (state = initialState.albumTracksNowPlaying, action) => {
+  switch (action.type) {
+    case updateAlbumTracks.SUCCESS:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+export const trackNowPlayingReducer = (state = initialState.trackNowPlaying, action) => {
+  switch (action.type) {
+    case updateAlbumTracks.SUCCESS:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+export const trackCountReducer = (state = initialState.trackCount, action) => {
+  switch (action.type) {
+    case startAlbum.SUCCESS:
+      return 0;
+    case playbackState.SUCCESS:
+      return action.payload.body.item.track_number;
+    case nextTrackCount.TRIGGER:
+      return action.payload;
+    default:
+      return state;
+  }
+}
 
 export const albumHoverReducer = (state = initialState.albumHover, action) => {
   switch (action.type) {
@@ -73,16 +109,11 @@ export const albumFocusReducer = (state = initialState.albumFocus, action) => {
 }
 
 export const albumsReducer = (state = initialState.albums, action) => {
-  // console.log(action);
   switch (action.type) {
-    // case search.TRIGGER:
-    //   return initialState.albums;
     case search.SUCCESS:
       return action.payload.body.albums;
     case search.FAILURE:
       return initialState.albums;
-    // case search.FULFILL:
-    //   return action.payload;
     case artistFocus.SUCCESS:
       return action.payload.albums.body;
     case SET_ALBUMS:
@@ -110,7 +141,6 @@ export const artistFocusReducer = (state = initialState.artistFocus, action) => 
 };
 
 export const artistsReducer = (state = initialState.artists, action) => {
-  // console.log(action);
   switch (action.type) {
     case search.TRIGGER:
       return initialState.artists;
@@ -118,8 +148,6 @@ export const artistsReducer = (state = initialState.artists, action) => {
       return action.payload.body.artists.items;
     case search.FAILURE:
       return initialState.artists;
-    // case search.FULFILL:
-    //   return action.payload;
     case artistFocus.TRIGGER:
       return state;
     case artistFocus.SUCCESS:
@@ -140,7 +168,7 @@ export const userReducer = (state = initialState.user, action) => {
   }
 };
 
-export const progressBarReducer = (initState = initialState.progressBar, action) => {
+export const progressBarReducer = (state = initialState.progressBar, action) => {
   switch (action.type) {
     case playbackState.SUCCESS:
       const state = {
@@ -150,7 +178,7 @@ export const progressBarReducer = (initState = initialState.progressBar, action)
       const payload = { state };
       return payload;
     default:
-      return initState;
+      return state;
   }
 }
 
@@ -164,22 +192,24 @@ export const tokensReducer = (state = initialState.tokens, action) => {
 }
 
 // Final Reducer Combination & Export
-
 const appReducer = combineReducers({
   form: reduxFormReducer,
-  nowPlayingReducer,
+  albumTracksNowPlayingReducer,
+  trackNowPlayingReducer,
+  trackCountReducer,
+  playbackStateReducer,
   recordSpinReducer,
   albumHoverReducer,
   albumFocusReducer,
   albumsReducer,
   artistFocusReducer,
   artistsReducer,
-  progressBarReducer,
+  // progressBarReducer,
   userReducer,
   tokensReducer,
   timeReducer,
 });
 
-const rootReducer = (state, action) => appReducer(state, action);
+export const rootReducer = (state, action) => appReducer(state, action);
 
 export default rootReducer;

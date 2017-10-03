@@ -30,18 +30,13 @@ const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
 
 class PlayPauseBtn extends Component {
   handleClick = () => {
-    // this.props.playbackState();
     const { baseTime, startedAt, stoppedAt } = this.props.time;
     const elapsed = this.getElapsedTime(baseTime, startedAt, stoppedAt);
     this.props.playbackToggle(elapsed);
   }
 
-  getElapsedTime(baseTime, startedAt, stoppedAt = new Date().getTime()) {
-    if (!startedAt) {
-      return 0;
-    } else {
-      return stoppedAt - startedAt + baseTime;
-    }
+  getElapsedTime = (baseTime, startedAt, stoppedAt = new Date().getTime()) => {
+    return (!startedAt) ? 0 : stoppedAt - startedAt + baseTime;
   }
 
   render() {

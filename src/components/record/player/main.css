@@ -6,6 +6,8 @@
   width: 350px;
   height: 350px;
   background-color: #E5E4E2;
+  margin-right: 30px;
+  margin-left: auto;
   margin-bottom: 10px;
 }
 
@@ -19,6 +21,10 @@
   height: 100%;
   border: 1px solid blue;
   float: right;
+}
+
+.record-player-track-display-container {
+  clear: right;
 }
 
 .record-player-controls-container {

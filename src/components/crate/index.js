@@ -16,6 +16,7 @@ import './main.css';
 import ArtistsPresentational from './panels/front';
 import AlbumsPresentational from './panels/left';
 import RecordCoverPresentational from './panels/top';
+import SearchBar from '../search_bar';
 
 
 const Crate = () => (
@@ -37,6 +38,7 @@ const Crate = () => (
         </div>
       </div>
     </div>
+    <SearchBar form='simple'/>
   </div>
 );
 

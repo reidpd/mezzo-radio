@@ -12,6 +12,7 @@ The Mezzo-Radio experience contains the following big components:
 
 */
 
+import './main.css';
 // React, Redux Boilerplate
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
@@ -19,7 +20,7 @@ import { bindRoutineCreators } from 'redux-saga-routines';
 import { connect } from 'react-redux';
 
 // Components
-import SearchBar from '../search_bar';
+// import SearchBar from '../search_bar';
 import Crate from '../crate';
 // import RecordStack from "../record/stack";
 import RecordPlayer from '../record/player';
@@ -27,7 +28,9 @@ import RecordPlayer from '../record/player';
 
 // Redux
 import { setTokens, startTimer, stopTimer } from '../../redux/actions';
-import { albumFocus, setUserInfo, recordSpinToggle, playbackState, setMaxTime } from '../../redux/routines';
+import { albumFocus, setUserInfo, recordSpinToggle,
+        playbackState, setMaxTime, nextTrackCount,
+        updateAlbumTracks } from '../../redux/routines';
 
 // Spotify Connections
 import SpotifyPromisesClass from '../../spotify';
@@ -42,7 +45,9 @@ const mapStateToProps = (state) => {
 };
 
 const actions = { setTokens, setUserInfo, startTimer, stopTimer };
-const routines = { albumFocus, setUserInfo, recordSpinToggle, playbackState, setMaxTime };
+const routines = { albumFocus, setUserInfo, recordSpinToggle,
+                   playbackState, setMaxTime, nextTrackCount,
+                   updateAlbumTracks };
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(actions, dispatch),
@@ -53,10 +58,7 @@ const mapDispatchToProps = (dispatch) => {
 class Interface extends Component {
   componentDidMount = () => {
     if (this.props.user === null) {
-      const uri = window.location.href;
-      const paramsIdx = uri.indexOf('?') + 1;
-      const lengthyStr = uri.substring(paramsIdx);
-      const obj = JSON.parse(decodeURIComponent(lengthyStr));
+      const obj = this.getTokensFromURI(window.location.href);
 
       // Set the access token on the API object to use it in later calls
       spotify.setAccessToken(obj.access_token);
@@ -73,7 +75,9 @@ class Interface extends Component {
           this.props.routines.playbackState(); // refactor this later for fewer API requests
           this.props.routines.recordSpinToggle(response.body.is_playing);
           if (response.body.is_playing) {
+            this.props.routines.nextTrackCount(0);
             this.props.routines.albumFocus(response.body.item.album);
+            this.props.routines.updateAlbumTracks(response.body.item.album.id);
           } else {
             this.props.actions.stopTimer();
           }
@@ -81,15 +85,21 @@ class Interface extends Component {
     }
   }
 
+  getTokensFromURI = (uri) => {
+    const paramsIdx = uri.indexOf('?') + 1;
+    const paramStr = uri.substring(paramsIdx);
+    return JSON.parse(decodeURIComponent(paramStr));
+  }
+
   render() {
     return (
       <div className="interface_container">
-        <h1>Mezzo-Radio</h1>
+        <div className="logo-container"></div>
         {/* <RecordStack /> */}
         <Crate />
         <RecordPlayer />
         <br></br>
-        <SearchBar form='simple' />
+        {/* <SearchBar form='simple' /> */}
       </div>
     )
   }

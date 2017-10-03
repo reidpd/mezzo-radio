@@ -1,3 +1,7 @@
 .single-artist-anchor {
   color: white;
 }
+
+.single-artist-anchor:hover {
+  color: white;
+}

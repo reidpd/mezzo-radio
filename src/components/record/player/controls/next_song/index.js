@@ -16,15 +16,23 @@ import { nextTrack } from '../../../../../redux/routines';
 
 const spotifyPromises = new SpotifyPromisesClass();
 
-const mapStateToProps = state => { return { state }; }
+const mapStateToProps = state => {
+  return {
+    playbackState: state.playbackStateReducer
+  };
+}
 
 const routines = { nextTrack };
 const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
 
 class NextSongBtn extends Component {
   handleClick = () => {
+    const payload = {
+      skip: 'next',
+      playbackState: this.props.playbackState,
+    };
     spotifyPromises.skipToNext();
-    this.props.nextTrack();
+    this.props.nextTrack(payload);
   }
   render() {
     return (

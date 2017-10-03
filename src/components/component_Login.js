@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
+require('dotenv').config();
 
 /**
  * Our login page
- * Has a login button that hit's the login url
+ * Has a login button that hits the login url
  */
 export default class Login extends Component {
   commenceOAuth = () => {
-    window.location.assign('https://mezzo-radio-api.herokuapp.com/auth/spotify')
+    const env = process.env.NODE_ENV;
+    window.location.assign('https://mezzo-radio-api.herokuapp.com/auth/spotify/' + env);
   }
 
   render() {

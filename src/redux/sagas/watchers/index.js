@@ -17,20 +17,18 @@ import { takeEvery, all } from 'redux-saga/effects';
 import { setUserInfo, search, artistFocus,
         albumFocus, albumHover, startAlbum,
         recordSpinToggle, playbackToggle, playbackState,
-        nextTrack } from '../../routines';
+        nextTrack, /*nextTrackCount,*/ updateAlbumTracks } from '../../routines';
 // import {} from '../../actions';
 import { setUserInfoSaga, searchSaga, recordSpinSaga,
         artistFocusSaga, albumHoverSaga, albumFocusSaga,
         startAlbumSaga, apiFailureSaga, playbackToggleSaga,
-        playbackStateSaga, nextTrackSaga } from '../workers';
+        playbackStateSaga, nextTrackSaga, updateAlbumTracksSaga } from '../workers';
 
+function* updateTrackDisplayWatcherSaga() { yield takeEvery(startAlbum.TRIGGER, updateAlbumTracksSaga) }
 function* playbackStateWatcherSaga() { yield takeEvery(playbackState.TRIGGER, playbackStateSaga) }
+function* playbackToggleWatcherSaga() { yield takeEvery(playbackToggle.TRIGGER, playbackToggleSaga); }
 
-function* playbackToggleWatcherSaga() {
-  const effects = [ takeEvery(playbackToggle.TRIGGER, playbackToggleSaga) ];
-  yield all([...effects]);
-}
-
+function* updateAlbumTracksWatcherSaga() { yield takeEvery(updateAlbumTracks.TRIGGER, updateAlbumTracksSaga) }
 function* nextTrackWatcherSaga() { yield takeEvery(nextTrack.TRIGGER, nextTrackSaga) }
 function* startAlbumWatcherSaga() { yield takeEvery(startAlbum.TRIGGER, startAlbumSaga) }
 function* albumHoverWatcherSaga() { yield takeEvery(albumHover.TRIGGER, albumHoverSaga) }
@@ -60,6 +58,8 @@ export default function* rootSaga() {
     playbackToggleWatcherSaga(),
     playbackStateWatcherSaga(),
     nextTrackWatcherSaga(),
+    updateTrackDisplayWatcherSaga(),
+    updateAlbumTracksWatcherSaga(),
   ];
   yield all([...effects]);
 }

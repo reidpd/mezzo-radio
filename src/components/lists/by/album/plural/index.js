@@ -8,9 +8,11 @@ import React from 'react';
 import Album from '../single';
 
 const AlbumList = (props) => {
+  this.singleAlbum = (data) => <Album data={data} />;
+
   return (
     <div>
-      { props.data.items.map(item => <Album data={item} />) }
+      { props.data.items.map(item => this.singleAlbum(item)) }
     </div>
   )
 }

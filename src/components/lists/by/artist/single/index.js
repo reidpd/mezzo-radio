@@ -37,7 +37,7 @@ class Artist extends Component {
   render() {
     return (
       <div className="single-artist-container">
-        <a className="single-artist-anchor" onClick={() => { this.handleClick(this.artistId, this.props.data) }}>
+        <a className="single-artist-anchor" onClick={() => { this.handleClick(this.artistId, this.data) }}>
           Name: {this.props.data.name}
         </a>
       </div>
