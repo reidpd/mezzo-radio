@@ -27,7 +27,7 @@ import {
   setUserInfo, recordSpinToggle, search,
   artistFocus, albumFocus, albumHover,
   startAlbum, /* playbackToggle, */ playbackState,
-  nextTrack, updateAlbumTracks, nextTrackCount } from '../routines';
+  nextTrack, updateAlbumTracks } from '../routines';
 
 export const recordSpinReducer = (state = false, action) => {
   switch (action.type) {
@@ -79,8 +79,6 @@ export const trackCountReducer = (state = initialState.trackCount, action) => {
       return 0;
     case playbackState.SUCCESS:
       return action.payload.body.item.track_number;
-    case nextTrackCount.TRIGGER:
-      return action.payload;
     default:
       return state;
   }

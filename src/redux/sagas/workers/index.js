@@ -10,7 +10,7 @@ import { search, artistFocus, albumFocus, albumHover,
         startAlbum, setUserInfo, recordSpinToggle,
         playbackToggle, playbackState, nextTrack,
         startTimerAsync, stopTimerAsync, resetTimerAsync,
-        setMaxTime, updateAlbumTracks, /*nextTrackCount*/ } from '../../routines'; // importing our routines
+        setMaxTime, updateAlbumTracks } from '../../routines'; // importing our routines
 import { /*startTimer, stopTimer*/ } from '../../actions';
 import SpotifyPromisesClass from '../../../spotify';
 const spotifyPromises = new SpotifyPromisesClass();
@@ -26,7 +26,6 @@ export function* nextTrackSaga(action) {
     //   call(skipPromise;
     // }
     let currentPlaybackState = firstPlaybackState;
-    // yield put(nextTrackCount.trigger(currentPlaybackState.body.item.track_number + 1))
     yield put(nextTrack.request());
     // the next 4 lines are an API-greedy solution to finding the next duration value: refactor when possible!
     // IN FACT, this is now a bug: must fix later.

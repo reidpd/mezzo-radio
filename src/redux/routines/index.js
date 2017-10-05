@@ -24,4 +24,3 @@ export const stopTimerAsync = createRoutine('STOP_TIMER_ASYNC');
 export const resetTimerAsync = createRoutine('RESET_TIMER_ASYNC');
 export const updateAlbumTracks = createRoutine('UPDATE_ALBUM_TRACKS');
 export const updateTrackNowPlaying = createRoutine('UPDATE_TRACK_NOW_PLAYING');
-export const nextTrackCount = createRoutine('NEXT_TRACK_COUNT');

@@ -29,8 +29,7 @@ import RecordPlayer from '../record/player';
 // Redux
 import { setTokens, startTimer, stopTimer } from '../../redux/actions';
 import { albumFocus, setUserInfo, recordSpinToggle,
-        playbackState, setMaxTime, nextTrackCount,
-        updateAlbumTracks } from '../../redux/routines';
+        playbackState, setMaxTime, updateAlbumTracks } from '../../redux/routines';
 
 // Spotify Connections
 import SpotifyPromisesClass from '../../spotify';
@@ -46,8 +45,7 @@ const mapStateToProps = (state) => {
 
 const actions = { setTokens, setUserInfo, startTimer, stopTimer };
 const routines = { albumFocus, setUserInfo, recordSpinToggle,
-                   playbackState, setMaxTime, nextTrackCount,
-                   updateAlbumTracks };
+                   playbackState, setMaxTime, updateAlbumTracks };
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(actions, dispatch),
@@ -78,7 +76,6 @@ class Interface extends Component {
           this.props.routines.playbackState(); // refactor this later for fewer API requests
           this.props.routines.recordSpinToggle(response.body.is_playing);
           if (response.body.is_playing) {
-            this.props.routines.nextTrackCount(0);
             this.props.routines.albumFocus(response.body.item.album);
             this.props.routines.updateAlbumTracks(response.body.item.album.id);
           } else {
