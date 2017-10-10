@@ -19,20 +19,10 @@ export function* nextTrackSaga(action) {
   const firstPlaybackState = action.payload.playbackState;
   const skip = action.payload.skip;
   try {
-    // let skipPromise;
-    // if (skip !== null) {
-    //   if (skip === 'next') { skipPromise = spotifyPromises.skipToNext; }
-    //   else if (skip === 'prev') { skipPromise = spotifyPromises.skipToPrevious; }
-    //   call(skipPromise;
-    // }
     let currentPlaybackState = firstPlaybackState;
     yield put(nextTrack.request());
     // the next 4 lines are an API-greedy solution to finding the next duration value: refactor when possible!
     // IN FACT, this is now a bug: must fix later.
-    // while (currentPlaybackState.body.item.duration_ms === firstPlaybackState.body.item.duration_ms) {
-    //   const promiseMethodOne = spotifyPromises.getPlaybackState;
-    //   currentPlaybackState = yield call(promiseMethodOne);
-    // }
     // still needs refactoring
     while (currentPlaybackState.body.item.duration_ms === firstPlaybackState.body.item.duration_ms) {
       const promiseMethodOne = spotifyPromises.getPlaybackState;

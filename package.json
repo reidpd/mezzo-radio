@@ -32,7 +32,8 @@
     "webpack-hot-middleware": "^2.19.1"
   },
   "devDependencies": {
-    "react-scripts": "^1.0.14"
+    "react-scripts": "^1.0.14",
+    "redux-saga-test-plan": "^3.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
