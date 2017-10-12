@@ -1,0 +1,20 @@
+/*.needle {
+  background-image: url('../../../../images/turntable-needle-clipart.svg');
+}*/
+
+.needle-component-container {
+  color: #fff;
+  display: block;
+  background-size: contain;
+  padding-left: 0px;
+  margin-right: 0px;
+  transform: rotate(30deg);h
+  overflow: visible;
+}
+
+.needle {
+  margin: auto;
+  transform-origin: 50% 25%;
+  background-size: contain;
+  /*width: 50%;*/
+}

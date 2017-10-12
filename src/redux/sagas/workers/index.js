@@ -10,7 +10,7 @@ import { search, artistFocus, albumFocus, albumHover,
         startAlbum, setUserInfo, recordSpinToggle,
         playbackToggle, playbackState, nextTrack,
         startTimerAsync, stopTimerAsync, resetTimerAsync,
-        setMaxTime, updateAlbumTracks } from '../../routines'; // importing our routines
+        setMaxTrackTime, updateAlbumTracks, setMaxRecordTime } from '../../routines'; // importing our routines
 import { /*startTimer, stopTimer*/ } from '../../actions';
 import SpotifyPromisesClass from '../../../spotify';
 const spotifyPromises = new SpotifyPromisesClass();
@@ -32,8 +32,10 @@ export function* nextTrackSaga(action) {
     yield put(nextTrack.success(currentPlaybackState))
     let payload = { now: new Date().getTime() };
     yield put(resetTimerAsync.success(payload));
-    yield put(setMaxTime.trigger(currentPlaybackState.body.item.duration_ms));
+    yield put(setMaxTrackTime.trigger(currentPlaybackState.body.item.duration_ms));
     yield put(albumFocus.success(currentPlaybackState.body.item.album));
+    // const getAlbumTracksPromiseMethod = spotifyPromises.getAlbumTracks;
+    // const albumTracks = yield call(getAlbumTracksPromiseMethod, currentPlaybackState.body.item.album.id);
   } catch(error) { yield put(playbackToggle.failure(error)) }
 }
 
@@ -84,15 +86,23 @@ export function* startAlbumSaga(action) {
     yield put(startAlbum.request());
     const startAlbumPromiseMethod = spotifyPromises.startAlbum;
     yield call(startAlbumPromiseMethod, context_uri);
+    console.log('startAlbumSaga albumTracks === ', albumTracks);
     let currentPlaybackState = firstPlaybackState;
     while (firstPlaybackState.body.item.duration_ms === currentPlaybackState.body.item.duration_ms) {
       const playbackStatePromise = spotifyPromises.getPlaybackState;
       currentPlaybackState = yield call(playbackStatePromise);
     }
     yield put(startAlbum.success(currentPlaybackState));
-    yield put(setMaxTime.trigger(currentPlaybackState.body.item.duration_ms));
+    console.log('startAlbumSaga currentPlaybackState === ', currentPlaybackState);
+    yield put(setMaxTrackTime.trigger(currentPlaybackState.body.item.duration_ms));
     const payload = { now: new Date().getTime(), baseTime };
     yield put(resetTimerAsync.success(payload));
+    const getAlbumTracksPromiseMethod = spotifyPromises.getAlbumTracks;
+    const albumTracks = yield call(getAlbumTracksPromiseMethod, currentPlaybackState.body.item.album.id);
+    console.log('startAlbumSaga albumTracks === ', albumTracks);
+    const total_duration = albumTracks.body.items.map(track => track.duration_ms).reduce((acc, next) => acc + next);
+    console.log('total_duration === ', total_duration);
+    yield put(setMaxRecordTime.trigger(total_duration));
   } catch (error) {
     yield put(startAlbum.failure(error))
   }

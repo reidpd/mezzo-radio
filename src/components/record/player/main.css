@@ -21,6 +21,7 @@
   height: 100%;
   border: 1px solid blue;
   float: right;
+  background-size: contain;
 }
 
 .record-player-track-display-container {

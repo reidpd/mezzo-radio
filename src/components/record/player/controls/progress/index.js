@@ -35,7 +35,8 @@ const mapStateToProps = state => {
   return {
     reducerState: {
       currentTime: state.timeReducer.currentTimeReducer,
-      maxTime: state.timeReducer.maxTimeReducer,
+      maxTrackTime: state.timeReducer.maxTrackTimeReducer,
+      maxRecordTime: state.timeReducer.maxRecordSideTimeReducer,
       playbackState: state.playbackStateReducer,
       albumTracks: state.albumTracksNowPlayingReducer,
     }
@@ -61,7 +62,7 @@ class ProgressBar extends Component {
 
     } else {
       const progress_ms = this.getElapsedTime(baseTime, startedAt, stoppedAt);
-      const max_ms = this.props.reducerState.maxTime;
+      const max_ms = this.props.reducerState.maxTrackTime;
       if (progress_ms >= max_ms-500) {
         const payload = {
           skip: null,
@@ -108,13 +109,14 @@ class ProgressBar extends Component {
         <Slider
           className="progress-slider"
           min={0}
-          max={this.props.reducerState.maxTime}
+          max={this.props.reducerState.maxTrackTime}
           defaultValue={elapsedMs}
           value={elapsedMs}
           onChange={this.handleChange}
         />
-        <p>Time Elapsed: {this.parse_ms(elapsedMs)}</p>
-        <p>Max Duration: {this.parse_ms(this.props.reducerState.maxTime)}</p>
+        <p>Time Elapsed (Track): {this.parse_ms(elapsedMs)}</p>
+        <p>Max Duration (Track): {this.parse_ms(this.props.reducerState.maxTrackTime)}</p>
+        <p>Max Duration (Record): {this.parse_ms(this.props.reducerState.maxRecordTime)}</p>
       </div>
     )
   }
