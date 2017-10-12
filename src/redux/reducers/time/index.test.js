@@ -5,7 +5,7 @@ This file is responsible for testing Redux reducers related to time.
 */
 
 import expect from 'expect';
-import { currentTimeReducer, maxTimeReducer } from './index.js';
+import { currentTimeReducer, maxTrackTimeReducer } from './index.js';
 import * as routines from '../../routines';
 import * as actions from '../../actions';
 import initialState from '../../initialState';
@@ -25,8 +25,8 @@ describe('TIME REDUCER TESTS', () => {
     it('should handle STOP_TIMER_ASYNC_SUCCESS action.type');
   });
 
-  describe('maxTimeReducer', () => {
-    reducer = maxTimeReducer;
+  describe('maxTrackTimeReducer', () => {
+    reducer = maxTrackTimeReducer;
     it('should return initialState');
     it('should return current state with unrecognized routines/actions');
     it('should handle SET_MAX_TIME_SUCCESS action.type');

@@ -30,11 +30,7 @@ import {
   nextTrack, updateAlbumTracks, nextTrackCount } from '../routines';
 
 export const recordSpinReducer = (state = initialState.recordSpinToggle, action) => {
-  console.log(action.type);
   switch (action.type) {
-    case 'RECORD_SPIN_TOGGLE_SUCCESS':
-      console.log('WE REACH THE RIGHT CASE');
-      return action.payload;
     case recordSpinToggle.SUCCESS:
       return action.payload;
     default:

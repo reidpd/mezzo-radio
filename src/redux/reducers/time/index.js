@@ -12,8 +12,8 @@ There are reducers for keeping track of the following information:
 
 import { combineReducers } from 'redux';
 import initialState from '../../initialState';
-import { setMaxTime, /*setCurrentTime,*/ startTimerAsync,
-        stopTimerAsync, resetTimerAsync } from '../../routines';
+import { setMaxTrackTime, /*setCurrentTime,*/ startTimerAsync,
+        stopTimerAsync, resetTimerAsync, setMaxRecordTime } from '../../routines';
 
 export const currentTimeReducer = (state = initialState.time, action) => {
   switch (action.type) {
@@ -60,9 +60,18 @@ export const currentTimeReducer = (state = initialState.time, action) => {
   }
 }
 
-export const maxTimeReducer = (state = 1000000, action) => {
+export const maxTrackTimeReducer = (state = 1000000, action) => {
   switch (action.type) {
-    case setMaxTime.TRIGGER:
+    case setMaxTrackTime.TRIGGER:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+export const maxRecordTimeReducer = (state = 10000000, action) => {
+  switch (action.type) {
+    case setMaxRecordTime.TRIGGER:
       return action.payload;
     default:
       return state;
@@ -73,7 +82,8 @@ export const maxTimeReducer = (state = 1000000, action) => {
 
 const timeReducer = combineReducers({
   currentTimeReducer,
-  maxTimeReducer,
+  maxTrackTimeReducer,
+  maxRecordTimeReducer,
 });
 
 export default timeReducer;
