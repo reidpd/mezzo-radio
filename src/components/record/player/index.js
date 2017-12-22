@@ -18,7 +18,7 @@ import { bindRoutineCreators } from 'redux-saga-routines';
 
 // Components
 import Platter from './platter';
-// import Needle from './needle';
+import Needle from './needle';
 import Controls from './controls';
 import TrackDisplay from './track_display';
 
