@@ -18,10 +18,14 @@ import { playbackToggle, playbackState, /* recordSpinToggle */ } from '../../../
 // import store from '../../../../../redux/store';
 // const { getState, dispatch } = store;
 
+import '../../main.css';
+const playImg = require('../../../../../images/play.png');
+const pauseImg = require('../../../../../images/pause.png');
 
 const mapStateToProps = state => {
   return {
-    time: state.timeReducer.currentTimeReducer
+    time: state.timeReducer.currentTimeReducer,
+    isPlaying: state.playbackStateReducer
   };
 }
 
@@ -40,8 +44,11 @@ class PlayPauseBtn extends Component {
   }
 
   render() {
+    const imgSrc = this.props.isPlaying ? pauseImg : playImg;
     return (
-      <button onClick={this.handleClick}>playbackToggle</button>
+      <button onClick={this.handleClick}>
+        <img src={imgSrc} className="controls-btn"/>
+      </button>
     )
   }
 }

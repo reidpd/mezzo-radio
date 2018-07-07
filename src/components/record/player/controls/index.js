@@ -30,10 +30,10 @@ class Controls extends Component {
   render() {
     return (
       <div className="controls-container">
-        <PlayPauseBtn className="controls-btn"/>
-        <RewindSongBtn className="controls-btn"/>
-        <NextSongBtn className="controls-btn"/>
-        <ProgressBar className="controls-btn"/>
+        <PlayPauseBtn />
+        <RewindSongBtn />
+        <NextSongBtn />
+        <ProgressBar />
         {/* <VolumeSlider /> */}
       </div>
     )
