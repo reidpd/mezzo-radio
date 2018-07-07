@@ -1,12 +1,20 @@
 .interface_container {
-  /*background-image: url('../../images/black_records_background.png');*/
+  background-image: url('../../images/black_records_background.png');
+  width: 100%;
+  color: white;
 }
 
 .logo-container {
   display: block;
-  margin: auto;
+  /* margin: auto; */
+  float: left;
   background-image: url("../../images/logo.png");
   background-repeat: no-repeat;
   width: 500px;
   height: 280px;
+}
+
+.logo {
+  display: block;
+  width: 300px;
 }

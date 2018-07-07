@@ -14,6 +14,8 @@ import { bindRoutineCreators } from 'redux-saga-routines';
 import SpotifyPromisesClass from '../../../../../spotify';
 import { nextTrack } from '../../../../../redux/routines';
 
+import '../../main.css';
+
 const spotifyPromises = new SpotifyPromisesClass();
 
 const mapStateToProps = state => {
@@ -27,7 +29,6 @@ const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
 
 class NextSongBtn extends Component {
   handleClick = () => {
-    // spotifyPromises.skipToNext();
     const payload = {
       skip: 'next',
       playbackState: this.props.playbackState,
@@ -37,7 +38,9 @@ class NextSongBtn extends Component {
   }
   render() {
     return (
-      <button onClick={this.handleClick}>skipFwd</button>
+      <button onClick={this.handleClick}>
+        <img src={require('../../../../../images/next.png')} className="controls-btn"/>
+      </button>
     )
   }
 }

@@ -29,8 +29,8 @@ import RecordPlayer from '../record/player';
 // Redux
 import { setTokens, startTimer, stopTimer } from '../../redux/actions';
 import { albumFocus, setUserInfo, recordSpinToggle,
-        playbackState, setMaxTrackTime, updateAlbumTracks,
-        setMaxRecordTime } from '../../redux/routines';
+        playbackState, setMaxTrackTime, /*nextTrackCount,*/
+        updateAlbumTracks, setMaxRecordTime } from '../../redux/routines';
 
 // Spotify Connections
 import SpotifyPromisesClass from '../../spotify';
@@ -46,8 +46,8 @@ const mapStateToProps = (state) => {
 
 const actions = { setTokens, setUserInfo, startTimer, stopTimer };
 const routines = { albumFocus, setUserInfo, recordSpinToggle,
-                   playbackState, setMaxTrackTime, updateAlbumTracks,
-                   setMaxRecordTime };
+                   playbackState, setMaxTrackTime, /*nextTrackCount,*/
+                   updateAlbumTracks, setMaxRecordTime };
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(actions, dispatch),
@@ -58,10 +58,7 @@ const mapDispatchToProps = (dispatch) => {
 class Interface extends Component {
   componentDidMount = () => {
     if (this.props.user === null) {
-      const uri = window.location.href;
-      const paramsIdx = uri.indexOf('?') + 1;
-      const lengthyStr = uri.substring(paramsIdx);
-      const obj = JSON.parse(decodeURIComponent(lengthyStr));
+      const obj = this.getTokensFromURI(window.location.href);
 
       // Set the access token on the API object to use it in later calls
       spotify.setAccessToken(obj.access_token);
@@ -92,10 +89,17 @@ class Interface extends Component {
     }
   }
 
+  getTokensFromURI = (uri) => {
+    const paramsIdx = uri.indexOf('?') + 1;
+    const paramStr = uri.substring(paramsIdx);
+    return JSON.parse(decodeURIComponent(paramStr));
+  }
+
   render() {
     return (
       <div className="interface_container">
-        <div className="logo-container"></div>
+        {/* <div className="logo-container"></div> */}
+        <img className="logo" src={require('../../images/logo.png')} alt="mezzo-radio-logo"></img>
         {/* <RecordStack /> */}
         <Crate />
         <RecordPlayer />

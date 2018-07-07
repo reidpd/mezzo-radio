@@ -15,7 +15,7 @@ import initialState from '../../initialState';
 import { setMaxTrackTime, /*setCurrentTime,*/ startTimerAsync,
         stopTimerAsync, resetTimerAsync, setMaxRecordTime } from '../../routines';
 
-const currentTimeReducer = (state = initialState.time, action) => {
+export const currentTimeReducer = (state = initialState.time, action) => {
   switch (action.type) {
     case "RESET_TIMER":
       return {
@@ -60,9 +60,18 @@ const currentTimeReducer = (state = initialState.time, action) => {
   }
 }
 
-const maxTrackTimeReducer = (state = 1000000, action) => {
+export const maxTrackTimeReducer = (state = 1000000, action) => {
   switch (action.type) {
     case setMaxTrackTime.TRIGGER:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+export const maxRecordTimeReducer = (state = 10000000, action) => {
+  switch (action.type) {
+    case setMaxRecordTime.TRIGGER:
       return action.payload;
     default:
       return state;
@@ -83,7 +92,7 @@ const maxRecordSideTimeReducer = (state = 1000000000, action) => {
 const timeReducer = combineReducers({
   currentTimeReducer,
   maxTrackTimeReducer,
-  maxRecordSideTimeReducer,
+  maxRecordTimeReducer,
 });
 
 export default timeReducer;

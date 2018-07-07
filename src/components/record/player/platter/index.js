@@ -25,6 +25,7 @@ class Platter extends Component {
       <div className="record-platter">
         {/* <div className="center-num">.</div> */}
         <RecordDisk />
+        
       </div>
     )
   }

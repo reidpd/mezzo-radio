@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="_x5F__1_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 600 450" style="enable-background:new 0 0 600 450;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#0894BA;}
+	.st1{fill:#949494;}
+	.st2{fill:#80807F;}
+	.st3{fill:#71706F;}
+	.st4{fill:#C4C4C4;}
+	.st5{fill:#2C2C2E;}
+	.st6{fill:#F5F5F5;}
+	.st7{fill:#DBDBDB;}
+</style>
+<rect id="BG" class="st0" width="600" height="450"/>
+<g id="Vinyl">
+	<circle class="st1" cx="250" cy="225" r="210"/>
+	<g>
+		<circle id="Shadow" class="st2" cx="250" cy="229" r="190"/>
+	</g>
+</g>
+<g id="Button_1_">
+	<circle class="st3" cx="50" cy="405" r="25"/>
+	<circle class="st1" cx="50" cy="400" r="25"/>
+	<circle class="st4" cx="50" cy="400" r="20"/>
+	<circle class="st1" cx="50" cy="390.2" r="5"/>
+</g>
+<g id="Button">
+	<path class="st3" d="M64.6,70h-30c-2.8,0-5-2.2-5-5V35c0-2.8,2.2-5,5-5h30c2.8,0,5,2.2,5,5v30C69.6,67.8,67.3,70,64.6,70z"/>
+	<path class="st1" d="M64.6,65h-30c-2.8,0-5-2.2-5-5V30c0-2.8,2.2-5,5-5h30c2.8,0,5,2.2,5,5v30C69.6,62.8,67.3,65,64.6,65z"/>
+	<path class="st4" d="M59.6,60h-20c-2.8,0-5-2.2-5-5V35c0-2.8,2.2-5,5-5h20c2.8,0,5,2.2,5,5v20C64.6,57.8,62.3,60,59.6,60z"/>
+</g>
+<g id="Pitch_control">
+	<path class="st1" d="M565,425h-30c-2.8,0-5-2.2-5-5V230c0-2.8,2.2-5,5-5h30c2.8,0,5,2.2,5,5v190C570,422.8,567.8,425,565,425z"/>
+	<path class="st2" d="M565,225h-30c-2.8,0-5,2.2-5,5v3c0-2.8,2.2-5,5-5h30c2.8,0,5,2.2,5,5v-3C570,227.2,567.8,225,565,225z"/>
+	<path class="st2" d="M560,310h-20c-2.8,0-5-2.2-5-5v-20c0-2.8,2.2-5,5-5h20c2.8,0,5,2.2,5,5v20C565,307.8,562.8,310,560,310z"/>
+	<rect x="546" y="245" class="st5" width="8" height="160"/>
+	<path class="st6" d="M560,300h-20c-2.8,0-5-2.2-5-5v-20c0-2.8,2.2-5,5-5h20c2.8,0,5,2.2,5,5v20C565,297.8,562.8,300,560,300z"/>
+	<path class="st7" d="M555,295h-10c-2.8,0-5-2.2-5-5v-10c0-2.8,2.2-5,5-5h10c2.8,0,5,2.2,5,5v10C560,292.8,557.8,295,555,295z"/>
+</g>
+</svg>

@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background-image: url('./images/black_records_background.png');
+  /* width: 100%; */
 }
 
 .App-logo {

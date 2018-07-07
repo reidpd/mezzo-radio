@@ -36,7 +36,7 @@ const mapStateToProps = state => {
     reducerState: {
       currentTime: state.timeReducer.currentTimeReducer,
       maxTrackTime: state.timeReducer.maxTrackTimeReducer,
-      maxRecordTime: state.timeReducer.maxRecordSideTimeReducer,
+      maxRecordTime: state.timeReducer.maxRecordTimeReducer,
       playbackState: state.playbackStateReducer,
       albumTracks: state.albumTracksNowPlayingReducer,
     }
@@ -59,7 +59,7 @@ class ProgressBar extends Component {
   componentDidUpdate() {
     const { baseTime, startedAt, stoppedAt } = this.props.reducerState.currentTime;
     if (!baseTime && !startedAt && !stoppedAt) {
-
+//     do nothing
     } else {
       const progress_ms = this.getElapsedTime(baseTime, startedAt, stoppedAt);
       const max_ms = this.props.reducerState.maxTrackTime;
@@ -77,8 +77,7 @@ class ProgressBar extends Component {
 
   handleChange = (event, value) => {
     console.log(value);
-    // this.setState({ value });
-    // change spotify timeline
+    // change spotify timeline:requires PR update to be accepted in spotify-web-api-node library
   }
 
   getElapsedTime = (baseTime, startedAt, stoppedAt = new Date().getTime()) => {
@@ -90,6 +89,7 @@ class ProgressBar extends Component {
   }
 
   parse_ms = (ms) => {
+    // if (typeof ms !== 'number') { return "0" }
     const totalSeconds = Math.floor(ms / 1000);
     if (totalSeconds < 60) {
       const seconds = (totalSeconds < 10) ? ['0', totalSeconds].join('') : totalSeconds;

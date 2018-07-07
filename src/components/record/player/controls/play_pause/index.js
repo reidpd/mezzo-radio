@@ -18,10 +18,14 @@ import { playbackToggle, playbackState, /* recordSpinToggle */ } from '../../../
 // import store from '../../../../../redux/store';
 // const { getState, dispatch } = store;
 
+import '../../main.css';
+const playImg = require('../../../../../images/play.png');
+const pauseImg = require('../../../../../images/pause.png');
 
 const mapStateToProps = state => {
   return {
-    time: state.timeReducer.currentTimeReducer
+    time: state.timeReducer.currentTimeReducer,
+    isPlaying: state.playbackStateReducer.body.is_playing || false
   };
 }
 
@@ -29,24 +33,28 @@ const routines = { playbackToggle, playbackState };
 const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
 
 class PlayPauseBtn extends Component {
+  constructor(props) {
+    super(props);
+    console.log('this.props.isPlaying === ', this.props.isPlaying);
+    this.imgSrc = this.props.isPlaying ? playImg: pauseImg;
+  }
+
   handleClick = () => {
-    // this.props.playbackState();
+    if (this.imgSrc === playImg) { this.imgSrc = pauseImg } else { this.imgSrc = playImg }
     const { baseTime, startedAt, stoppedAt } = this.props.time;
     const elapsed = this.getElapsedTime(baseTime, startedAt, stoppedAt);
     this.props.playbackToggle(elapsed);
   }
 
-  getElapsedTime(baseTime, startedAt, stoppedAt = new Date().getTime()) {
-    if (!startedAt) {
-      return 0;
-    } else {
-      return stoppedAt - startedAt + baseTime;
-    }
+  getElapsedTime = (baseTime, startedAt, stoppedAt = new Date().getTime()) => {
+    return (!startedAt) ? 0 : stoppedAt - startedAt + baseTime;
   }
 
   render() {
     return (
-      <button onClick={this.handleClick}>playbackToggle</button>
+      <button onClick={this.handleClick}>
+        <img src={this.imgSrc} className="controls-btn"/>
+      </button>
     )
   }
 }

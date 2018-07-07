@@ -43,7 +43,9 @@ class RewindSongBtn extends Component {
 
   render() {
     return (
-      <button onClick={this.handleClick}>skipBack</button>
+      <button onClick={this.handleClick}>
+        <img src={require('../../../../../images/previous.png')}  className="controls-btn"/>
+      </button>
     )
   }
 }
