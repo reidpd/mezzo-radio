@@ -15,7 +15,7 @@ import RewindSongBtn from './rewind_song';
 import NextSongBtn from './next_song';
 import ProgressBar from './progress';
 // import VolumeSlider from './volume';
-// import
+import '../main.css';
 import { /*  playbackToggle  */ } from '../../../../redux/routines';
 const routines = { /* playbackToggle */ };
 
@@ -29,12 +29,11 @@ class Controls extends Component {
 
   render() {
     return (
-      <div>
-        Controls
-        <PlayPauseBtn />
-        <RewindSongBtn />
-        <NextSongBtn />
-        <ProgressBar />
+      <div className="controls-container">
+        <PlayPauseBtn className="controls-btn"/>
+        <RewindSongBtn className="controls-btn"/>
+        <NextSongBtn className="controls-btn"/>
+        <ProgressBar className="controls-btn"/>
         {/* <VolumeSlider /> */}
       </div>
     )

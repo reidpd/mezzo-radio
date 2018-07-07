@@ -14,6 +14,8 @@ import { bindRoutineCreators } from 'redux-saga-routines';
 import SpotifyPromisesClass from '../../../../../spotify';
 import { nextTrack } from '../../../../../redux/routines';
 
+import '../../main.css';
+
 const spotifyPromises = new SpotifyPromisesClass();
 
 const mapStateToProps = state => {

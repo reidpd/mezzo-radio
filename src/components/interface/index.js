@@ -94,7 +94,8 @@ class Interface extends Component {
   render() {
     return (
       <div className="interface_container">
-        <div className="logo-container"></div>
+        {/* <div className="logo-container"></div> */}
+        <img className="logo" src={require('../../images/logo.png')} alt="mezzo-radio-logo"></img>
         {/* <RecordStack /> */}
         <Crate />
         <RecordPlayer />
