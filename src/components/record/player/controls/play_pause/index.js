@@ -25,7 +25,7 @@ const pauseImg = require('../../../../../images/pause.png');
 const mapStateToProps = state => {
   return {
     time: state.timeReducer.currentTimeReducer,
-    isPlaying: state.playbackStateReducer
+    isPlaying: state.playbackStateReducer.body.is_playing || false
   };
 }
 
@@ -33,7 +33,14 @@ const routines = { playbackToggle, playbackState };
 const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
 
 class PlayPauseBtn extends Component {
+  constructor(props) {
+    super(props);
+    console.log('this.props.isPlaying === ', this.props.isPlaying);
+    this.imgSrc = this.props.isPlaying ? playImg: pauseImg;
+  }
+
   handleClick = () => {
+    if (this.imgSrc === playImg) { this.imgSrc = pauseImg } else { this.imgSrc = playImg }
     const { baseTime, startedAt, stoppedAt } = this.props.time;
     const elapsed = this.getElapsedTime(baseTime, startedAt, stoppedAt);
     this.props.playbackToggle(elapsed);
@@ -44,10 +51,9 @@ class PlayPauseBtn extends Component {
   }
 
   render() {
-    const imgSrc = this.props.isPlaying ? pauseImg : playImg;
     return (
       <button onClick={this.handleClick}>
-        <img src={imgSrc} className="controls-btn"/>
+        <img src={this.imgSrc} className="controls-btn"/>
       </button>
     )
   }

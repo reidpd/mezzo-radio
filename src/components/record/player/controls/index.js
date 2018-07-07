@@ -30,8 +30,8 @@ class Controls extends Component {
   render() {
     return (
       <div className="controls-container">
-        <PlayPauseBtn />
         <RewindSongBtn />
+        <PlayPauseBtn />
         <NextSongBtn />
         <ProgressBar />
         {/* <VolumeSlider /> */}
