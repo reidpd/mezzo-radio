@@ -40,8 +40,8 @@ class SearchBar extends Component {
   render() {
     return (
       <form className="search-bar-form" onSubmit={this.props.handleSubmit(search)}>
-        <Field component="input" name="searchTerm" type="text" placeholder="Artist / Album" />
-        <button type="submit">FIND</button>
+        <Field className="field" component="input" name="searchTerm" type="text" placeholder="Artist / Album" />
+        <button className="submit-btn" type="submit">FIND</button>
       </form>
     );
   }

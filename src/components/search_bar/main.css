@@ -2,3 +2,16 @@
   display: block;
   clear: right;
 }
+
+.field {
+  border: 5px solid hsl(0, 0%, 60%);
+  border-radius: 5px;
+  width: 50%;
+  color: black;
+}
+
+.submit-btn {
+  margin-top: 10px;
+  margin-left: 10px;
+  color: black;
+}
