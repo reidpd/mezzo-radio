@@ -39,7 +39,7 @@ class NextSongBtn extends Component {
   render() {
     return (
       <button onClick={this.handleClick}>
-        <img src={require('../../../../../images/next.png')} className="controls-btn"/>
+        <img src={require('../../../../../images/new_images/forward_button.svg')} className="controls-btn"/>
       </button>
     )
   }
