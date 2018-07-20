@@ -34,6 +34,7 @@
   grid-area: header;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .core-engine {
@@ -51,8 +52,9 @@
 } */
 
 .logo {
-  width: 50%;
-  margin-right: auto;
+  /* width: 50%; */
+  background-color: none;
+  float: left;
 }
 
 .search {

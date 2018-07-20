@@ -23,8 +23,10 @@ class AlbumsPresentational extends Component {
 
   render() {
     return (
-      <div className="artists-presentational" onMouseLeave={() => { this.handleMouseLeave({ images: [{ url: '' }] }) }}>
-        <AlbumList data={this.props.albums} />
+      <div className="albums-presentational" onMouseLeave={() => { this.handleMouseLeave({ images: [{ url: '' }] }) }}>
+        <div className="albums-pres-data-container">
+          <AlbumList data={this.props.albums} />
+        </div>
       </div>
     )
   }

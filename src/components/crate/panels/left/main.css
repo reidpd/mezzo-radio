@@ -1,3 +1,9 @@
-.artists-presentational {
+.albums-presentational {
   /* transform: skewY(-45deg); */
+  height: 50px;
+}
+
+.albums-pres-data-container {
+  /* transform: skewY(-45deg); */
+  height: 50px;
 }

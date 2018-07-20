@@ -4,7 +4,6 @@
 
 .record-player-square {
   display: block;
-  /* float: right; */
   border: 3px solid black;
   border-radius: 3px;
   width: 350px;
@@ -23,12 +22,7 @@
 .needle-side {
   width: 10%;
   height: 100%;
-  border: 1px solid blue;
+  border: 1px solid black;
   float: right;
   background-size: contain;
-}
-
-.controls-btn {
-  color: white;
-  width: 50px;
 }

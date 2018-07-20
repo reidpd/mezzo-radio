@@ -20,6 +20,7 @@ import { bindRoutineCreators } from 'redux-saga-routines';
 import Platter from './platter';
 import Needle from './needle';
 import Controls from './controls';
+import ProgressBar from './controls/progress';
 import TrackDisplay from './track_display';
 
 // Redux
@@ -43,7 +44,8 @@ class RecordPlayer extends Component {
           <TrackDisplay />
         </div>
         <div className="record-player-controls-container">
-          <Controls />
+          <Controls className="controls"/>
+          <ProgressBar className="progress" />
         </div>
       </div>
     )

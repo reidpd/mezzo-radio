@@ -1,15 +1,24 @@
-.controls-btn {
+.controls-container {
+  display: grid;
+  grid-template-columns: repeat(7,1fr);
+  grid-template-rows: 1fr;
+  grid-template-areas:
+                ". a . b . c .";
+}
 
+.controls-btn {
+  width: 50px;
+  margin: auto;
 }
 
 .rewind {
-
+  grid-area: a;
 }
 
 .play-pause {
-
+  grid-area: b;
 }
 
 .skip-track {
-  background-image: url('../../../../images/new_images/forward_button.svg');
+  grid-area: c;
 }

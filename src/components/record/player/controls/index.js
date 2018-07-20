@@ -13,9 +13,8 @@ import { bindRoutineCreators } from 'redux-saga-routines';
 import PlayPauseBtn from './play_pause';
 import RewindSongBtn from './rewind_song';
 import NextSongBtn from './next_song';
-import ProgressBar from './progress';
 // import VolumeSlider from './volume';
-import '../main.css';
+import './main.css';
 import { /*  playbackToggle  */ } from '../../../../redux/routines';
 const routines = { /* playbackToggle */ };
 
@@ -30,10 +29,9 @@ class Controls extends Component {
   render() {
     return (
       <div className="controls-container">
-        <RewindSongBtn />
-        <PlayPauseBtn />
-        <NextSongBtn />
-        <ProgressBar />
+        <RewindSongBtn className="rewind"/>
+        <PlayPauseBtn className="play-pause"/>
+        <NextSongBtn className="skip-track"/>
         {/* <VolumeSlider /> */}
       </div>
     )

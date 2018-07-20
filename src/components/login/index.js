@@ -17,9 +17,7 @@ export default class Login extends Component {
   render() {
     return (
       <div className="login-container">
-        <div className="logo-background">
-          <img src={logo} className="logo"/>
-        </div>
+        <img src={logo} className="login-logo"/>
         <h2>Welcome to Mezzo Radio! Please log into Spotify to access the main interface.</h2>
         <br></br>
         <button className="login-button" onClick={this.commenceOAuth}>
