@@ -21,24 +21,24 @@ import SearchBar from '../search_bar';
 
 const Crate = () => (
   <div className="crate-container">
-    <div className="crate-panels-container">
+    {/* <div className="crate-panels-container"> */}
+    {/* <RecordCoverPresentational className="record-cover"/>
+    <AlbumsPresentational className="artists-panel"/>
+    <ArtistsPresentational className="albums-panel"/> */}
       <div className="crate-panels-top-half">
-        <div className="crate-panel-top-container">
           <div className="top-panel-content">
-            <RecordCoverPresentational />
+            <RecordCoverPresentational className="record-cover"/>
           </div>
-        </div>
       </div>
       <div className="crate-panels-bottom-half">
         <div className="crate-panel-left-container">
-          <AlbumsPresentational />
+          <AlbumsPresentational className="albums"/>
         </div>
         <div className="crate-panel-front-container">
-          <ArtistsPresentational />
+          <ArtistsPresentational className="artists"/>
         </div>
       </div>
-    </div>
-    <SearchBar form='simple'/>
+    {/* </div> */}
   </div>
 );
 

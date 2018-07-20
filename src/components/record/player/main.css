@@ -1,12 +1,16 @@
+.record-player-container {
+  margin: auto;
+}
+
 .record-player-square {
-  display: inline-block;
-  float: right;
+  display: block;
+  /* float: right; */
   border: 3px solid black;
   border-radius: 3px;
   width: 350px;
   height: 350px;
-  background-color: #E5E4E2;
-  margin-right: 30px;
+  background-color: hsl(0,0%,60%);
+  margin-right: auto;
   margin-left: auto;
   margin-bottom: 10px;
 }
@@ -23,16 +27,6 @@
   float: right;
   background-size: contain;
 }
-
-.record-player-track-display-container {
-  clear: right;
-}
-
-.record-player-controls-container {
-  clear: right;
-}
-
-.controls-container {}
 
 .controls-btn {
   color: white;

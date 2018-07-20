@@ -9,6 +9,7 @@ Future uses could include listing Tracks behind the album art component(s).
 */
 
 import React from 'react';
+import './main.css';
 
 const Track = props => {
   if (!props.data) { return (<div></div>) }
@@ -19,9 +20,9 @@ const Track = props => {
   }
   return (
     <div>
-      <ul>
-        <li>{data.name}</li>
-        <li>{artists.join(', ')}</li>
+      <ul className="track-list">
+        <li className="track-list-item">{data.name}</li>
+        <li className="track-list-item">{artists.join(', ')}</li>
       </ul>
     </div>
   )
