@@ -7,6 +7,7 @@ This is where the needle component for the 'record/player' will live.
 import './main.css';
 import React, { Component } from 'react';
 import { bindRoutineCreators } from 'redux-saga-routines';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import NeedleImg from './img/turntable-clipart-bachs-turntable.svg';
@@ -19,27 +20,102 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-  return { state };
+  return {
+    reducerState: {
+      currentTime: state.timeReducer.currentTimeReducer,
+      maxTrackTime: state.timeReducer.maxTrackTimeReducer,
+      maxRecordTime: state.timeReducer.maxRecordTimeReducer,
+      playbackState: state.playbackStateReducer,
+      albumTracks: state.albumTracksNowPlayingReducer,
+    }
+  };
 }
 
 class Needle extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      max: this.props.max,
+      value: this.props.value,
+    };
+  };
+
+  componentDidUpdate() {
+    const { baseTime, startedAt, stoppedAt } = this.props.reducerState.currentTime;
+    if (!baseTime && !startedAt && !stoppedAt) {
+//     do nothing
+    } else {
+      const progress_ms = this.getElapsedTime(baseTime, startedAt, stoppedAt);
+      const max_ms = this.props.reducerState.maxTrackTime;
+      // if (progress_ms >= max_ms-500) {
+      //   const payload = {
+      //     skip: null,
+      //     playbackState: this.props.reducerState.playbackState,
+      //   }
+      //   this.props.routines.nextTrack(payload);
+      // }
+    }
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(this.forceUpdate.bind(this), this.props.updateInterval || 33);
+  }
+  componentWillUnmount() { clearInterval(this.interval) }
+
+  getElapsedTime = (baseTime, startedAt, stoppedAt = new Date().getTime()) => {
+    if (!startedAt) {
+      return 0;
+    } else {
+      return stoppedAt - startedAt + baseTime;
+    }
+  }
+
+  styleStr = (timebasics) => {
+    const { baseTime, startedAt, stoppedAt } = timebasics;
+    const progress_ms = this.getElapsedTime(baseTime, startedAt, stoppedAt);
+    const max_ms = this.props.reducerState.maxRecordTime;
+    const degree = this.getSkew(progress_ms, max_ms);
+    console.log('degree === ', degree);
+    return degree;
+  }
+
+  recordSkew = () => {
+    let currentTrackInfo = this.props.reducerState.playbackState.body.item;
+    const albumTracks = this.props.reducerState.albumTracks.body.items;
+    console.log(albumTracks);
+    const indexes = { track: currentTrackInfo.track_number, disc: currentTrackInfo.disc_number };
+    let track_lengths = [], i = 0;
+    while (albumTracks[i].disc_number !== indexes.disc) { i++; }
+    const startIdx = i;
+    while (albumTracks[i].disc_number === indexes.disc && albumTracks[i].track_number !== indexes.track_number) {
+      track_lengths[i-startIdx] = albumTracks[i].duration_ms;
+      i++;
+    }
+    console.log(i);
+    if (track_lengths.length === 0) { return 15 } else {
+      const prior_record_duration = track_lengths.reduce((a,b)=>a+b) + this.getElapsedTime(...this.props.reducerState.currentTime);
+      const deg = this.getSkew(prior_record_duration, this.props.reducerState.maxRecordTime);
+      return deg;
+    }
+
+  }
+
+  getSkew = (elapsedTime, maxTime) => {
+    const fraction = elapsedTime / maxTime;
+    const addition = 20 * fraction;
+    return (15+addition);
+  }
   render() {
+    const { baseTime, startedAt, stoppedAt } = this.props.reducerState.currentTime;
+    const progress_ms = this.getElapsedTime(baseTime, startedAt, stoppedAt);
+    const max_ms = this.props.reducerState.maxRecordTime;
+    // const degree = this.recordSkew();
+    // console.log('skewVar === ', degree);
     return (
       <div className="needle-component-container">
-        {/* <img src="img/turntable-needle-clipart.svg" className="needle"/> */}
-        <svg width="280" className="needle" height="347.94235" xmlns="http://www.w3.org/2000/svg">
-         <metadata id="metadata25">image/svg+xmlSimple TurntableAJ Ashtonrecord playerturntableLPvinylmusicDJstereo</metadata>
-
-         <g>
-          <title>Layer 1</title>
-          <path transform="rotate(4.75812, 186.461, 207.98)" fill="#3f3f3f" fillRule="evenodd" stroke="#000000" strokeWidth="3.75" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="4" id="path2842" d="m207.725754,91.501076l-26.97319,156.304665l-29.075668,38.393906l10.800034,24.945679l5.343887,-14.122284l9.906082,27.435242l-1.62619,-6.292206l-1.567154,-31.233429l10.032196,-28.109192l36.679962,-153.261093l-13.519958,-14.061287z"/>
-          <g stroke="#000000" id="g2851">
-           <path stroke="#000000" fill="#000000" fillRule="evenodd" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="4" id="path2852" d="m219.174225,35.781986l-3.072662,57.215366l15.238693,16.064941l8.206223,-72.063847l-20.372253,-1.216461z"/>
-           <path fill="#000000" fillRule="evenodd" stroke="#000000" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="4" id="path2854" d="m221.426605,87.366531l0.466904,8.225792l7.197891,7.079132l-1.330032,-6.442322l-6.334763,-8.862602z"/>
-          </g>
-          <rect fill="#000000" stroke="#000000" strokeWidth="3.750013" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="4" id="rect2864" transform="rotate(-24.3844, 225.215, 46.3818) matrix(0.41232, -0.919705, 0.911039, 0.416242, 0, 0.00990233)" y="193.170515" x="27.259225" ry="12.00003" rx="12.00003" height="61.901626" width="47.505859"/>
-         </g>
-        </svg>
+        <div className="needle-base">
+          <div className="needle" style={{transform: 'rotate(' + 15 + 'deg)'}}/*style={{transform:rotate( + degree + deg)}}*/></div>
+        </div>
       </div>
     )
   }

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import './main.css';
 require('dotenv').config();
+
+const logo = require('../../images/logo.png');
 
 /**
  * Our login page
@@ -13,10 +16,11 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div className="login">
+      <div className="login-container">
+        <img src={logo} />
         <h2>Welcome to Mezzo Radio! Please log into Spotify to access the main interface.</h2>
         <br></br>
-        <button onClick={this.commenceOAuth}>Log Into Spotify</button>
+        <button className="login-button" onClick={this.commenceOAuth}>Log Into Spotify</button>
       </div>
     );
   }

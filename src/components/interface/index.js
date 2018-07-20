@@ -20,7 +20,7 @@ import { bindRoutineCreators } from 'redux-saga-routines';
 import { connect } from 'react-redux';
 
 // Components
-// import SearchBar from '../search_bar';
+import SearchBar from '../search_bar';
 import Crate from '../crate';
 // import RecordStack from "../record/stack";
 import RecordPlayer from '../record/player';
@@ -69,7 +69,7 @@ class Interface extends Component {
 
       spotify.getMyCurrentPlaybackState()
         .then(response => {
-          console.log(response);
+          console.log('response === ', response);
           this.props.actions.startTimer(response.body.progress_ms);
           this.props.routines.setMaxTrackTime(response.body.item.duration_ms);
           this.props.routines.playbackState(); // refactor this later for fewer API requests
@@ -97,14 +97,17 @@ class Interface extends Component {
 
   render() {
     return (
-      <div className="interface_container">
-        {/* <div className="logo-container"></div> */}
-        <img className="logo" src={require('../../images/logo.png')} alt="mezzo-radio-logo"></img>
+      <div className="container">
+        <div className="header">
+          <img className="logo" src={require('../../images/new_images/logo_rgb.svg')} alt="mezzo-radio-logo"></img>
+          <SearchBar form='simple' className="search"/>
+        </div>
         {/* <RecordStack /> */}
-        <Crate />
-        <RecordPlayer />
+        <div className="core-engine">
+          <RecordPlayer className="recordplayer"/>
+          <Crate className="crate"/>
+        </div>
         <br></br>
-        {/* <SearchBar form='simple' /> */}
       </div>
     )
   }

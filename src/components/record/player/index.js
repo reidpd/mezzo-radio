@@ -36,7 +36,7 @@ class RecordPlayer extends Component {
             <Platter />
           </div>
           <div className="needle-side">
-            {/* <Needle /> */}
+            <Needle />
           </div>
         </div>
         <div className="record-player-track-display-container">

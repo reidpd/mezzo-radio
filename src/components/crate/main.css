@@ -3,66 +3,74 @@ CSS File for 'components/crate'
 */
 
 .crate-container {
-  display: inline-block;
-  float: left;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template:
+                "top"
+                "bottom";
+  /* margin: auto; */
+  /* margin-bottom: 10px; */
+}
+
+.record-cover {
+  grid-area: recordcover;
+}
+
+.crate-panels-top-half {
+  grid-area: top;
+  grid-column: 1 / -1;
+  grid-row: 1 / 2;
   margin: auto;
-  margin-bottom: 10px;
-}
-
-.crate-panels-container {
-  width: 600px;
-  height: 600px;
-}
-
-.crate-panels-top-half, .crate-panels-bottom-half {
-  display: block;
-}
-
-.crate-panels-top-half {}
-
-.crate-panels-bottom-half {
-  margin-top: -1%;
-}
-
-.crate-panel-top-container {
-  clear: right;
-  margin-right: 7%;
-  margin-left: 15%;
-  display: inline-block;
-	width: 300px;
+  margin-bottom: 0px;
+	width: 50%;
 	height: 300px;
-	-webkit-transform: skewX(40deg);
-	   -moz-transform: skewX(40deg);
-	     -o-transform: skewX(40deg);
+	-webkit-transform: skewX(45deg);
+	   -moz-transform: skewX(45deg);
+	     -o-transform: skewX(45deg);
 	background-image: url("../../images/record_covers.jpg");
   border: 5px solid #555;
   overflow: visible;
 }
 
+.crate-panels-bottom-half {
+  grid-area: bottom;
+  grid-column: 1 / -1;
+  grid-row: 2 / -1;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto auto;
+  grid-template:
+                "album artist";
+  /* margin-top: -1%; */
+}
+
 .top-panel-content {
-  display: inline-block;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto auto;
+  grid-template:
+                ". recordcover";
+	width: 100%;
+	height: 100%;
   float: right;
-  /*height: 100px;*/
-  /*width: 100px;*/
-  margin-right: -125px;
-  -webkit-transform: skewX(-40deg);
-	   -moz-transform: skewX(-40deg);
-	     -o-transform: skewX(-40deg);
+  margin-right: -50%;
+  -webkit-transform: skewX(-45deg);
+	   -moz-transform: skewX(-45deg);
+	     -o-transform: skewX(-45deg);
 }
 
 .crate-panel-left-container {
   display: inline-block;
-  clear: right;
-  float: left;
-  margin-top: -25%;
-  margin-left: 50px;
-  margin-right: 0px;
-	width: 250px;
+  /* clear: right; */
+  /* float: left; */
+  /* margin-left: 50px; */
+  margin-top: -50%;
+	width: 300px;
 	height: 300px;
-	-webkit-transform: skewY(50deg);
-	   -moz-transform: skewY(50deg);
-	     -o-transform: skewY(50deg);
-	/*background: blue;*/
+	-webkit-transform: skewY(45deg);
+	   -moz-transform: skewY(45deg);
+	     -o-transform: skewY(45deg);
   border: 5px solid #555;
   overflow-x: auto;
   overflow-y: scroll;
@@ -73,7 +81,6 @@ CSS File for 'components/crate'
 .crate-panel-front-container {
   width: 300px;
 	height: 300px;
-	float: right;
   display: inline-block;
   background-image: url("https://www.forms-surfaces.com/sites/default/files/imagecache/gal-reg-2x/images/1.7.0_wood_veneer_standard_AMWA_04272011_0.jpg");
   border: 5px solid #555;
