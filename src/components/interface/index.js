@@ -70,20 +70,23 @@ class Interface extends Component {
       spotify.getMyCurrentPlaybackState()
         .then(response => {
           console.log('response === ', response);
-          this.props.actions.startTimer(response.body.progress_ms);
-          this.props.routines.setMaxTrackTime(response.body.item.duration_ms);
-          this.props.routines.playbackState(); // refactor this later for fewer API requests
-          this.props.routines.recordSpinToggle(response.body.is_playing);
-          if (response.body.is_playing) {
-            spotify.getAlbumTracks(response.body.item.album.id)
-            .then(response => {
-              const total_duration = response.body.items.map(track => track.duration_ms).reduce((acc, next) => acc + next);
-              this.props.routines.setMaxRecordTime(total_duration);
-            }, err => console.log(err));
-            this.props.routines.albumFocus(response.body.item.album);
-            this.props.routines.updateAlbumTracks(response.body.item.album.id);
-          } else {
-            this.props.actions.stopTimer();
+          if (response.body) {
+            this.props.actions.startTimer(response.body.progress_ms);
+            this.props.routines.setMaxTrackTime(response.body.item.duration_ms);
+            this.props.routines.playbackState(); // refactor this later for fewer API requests
+            this.props.routines.recordSpinToggle(response.body.is_playing);
+            if (response.body.is_playing) {
+              spotify.getAlbumTracks(response.body.item.album.id)
+              .then(response => {
+                const total_duration = response.body.items.map(track => track.duration_ms).reduce((acc, next) => acc + next);
+                console.log('total_duration === ', total_duration)
+                this.props.routines.setMaxRecordTime(total_duration);
+              }, err => console.log(err));
+              this.props.routines.albumFocus(response.body.item.album);
+              this.props.routines.updateAlbumTracks(response.body.item.album.id);
+            } else {
+              this.props.actions.stopTimer();
+            }
           }
         }, err => console.log(err))
     }

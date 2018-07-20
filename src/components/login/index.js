@@ -17,10 +17,19 @@ export default class Login extends Component {
   render() {
     return (
       <div className="login-container">
-        <img src={logo} />
+        <div className="logo-background">
+          <img src={logo} className="logo"/>
+        </div>
         <h2>Welcome to Mezzo Radio! Please log into Spotify to access the main interface.</h2>
         <br></br>
-        <button className="login-button" onClick={this.commenceOAuth}>Log Into Spotify</button>
+        <button className="login-button" onClick={this.commenceOAuth}>
+          <h1 className="login-button-text">LOG INTO SPOTIFY</h1>
+        </button>
+        <br></br>
+        <div className="device-notice">
+          <h4>Please note that, due to device limitations, this website is optimized for desktop computers running Google Chrome.</h4>
+          <h4>If you are using a mobile device, you can still search for record covers, but you will not be able to play music.</h4>
+        </div>
       </div>
     );
   }

@@ -8,6 +8,7 @@ Its future existence is still TBD.
 
 */
 
+import '../main.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindRoutineCreators } from 'redux-saga-routines';
@@ -15,6 +16,8 @@ import SpotifyPromisesClass from '../../../../../spotify';
 import { nextTrack } from '../../../../../redux/routines';
 
 import '../../main.css';
+
+const nextBtnImg = require('../../../../../images/new_images/forward_button.svg');
 
 const spotifyPromises = new SpotifyPromisesClass();
 
@@ -28,6 +31,11 @@ const routines = { nextTrack };
 const mapDispatchToProps = dispatch => bindRoutineCreators(routines, dispatch);
 
 class NextSongBtn extends Component {
+  constructor(props) {
+    super(props);
+    this.imgSrc = nextBtnImg;
+  }
+
   handleClick = () => {
     const payload = {
       skip: 'next',
@@ -38,9 +46,7 @@ class NextSongBtn extends Component {
   }
   render() {
     return (
-      <button onClick={this.handleClick}>
-        <img src={require('../../../../../images/new_images/forward_button.svg')} className="controls-btn"/>
-      </button>
+      <img onClick={this.handleClick} src={this.imgSrc} className="controls-btn skip-track"/>
     )
   }
 }

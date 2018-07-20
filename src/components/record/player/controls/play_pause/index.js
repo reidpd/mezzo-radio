@@ -8,6 +8,7 @@ WHEN the button clicked,
 
 */
 
+import '../main.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import { bindActionCreators } from 'redux';
@@ -19,8 +20,8 @@ import { playbackToggle, playbackState, /* recordSpinToggle */ } from '../../../
 // const { getState, dispatch } = store;
 
 import '../../main.css';
-const playImg = require('../../../../../images/play.png');
-const pauseImg = require('../../../../../images/pause.png');
+const playImg = require('../../../../../images/new_images/play_button.svg');
+const pauseImg = require('../../../../../images/new_images/pause_button.svg');
 
 const mapStateToProps = state => {
   return {
@@ -52,9 +53,7 @@ class PlayPauseBtn extends Component {
 
   render() {
     return (
-      <button onClick={this.handleClick}>
-        <img src={this.imgSrc} className="controls-btn"/>
-      </button>
+      <img onClick={this.handleClick} src={this.imgSrc} className="controls-btn play-pause"/>
     )
   }
 }

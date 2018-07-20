@@ -6,6 +6,7 @@ This component is responsible for housing dynamic search results for albums ente
 
 */
 
+import './main.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AlbumList from '../../../lists/by/album/plural';

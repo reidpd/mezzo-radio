@@ -1,7 +1,19 @@
 .login-container {
   color: white;
+  height: 100%;
+  overflow: auto;
+}
+
+.logo {
+  background-color: hsla(0, 0%, 100%, 0.3);
+  border-radius: 30px;
 }
 
 .login-button {
+  background-color: hsla(30, 100%, 50%, 1);
+  color: black;
+}
+
+.login-button-text {
   color: black;
 }
