@@ -25,7 +25,7 @@ export default class Login extends Component {
         </button>
         <br></br>
         <div className="device-notice">
-          <h4>Please note that, due to device limitations, this website is optimized for desktop computers running Google Chrome.</h4>
+          <h4>Please note that this website is optimized for desktop computers running Google Chrome.</h4>
           <h4>If you are using a mobile device, you can still search for record covers, but you will not be able to play music.</h4>
         </div>
       </div>
